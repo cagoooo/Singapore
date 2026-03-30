@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="新加坡四天三夜家族旅遊詳細計畫書 - 包含完整行程、景點資訊、餐飲推薦">
+    <meta name="theme-color" content="#2c3e50">
     <title>新加坡四天三夜家族旅遊詳細計畫書</title>
     <style>
         :root {
@@ -14,483 +16,1280 @@
             --day3-bg: #e8f5e9;
             --day4-color: #fdd835;
             --day4-bg: #fffde7;
-            --text-main: #333;
-            --text-light: #666;
+            --text-main: #2c3e50;
+            --text-light: #555;
+            --text-lighter: #888;
+            --border-color: #e0e0e0;
+            --shadow-light: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-medium: 0 4px 16px rgba(0,0,0,0.12);
+            --shadow-dark: 0 8px 24px rgba(0,0,0,0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, 'PingFang TC', '微軟正黑體', sans-serif;
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', 'PingFang TC', '微軟正黑體', sans-serif;
+            line-height: 1.7;
             color: var(--text-main);
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f7fa;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
         }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            border-bottom: 2px solid #34495e;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-        }
-        .header-info {
+
+        /* 導航與返回頂部 */
+        .nav-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: space-between;
-        }
-        .header-info div {
-            flex: 1;
-            min-width: 200px;
-        }
-        .header-info h3 {
-            margin-top: 0;
-            color: #2980b9;
-        }
-        .map-link {
-            display: block;
-            text-align: center;
-            background: #4285f4;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1em;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: background 0.3s;
-        }
-        .map-link:hover {
-            background: #3367d6;
-        }
-        .day-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 30px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-        .day-header {
-            padding: 15px 20px;
-            color: white;
-            font-size: 1.5em;
-            font-weight: bold;
+            box-shadow: var(--shadow-light);
+            z-index: 100;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .day1 .day-header { background-color: var(--day1-color); }
-        .day2 .day-header { background-color: var(--day2-color); }
-        .day3 .day-header { background-color: var(--day3-color); }
-        .day4 .day-header { background-color: #fbc02d; color: #333; }
-        
-        .day-content {
-            padding: 20px;
+
+        .nav-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--text-main);
         }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            background: #f0f2f5;
+            color: var(--text-main);
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: var(--transition);
+        }
+
+        .nav-btn:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--day1-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5em;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-medium);
+            transition: var(--transition);
+            z-index: 99;
+        }
+
+        .back-to-top:hover {
+            background: #d32f2f;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-dark);
+        }
+
+        .back-to-top.show {
+            display: flex;
+        }
+
+        /* 主容器 */
+        main {
+            max-width: 1000px;
+            margin: 80px auto 40px;
+            padding: 0 20px;
+        }
+
+        /* 標題 */
+        h1 {
+            text-align: center;
+            color: var(--text-main);
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-lighter);
+            font-size: 1em;
+            margin-bottom: 30px;
+        }
+
+        /* Google Map 連結 */
+        .map-link {
+            display: block;
+            text-align: center;
+            background: linear-gradient(135deg, #4285f4 0%, #3367d6 100%);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05em;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-medium);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .map-link:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-dark);
+            background: linear-gradient(135deg, #3367d6 0%, #2a56c0 100%);
+        }
+
+        /* 基本資訊卡片 */
+        .header-info {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .info-card {
+            border-left: 4px solid var(--day1-color);
+            padding-left: 20px;
+        }
+
+        .info-card h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: var(--text-main);
+        }
+
+        .info-card p {
+            margin: 8px 0;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* 注意事項部分 */
+        .notes-section {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+            margin-bottom: 40px;
+        }
+
+        .notes-section h2 {
+            color: var(--day1-color);
+            font-size: 1.5em;
+            border-bottom: 3px solid var(--day1-color);
+            padding-bottom: 15px;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .notes-intro {
+            background: #fff3cd;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin-bottom: 25px;
+            color: #856404;
+            line-height: 1.8;
+        }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .note-card {
+            background: linear-gradient(135deg, #fff9c4 0%, #fffde7 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #fbc02d;
+            transition: var(--transition);
+        }
+
+        .note-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .note-card h4 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: #f57f17;
+            font-size: 1.05em;
+        }
+
+        .note-card p {
+            margin: 8px 0;
+            color: #333;
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+
+        /* 日期卡片 */
+        .day-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+        }
+
+        .day-card:hover {
+            box-shadow: var(--shadow-medium);
+        }
+
+        .day-header {
+            padding: 20px 30px;
+            color: white;
+            font-size: 1.4em;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .day1 .day-header { background: linear-gradient(135deg, #e53935 0%, #c62828 100%); }
+        .day2 .day-header { background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%); }
+        .day3 .day-header { background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%); }
+        .day4 .day-header { background: linear-gradient(135deg, #fdd835 0%, #f9a825 100%); color: #333; }
+
+        .day-header-date {
+            font-size: 0.8em;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .day-content {
+            padding: 30px;
+        }
+
+        .day-info {
+            background: #f8f9fa;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+            color: var(--text-light);
+            border-left: 3px solid #e0e0e0;
+        }
+
+        /* 時間軸 */
         .timeline-item {
             display: flex;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #f0f0f0;
+            gap: 20px;
         }
+
         .timeline-item:last-child {
             border-bottom: none;
             margin-bottom: 0;
             padding-bottom: 0;
         }
+
         .time {
-            font-weight: bold;
-            width: 120px;
+            font-weight: 700;
+            width: 130px;
             flex-shrink: 0;
-            color: var(--text-light);
+            color: var(--text-lighter);
+            font-size: 0.95em;
         }
+
         .activity {
             flex-grow: 1;
         }
+
         .activity h4 {
-            margin: 0 0 5px 0;
+            margin: 0 0 8px 0;
             font-size: 1.1em;
+            color: var(--text-main);
+            font-weight: 600;
         }
+
         .activity p {
-            margin: 0;
+            margin: 6px 0;
             color: var(--text-light);
             font-size: 0.95em;
+            line-height: 1.7;
         }
+
         .location-tag {
             display: inline-block;
-            padding: 3px 8px;
-            border-radius: 4px;
+            padding: 5px 12px;
+            border-radius: 20px;
             font-size: 0.85em;
-            font-weight: bold;
-            margin-top: 5px;
-            margin-right: 5px;
+            font-weight: 600;
+            margin-top: 8px;
+            margin-right: 8px;
+            transition: var(--transition);
         }
-        .day1 .location-tag { background-color: var(--day1-bg); color: var(--day1-color); border: 1px solid var(--day1-color); }
-        .day2 .location-tag { background-color: var(--day2-bg); color: var(--day2-color); border: 1px solid var(--day2-color); }
-        .day3 .location-tag { background-color: var(--day3-bg); color: var(--day3-color); border: 1px solid var(--day3-color); }
-        .day4 .location-tag { background-color: var(--day4-bg); color: #f57f17; border: 1px solid #fbc02d; }
-        
+
+        .day1 .location-tag { background-color: var(--day1-bg); color: var(--day1-color); }
+        .day2 .location-tag { background-color: var(--day2-bg); color: var(--day2-color); }
+        .day3 .location-tag { background-color: var(--day3-bg); color: var(--day3-color); }
+        .day4 .location-tag { background-color: var(--day4-bg); color: #f57f17; }
+
+        .location-tag:hover {
+            transform: scale(1.05);
+        }
+
+        /* 選項框 */
         .options-box {
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
             border-left: 4px solid #3498db;
-            padding: 15px;
+            padding: 20px;
             margin: 15px 0;
-            border-radius: 0 8px 8px 0;
+            border-radius: 8px;
+            transition: var(--transition);
         }
+
+        .options-box:hover {
+            box-shadow: var(--shadow-light);
+        }
+
         .options-box h5 {
             margin-top: 0;
-            color: #2c3e50;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            font-size: 1em;
         }
+
         .options-box ul {
             margin-bottom: 0;
             padding-left: 20px;
         }
+
         .options-box li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            color: var(--text-light);
+            line-height: 1.7;
         }
-        
-        .notes-section {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+
+        /* 頁腳 */
+        .footer {
+            text-align: center;
+            color: var(--text-lighter);
+            margin-top: 50px;
+            padding: 30px 20px;
+            font-size: 0.95em;
+            line-height: 1.8;
         }
-        .notes-section h2 {
-            color: #e74c3c;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-        .notes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .note-card {
-            background: #fff9c4;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #fbc02d;
-        }
-        .note-card h4 {
-            margin-top: 0;
-            color: #f57f17;
-        }
-        
-        @media (max-width: 600px) {
+
+        /* 平板設備優化 */
+        @media (max-width: 768px) {
+            main {
+                margin-top: 70px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .nav-top {
+                flex-direction: row;
+                gap: 10px;
+                padding: 10px;
+            }
+
+            .nav-title {
+                font-size: 1em;
+            }
+
+            .nav-buttons {
+                gap: 8px;
+            }
+
+            .day-header {
+                flex-direction: column;
+                align-items: flex-start;
+                font-size: 1.2em;
+                padding: 15px 20px;
+            }
+
+            .day-header-date {
+                align-self: flex-start;
+                font-size: 0.75em;
+            }
+
             .timeline-item {
                 flex-direction: column;
+                gap: 10px;
+                padding-bottom: 20px;
             }
+
             .time {
                 width: auto;
-                margin-bottom: 5px;
+                font-size: 1em;
+            }
+
+            .activity h4 {
+                font-size: 1.05em;
+            }
+
+            .header-info {
+                grid-template-columns: 1fr;
+                padding: 20px;
+                gap: 20px;
+            }
+
+            .notes-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .note-card {
+                padding: 15px;
+            }
+
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.2em;
+            }
+
+            .search-input {
+                width: 200px;
+                font-size: 1em;
+            }
+        }
+
+        /* 手機設備優化 */
+        @media (max-width: 480px) {
+            main {
+                padding: 0 12px;
+                margin-top: 60px;
+            }
+
+            h1 {
+                font-size: 1.4em;
+                margin-bottom: 8px;
+            }
+
+            .subtitle {
+                font-size: 0.9em;
+                margin-bottom: 20px;
+            }
+
+            .nav-top {
+                padding: 8px 12px;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .nav-title {
+                font-size: 0.95em;
+            }
+
+            .nav-buttons {
+                gap: 6px;
+            }
+
+            .nav-btn {
+                padding: 6px 12px;
+                font-size: 0.85em;
+            }
+
+            .day-content {
+                padding: 15px;
+            }
+
+            .day-header {
+                padding: 12px 15px;
+                font-size: 1.1em;
+            }
+
+            .day-header-date {
+                font-size: 0.7em;
+            }
+
+            .notes-section {
+                padding: 15px;
+                margin-bottom: 30px;
+            }
+
+            .notes-section h2 {
+                font-size: 1.3em;
+                margin-bottom: 15px;
+            }
+
+            .notes-intro {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+
+            .note-card {
+                padding: 12px;
+                margin-bottom: 10px;
+            }
+
+            .note-card h4 {
+                font-size: 1em;
+                margin-bottom: 8px;
+            }
+
+            .note-card p {
+                font-size: 0.9em;
+            }
+
+            .map-link {
+                padding: 12px 16px;
+                font-size: 0.95em;
+                margin-bottom: 30px;
+            }
+
+            .timeline-item {
+                gap: 8px;
+                margin-bottom: 20px;
+                padding-bottom: 20px;
+            }
+
+            .time {
+                font-size: 0.9em;
+                font-weight: 600;
+            }
+
+            .activity h4 {
+                font-size: 1em;
+                margin-bottom: 6px;
+            }
+
+            .activity p {
+                font-size: 0.9em;
+            }
+
+            .location-tag {
+                font-size: 0.8em;
+                padding: 4px 10px;
+                margin-top: 6px;
+            }
+
+            .options-box {
+                padding: 15px;
+                margin: 12px 0;
+            }
+
+            .options-box h5 {
+                font-size: 0.95em;
+                margin-bottom: 10px;
+            }
+
+            .options-box ul {
+                padding-left: 18px;
+            }
+
+            .options-box li {
+                font-size: 0.9em;
+                margin-bottom: 8px;
+            }
+
+            .back-to-top {
+                bottom: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.1em;
+            }
+
+            .search-input {
+                width: 180px;
+                font-size: 0.9em;
+                padding: 8px 12px;
+            }
+
+            .footer {
+                font-size: 0.9em;
+                padding: 20px 15px;
+            }
+        }
+
+        /* 超小型設備 (小於 360px) */
+        @media (max-width: 360px) {
+            h1 {
+                font-size: 1.2em;
+            }
+
+            .nav-buttons {
+                gap: 4px;
+            }
+
+            .nav-btn {
+                padding: 5px 10px;
+                font-size: 0.8em;
+            }
+
+            .search-input {
+                width: 150px;
+                font-size: 0.85em;
+            }
+        }
+
+        /* 無障礙性 */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* 焦點樣式 - 改進鍵盤導航 */
+        button:focus,
+        a:focus,
+        input:focus {
+            outline: 3px solid var(--day2-color);
+            outline-offset: 2px;
+        }
+
+        /* 改進按鍵可訪問性 */
+        button {
+            min-height: 44px;
+            min-width: 44px;
+            padding: 10px 16px;
+            cursor: pointer;
+        }
+
+        .nav-btn {
+            min-height: 40px;
+        }
+
+        /* 改進輸入框可訪問性 */
+        .search-input {
+            min-height: 40px;
+            font-size: 16px;
+        }
+
+        /* 改進文字可讀性 */
+        body {
+            font-size: 16px;
+            line-height: 1.7;
+            letter-spacing: 0.3px;
+        }
+
+        /* 改進屏幕閱讀器支持 */
+        h1, h2, h3, h4, h5 {
+            margin-top: 1.2em;
+            margin-bottom: 0.8em;
+        }
+
+        .day-card {
+            margin-bottom: 2em;
+        }
+
+        /* 色彩對比度 - WCAG AA 標準 */
+        .day-header {
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .activity h4 {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .time {
+            color: #555;
+            font-weight: 700;
+        }
+
+        /* 搜尋功能 */
+        .search-box {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            z-index: 98;
+            display: none;
+        }
+
+        .search-box.active {
+            display: block;
+        }
+
+        .search-input {
+            padding: 10px 15px;
+            border: 2px solid var(--day2-color);
+            border-radius: 8px;
+            width: 250px;
+            font-size: 0.95em;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+        }
+
+        /* 動畫 */
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .day-card {
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        .nav-top {
+            animation: slideInDown 0.4s ease-out;
+        }
+
+        .timeline-item {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* 懸停效果 */
+        .timeline-item:hover {
+            background: linear-gradient(90deg, rgba(30, 136, 229, 0.05) 0%, transparent 100%);
+            border-radius: 8px;
+            padding: 15px;
+            margin: -15px -15px 25px -15px;
+            transition: var(--transition);
+        }
+
+        .options-box {
+            cursor: pointer;
+        }
+
+        .options-box:active {
+            transform: scale(0.98);
+        }
+
+        /* 按鍵懸停效果 */
+        button:active {
+            transform: scale(0.95);
+        }
+
+        /* 列印樣式 */
+        @media print {
+            .nav-top,
+            .search-box,
+            .back-to-top {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+            }
+
+            .day-card {
+                page-break-inside: avoid;
             }
         }
     </style>
 </head>
 <body>
 
-    <h1>🇸🇬 新加坡四天三夜家族旅遊詳細計畫書</h1>
-
-    <a href="https://www.google.com/maps/d/edit?mid=19MNIhRfEu5DrsYhGoyzGZezXAP5u6fE&usp=sharing" target="_blank" class="map-link">
-        🗺️ 點擊開啟 Google My Maps 專屬旅遊地圖
-    </a>
-
-    <div class="header-info">
-        <div>
-            <h3>📅 基本資訊</h3>
-            <p><strong>日期：</strong> 4月2日 (四) - 4月5日 (日)</p>
-            <p><strong>人數：</strong> 共 25 人 (台灣出發 17 人，海外會合 8 人；含 1 嬰兒、6 小孩)</p>
-            <p><strong>住宿：</strong> 濱海灣金沙酒店 (市景房)</p>
+    <!-- 導航欄 -->
+    <nav class="nav-top">
+        <div class="nav-title">🇸🇬 新加坡家族旅遊計畫</div>
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="toggleSearch()">🔍 搜尋</button>
+            <button class="nav-btn" onclick="window.print()">列印</button>
         </div>
-        <div>
-            <h3>📌 住宿提醒</h3>
-            <p><strong>早餐：</strong> 金沙酒店無法提供免費早餐，請大家各自處理早餐事宜。</p>
-        </div>
+    </nav>
+
+    <!-- 搜尋框 -->
+    <div class="search-box" id="searchBox">
+        <input type="text" class="search-input" id="searchInput" placeholder="搜尋內容..." onkeyup="searchContent()">
     </div>
 
-    <div class="notes-section">
-        <h2>⚠️ 出發前準備與注意事項</h2>
-        <p><strong>家族旅遊特別提醒：</strong> 本次行程包含嬰幼兒與長輩，新加坡氣候炎熱，請務必隨時補充水分。行程安排已盡量保持彈性，請依當天團員體力狀況適度調整。</p>
-        
-        <div class="notes-grid">
-            <div class="note-card">
-                <h4>📄 必備文件與入境</h4>
-                <p><strong>護照效期：</strong> 需在預定回國日期的 6 個月以上。</p>
-                <p><strong>SG Arrival Card：</strong> 抵達前 3 天內至官方網站免費填寫完畢，未填寫將無法入境。</p>
-                <p><strong>跨國簽證：</strong> 若前往馬來西亞樂高樂園，需填寫馬來西亞電子入境卡 MDAC。</p>
-            </div>
-            <div class="note-card">
-                <h4>☀️ 氣候與穿著</h4>
-                <p><strong>天氣：</strong> 4月份氣溫約 26°C - 32°C，炎熱潮濕。</p>
-                <p><strong>穿著：</strong> 輕便透氣棉質衣物、好走的運動鞋。</p>
-                <p><strong>防曬與雨具：</strong> 防曬乳、太陽眼鏡、帽子、摺疊傘或輕便雨衣。</p>
-                <p><strong>室內溫差：</strong> 室內冷氣極強，務必為長輩與孩童準備薄外套。</p>
-            </div>
-            <div class="note-card">
-                <h4>🚫 當地法規與禁忌</h4>
-                <p><strong>禁止口香糖：</strong> 嚴禁攜帶及咀嚼，違者面臨高額罰款。</p>
-                <p><strong>大眾運輸禁食：</strong> 地鐵 (MRT) 及巴士內絕對禁止飲食（包含喝水）。</p>
-                <p><strong>吸菸規定：</strong> 僅能在指定的黃線吸菸區內抽菸。</p>
-            </div>
-            <div class="note-card">
-                <h4>🔌 交通與其他</h4>
-                <p><strong>網路：</strong> 建議提前購買網卡或開通國際漫遊。</p>
-                <p><strong>支付：</strong> 電子支付普及 (Apple Pay/Google Pay/感應信用卡)，準備適量新幣現金。</p>
-                <p><strong>電壓插座：</strong> 230V，英式三腳方形插頭 (Type G)，需帶萬用轉接頭。</p>
-            </div>
-        </div>
-    </div>
+    <!-- 返回頂部按鈕 -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="返回頂部">
+        ↑
+    </button>
 
-    <!-- Day 1 -->
-    <div class="day-card day1">
-        <div class="day-header">
-            <span>Day 1：抵達星國，探索濱海灣</span>
-            <span>4/2 (四)</span>
+    <main>
+        <h1>🇸🇬 新加坡四天三夜家族旅遊詳細計畫書</h1>
+        <p class="subtitle">一場充滿歡樂與回憶的家族冒險</p>
+
+        <a href="https://www.google.com/maps/d/edit?mid=19MNIhRfEu5DrsYhGoyzGZezXAP5u6fE&usp=sharing" target="_blank" class="map-link">
+            🗺️ 點擊開啟 Google My Maps 專屬旅遊地圖
+        </a>
+
+        <!-- 基本資訊 -->
+        <div class="header-info">
+            <div class="info-card">
+                <h3>📅 基本資訊</h3>
+                <p><strong>日期：</strong> 2024年4月2日 (四) - 4月5日 (日)</p>
+                <p><strong>人數：</strong> 共 25 人</p>
+                <p><strong>組成：</strong> 台灣出發 17 人，海外會合 8 人</p>
+                <p><strong>家庭成員：</strong> 含 1 嬰兒、6 小孩</p>
+            </div>
+            <div class="info-card">
+                <h3>🏨 住宿資訊</h3>
+                <p><strong>飯店：</strong> 濱海灣金沙酒店</p>
+                <p><strong>房型：</strong> 市景房</p>
+                <p><strong>早餐：</strong> 無免費早餐，請各自處理</p>
+            </div>
+            <div class="info-card">
+                <h3>🚗 交通工具</h3>
+                <p><strong>主要交通：</strong> 45人座包車</p>
+                <p><strong>導遊：</strong> 1位專業導遊</p>
+                <p><strong>自由活動：</strong> 大眾運輸或計程車</p>
+            </div>
         </div>
-        <div class="day-content">
-            <p><strong>參與人數：</strong> 19人 | <strong>交通：</strong> 45人座車接機</p>
-            
-            <div class="timeline-item">
-                <div class="time">12:30</div>
-                <div class="activity">
-                    <h4>抵達樟宜機場</h4>
-                    <p>19人抵達，45人座車接機</p>
-                    <span class="location-tag">✈️ 新加坡樟宜國際機場</span>
+
+        <!-- 出發前準備 -->
+        <div class="notes-section">
+            <h2>⚠️ 出發前準備與注意事項</h2>
+            <div class="notes-intro">
+                <strong>家族旅遊特別提醒：</strong> 本次行程包含嬰幼兒與長輩，新加坡氣候炎熱，請務必隨時補充水分。行程安排已盡量保持彈性，請依當天團員體力狀況適度調整。
+            </div>
+
+            <div class="notes-grid">
+                <div class="note-card">
+                    <h4>📄 必備文件與入境</h4>
+                    <p><strong>護照效期：</strong> 需在預定回國日期的 6 個月以上。</p>
+                    <p><strong>SG Arrival Card：</strong> 抵達前 3 天內至官方網站免費填寫完畢，未填寫將無法入境。</p>
+                    <p><strong>跨國簽證：</strong> 若前往馬來西亞樂高樂園，需填寫馬來西亞電子入境卡 MDAC。</p>
+                </div>
+                <div class="note-card">
+                    <h4>☀️ 氣候與穿著</h4>
+                    <p><strong>天氣：</strong> 4月份氣溫約 26°C - 32°C，炎熱潮濕。</p>
+                    <p><strong>穿著：</strong> 輕便透氣棉質衣物、好走的運動鞋。</p>
+                    <p><strong>防曬與雨具：</strong> 防曬乳、太陽眼鏡、帽子、摺疊傘。</p>
+                    <p><strong>室內溫差：</strong> 室內冷氣極強，務必準備薄外套。</p>
+                </div>
+                <div class="note-card">
+                    <h4>🚫 當地法規與禁忌</h4>
+                    <p><strong>禁止口香糖：</strong> 嚴禁攜帶及咀嚼，違者面臨高額罰款。</p>
+                    <p><strong>大眾運輸禁食：</strong> 地鐵 (MRT) 及巴士內絕對禁止飲食。</p>
+                    <p><strong>吸菸規定：</strong> 僅能在指定的黃線吸菸區內抽菸。</p>
+                </div>
+                <div class="note-card">
+                    <h4>🔌 交通與其他</h4>
+                    <p><strong>網路：</strong> 建議提前購買網卡或開通國際漫遊。</p>
+                    <p><strong>支付：</strong> 電子支付普及，準備適量新幣現金。</p>
+                    <p><strong>電壓插座：</strong> 230V，英式三腳方形插頭 (Type G)。</p>
                 </div>
             </div>
-            <div class="timeline-item">
-                <div class="time">12:30 ~ 13:30</div>
-                <div class="activity">
-                    <h4>辦理出關手續、領取行李</h4>
-                </div>
+        </div>
+
+        <!-- Day 1 -->
+        <div class="day-card day1">
+            <div class="day-header">
+                <span>Day 1：抵達星國，探索濱海灣</span>
+                <span class="day-header-date">4/2 (四)</span>
             </div>
-            <div class="timeline-item">
-                <div class="time">13:30 ~ 14:00</div>
-                <div class="activity">
-                    <h4>搭車前往金沙酒店</h4>
+            <div class="day-content">
+                <div class="day-info">
+                    <strong>參與人數：</strong> 19人 | <strong>交通：</strong> 45人座車接機
                 </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time">14:00 ~ 15:00</div>
-                <div class="activity">
-                    <h4>辦理入住手續 (Check-in)</h4>
-                    <span class="location-tag">🏨 濱海灣金沙酒店</span>
+
+                <div class="timeline-item">
+                    <div class="time">12:30</div>
+                    <div class="activity">
+                        <h4>抵達樟宜機場</h4>
+                        <p>19人抵達，45人座車接機</p>
+                        <span class="location-tag">✈️ 新加坡樟宜國際機場</span>
+                    </div>
                 </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time">15:00 ~</div>
-                <div class="activity">
-                    <h4>下午自由活動</h4>
-                    <p>推薦前往飯店設施、魚尾獅、濱海灣花園、金沙水舞秀</p>
-                    
-                    <div class="options-box">
-                        <h5>📍 下午自由活動推薦與設施指南</h5>
-                        <ul>
-                            <li><strong>金沙酒店設施：</strong> 57樓無邊際泳池 (房客專屬，建議傍晚前往)、空中花園觀景台 (SkyPark)、室內舢舨遊船 (適合小孩)。</li>
-                            <li><strong>魚尾獅公園：</strong> 步行穿越螺旋橋或搭計程車5分鐘。傍晚氣候涼爽，最佳拍照時機。 <span class="location-tag">🦁 魚尾獅公園</span></li>
-                            <li><strong>濱海灣花園：</strong> 天空樹 (19:45/20:45 免費燈光秀)、室內溫室 (雲霧林與花穹，需購票，冷氣強需外套)。 <span class="location-tag">🌳 濱海灣花園</span></li>
-                            <li><strong>幻彩生輝 SPECTRA 光影水舞秀：</strong> 金沙酒店戶外活動廣場。每晚 20:00 及 21:00。</li>
-                        </ul>
+
+                <div class="timeline-item">
+                    <div class="time">12:30 ~ 13:30</div>
+                    <div class="activity">
+                        <h4>辦理出關手續、領取行李</h4>
+                        <p>預計1小時完成所有手續</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">13:30 ~ 14:00</div>
+                    <div class="activity">
+                        <h4>搭車前往金沙酒店</h4>
+                        <p>車程約30分鐘，請保管好行李</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">14:00 ~ 15:00</div>
+                    <div class="activity">
+                        <h4>辦理入住手續 (Check-in)</h4>
+                        <p>領取房卡，確認房間號碼與設施位置</p>
+                        <span class="location-tag">🏨 濱海灣金沙酒店</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">15:00 ~</div>
+                    <div class="activity">
+                        <h4>下午自由活動</h4>
+                        <p>推薦前往飯店設施、魚尾獅、濱海灣花園、金沙水舞秀</p>
+
+                        <div class="options-box">
+                            <h5>📍 下午自由活動推薦與設施指南</h5>
+                            <ul>
+                                <li><strong>金沙酒店設施：</strong> 57樓無邊際泳池 (房客專屬，建議傍晚前往)、空中花園觀景台 (SkyPark)、室內舢舨遊船 (適合小孩)。</li>
+                                <li><strong>魚尾獅公園：</strong> 步行穿越螺旋橋或搭計程車5分鐘。傍晚氣候涼爽，最佳拍照時機。 <span class="location-tag">🦁 魚尾獅公園</span></li>
+                                <li><strong>濱海灣花園：</strong> 天空樹 (19:45/20:45 免費燈光秀)、室內溫室 (雲霧林與花穹，需購票)。 <span class="location-tag">🌳 濱海灣花園</span></li>
+                                <li><strong>幻彩生輝 SPECTRA 光影水舞秀：</strong> 每晚 19:30 及 20:30 在濱海灣浮動舞台上演。 <span class="location-tag">🎆 浮動舞台</span></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Day 2 -->
-    <div class="day-card day2">
-        <div class="day-header">
-            <span>Day 2：樂園狂歡或市區漫遊</span>
-            <span>4/3 (五)</span>
-        </div>
-        <div class="day-content">
-            <p><strong>參與人數：</strong> 25人 (含1嬰兒、6小孩) | <strong>交通：</strong> 自由活動 (大眾運輸/計程車)</p>
-            
-            <div class="timeline-item">
-                <div class="time">08:00 ~ 18:00</div>
-                <div class="activity">
-                    <h4>白天自由活動 (依家庭喜好分組)</h4>
-                    
-                    <div class="options-box">
-                        <h5>📍 路線建議</h5>
-                        <ul>
-                            <li><strong>路線 A：新加坡環球影城 (電影迷首選)</strong><br>位於聖淘沙島，東南亞唯一環球影城。 <span class="location-tag">🎢 新加坡環球影城</span></li>
-                            <li><strong>路線 B：馬來西亞樂高樂園 (孩童最愛)</strong><br>建議預訂私人包車或接駁巴士 (車程1.5-2小時)。需攜帶護照跨國，確認簽證與入境卡。 <span class="location-tag">🧱 LEGOLAND Malaysia</span></li>
-                            <li><strong>路線 C：新加坡市區觀光 (輕鬆長輩組)</strong><br>水陸兩棲鴨子船 (DuckTours) 或 藝術科學博物館 (ArtScience Museum，全室內冷氣)。</li>
-                        </ul>
-                    </div>
-                </div>
+        <!-- Day 2 -->
+        <div class="day-card day2">
+            <div class="day-header">
+                <span>Day 2：樂園狂歡或市區漫遊</span>
+                <span class="day-header-date">4/3 (五)</span>
             </div>
-            <div class="timeline-item">
-                <div class="time">18:00 ~ 20:00</div>
-                <div class="activity">
-                    <h4>晚餐：珍寶海鮮 (祝賀新婚宴)</h4>
-                    <p>新加坡國寶級海鮮餐廳，米其林推薦本店，設有包廂。</p>
-                    <div class="options-box">
-                        <h5>🍽️ 專屬菜單</h5>
-                        <ul>
-                            <li>脆炸蘇東仔 (炸魷魚寶寶)</li>
-                            <li>黃袍沙律海鮮松</li>
-                            <li>香芒火鴨絲</li>
-                            <li>蟲草花蟹肉海皇 (海鮮湯配蟹肉與蟲草花)</li>
-                            <li>十頭鮑魚花菇魚鰾扒西蘭花</li>
-                            <li>清蒸龍虎斑</li>
-                            <li>摩卡排骨</li>
-                            <li>珍寶獲獎辣椒蟹配饅頭</li>
-                            <li>沙茶粉絲大蝦煲</li>
-                            <li>楊枝甘露</li>
-                        </ul>
-                    </div>
-                    <p><em>貼心提醒：離飯店步行約10分鐘，考量嬰兒推車與長輩，建議搭乘計程車 (Grab)。</em></p>
-                    <span class="location-tag">🦀 珍寶海鮮餐廳 (JUMBO Seafood)</span>
+            <div class="day-content">
+                <div class="day-info">
+                    <strong>參與人數：</strong> 25人 | <strong>交通：</strong> 自由活動 (大眾運輸/計程車)
                 </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time">20:00 ~</div>
-                <div class="activity">
-                    <h4>克拉克碼頭周邊自由活動 / 返回飯店休息</h4>
-                    <span class="location-tag">🌃 克拉碼頭</span>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Day 3 -->
-    <div class="day-card day3">
-        <div class="day-header">
-            <span>Day 3：聖淘沙探險與夜間生態之旅</span>
-            <span>4/4 (六)</span>
-        </div>
-        <div class="day-content">
-            <p><strong>參與人數：</strong> 25人 (含1嬰兒、6小孩) | <strong>交通：</strong> 45人座車 + 導遊1人 | <strong>票券：</strong> 已含3個行程門票</p>
-            
-            <div class="timeline-item">
-                <div class="time">08:30</div>
-                <div class="activity">
-                    <h4>飯店大廳集合</h4>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time">08:40 ~ 09:40</div>
-                <div class="activity">
-                    <h4>搭車前往聖淘沙</h4>
-                    <span class="location-tag">🏝️ 聖淘沙</span>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time">09:40 ~ 12:00</div>
-                <div class="activity">
-                    <h4>上午活動 (二選一)</h4>
-                    <div class="options-box">
-                        <ul>
-                            <li><strong>S.E.A. 海洋館：</strong> 全區室內冷氣，走道寬敞，適合推嬰兒車及各年齡層。 <span class="location-tag">🐟 新加坡水族館</span></li>
-                            <li><strong>新加坡環球影城：</strong> 若前一天未去，可選擇今日前往。 <span class="location-tag">🎢 新加坡環球影城</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time">12:00 ~ 13:30</div>
-                <div class="activity">
-                    <h4>午餐：莆田餐廳 (Putien) - 全員會合</h4>
-                    <p>米其林一星餐廳，主打福建菜。口味清淡鮮美，適合長輩與孩童。推薦：百秒黃花魚、興化炒米粉、酥炒芋心。</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time">13:30 ~ 17:30</div>
-                <div class="activity">
-                    <h4>下午分組活動</h4>
-                    <div class="options-box">
-                        <ul>
-                            <li><strong>方案 A (13人)：天際斜坡滑車 (Skyline Luge)</strong><br>搭乘空中吊椅上山，駕駛無動力滑車順坡而下。6歲以上或滿110cm可獨自駕駛，嬰兒不建議搭乘。 <span class="location-tag">🏎️ 天際斜坡滑車</span></li>
-                            <li><strong>方案 B (12人)：哈利波特：魔法幻境</strong><br>沉浸式互動藝術展，全室內有冷氣，適合躲避午後炎熱。</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time">17:30 ~ 19:00</div>
-                <div class="activity">
-                    <h4>晚餐：夜間動物園自助餐</h4>
-                    <p>Ulu Ulu Safari Restaurant 提供豐盛自助餐，環境充滿鄉村風情。</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time">19:00 ~ 22:00</div>
-                <div class="activity">
-                    <h4>夜間動物園 (Night Safari) 導覽</h4>
-                    <p>搭乘遊園車 (約40分鐘)。精靈動物表演 (19:30或20:30)。</p>
-                    <p><em>⚠️ 防蚊提醒：園區位於熱帶雨林，請務必噴灑防蚊液，穿著薄長褲。拍照嚴禁使用閃光燈。</em></p>
-                    <span class="location-tag">🦉 夜間野生動物園</span>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time">22:00 ~</div>
-                <div class="activity">
-                    <h4>搭車返回金沙酒店</h4>
-                </div>
-            </div>
-        </div>
-    </div>
+                <div class="timeline-item">
+                    <div class="time">08:00 ~ 18:00</div>
+                    <div class="activity">
+                        <h4>白天自由活動 (依家庭喜好分組)</h4>
 
-    <!-- Day 4 -->
-    <div class="day-card day4">
-        <div class="day-header">
-            <span>Day 4：滿載而歸，星耀樟宜</span>
-            <span>4/5 (日)</span>
-        </div>
-        <div class="day-content">
-            <p><strong>參與人數：</strong> 15人 | <strong>交通：</strong> 45人座車接機</p>
-            
-            <div class="timeline-item">
-                <div class="time">11:30</div>
-                <div class="activity">
-                    <h4>飯店大廳集合 (15人)</h4>
-                    <p>45人座車接送</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time">11:30 ~ 12:00</div>
-                <div class="activity">
-                    <h4>前往樟宜機場</h4>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time">12:00 ~ 12:30</div>
-                <div class="activity">
-                    <h4>辦理登機手續、托運行李</h4>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="time">12:30 ~</div>
-                <div class="activity">
-                    <h4>機場自由活動 / 準備登機</h4>
-                    <div class="options-box">
-                        <h5>📍 星耀樟宜 (Jewel Changi) 攻略</h5>
-                        <ul>
-                            <li><strong>雨漩渦 (Rain Vortex)：</strong> 世界最高室內瀑布 (40公尺)，必拍打卡聖地。</li>
-                            <li><strong>星空花園 (Canopy Park)：</strong> 適合小孩放電，包含樹籬迷宮、鏡子迷宮、步行網與彈跳網 (需額外購票)。</li>
-                            <li><strong>最後採買推薦：</strong> 斑蘭蛋糕 (Bengawan Solo)、Bacha Coffee / TWG Tea、IRVINS 鹹蛋黃洋芋片。</li>
-                        </ul>
+                        <div class="options-box">
+                            <h5>📍 路線建議</h5>
+                            <ul>
+                                <li><strong>路線 A：新加坡環球影城 (電影迷首選)</strong><br>位於聖淘沙島，東南亞唯一環球影城。 <span class="location-tag">🎢 新加坡環球影城</span></li>
+                                <li><strong>路線 B：馬來西亞樂高樂園 (孩童最愛)</strong><br>建議預訂私人包車或接駁巴士 (車程1.5-2小時)。需攜帶護照跨國。 <span class="location-tag">🧱 LEGOLAND Malaysia</span></li>
+                                <li><strong>路線 C：新加坡市區觀光 (輕鬆長輩組)</strong><br>水陸兩棲鴨子船 (DuckTours) 或 藝術科學博物館 (全室內冷氣)。</li>
+                            </ul>
+                        </div>
                     </div>
-                    <span class="location-tag">✈️ 新加坡樟宜國際機場</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">18:00 ~ 20:00</div>
+                    <div class="activity">
+                        <h4>晚餐：珍寶海鮮 (祝賀新婚宴)</h4>
+                        <p>新加坡國寶級海鮮餐廳，米其林推薦本店，設有包廂。</p>
+
+                        <div class="options-box">
+                            <h5>🍽️ 專屬菜單</h5>
+                            <ul>
+                                <li>脆炸蘇東仔 (炸魷魚寶寶)</li>
+                                <li>黃袍沙律海鮮松</li>
+                                <li>香芒火鴨絲</li>
+                                <li>蟲草花蟹肉海皇 (海鮮湯配蟹肉與蟲草花)</li>
+                                <li>十頭鮑魚花菇魚鰾扒西蘭花</li>
+                                <li>清蒸龍虎斑</li>
+                                <li>摩卡排骨</li>
+                                <li>珍寶獲獎辣椒蟹配饅頭</li>
+                                <li>沙茶粉絲大蝦煲</li>
+                                <li>楊枝甘露</li>
+                            </ul>
+                        </div>
+
+                        <p><em>貼心提醒：離飯店步行約10分鐘，考量嬰兒推車與長輩，建議搭乘計程車 (Grab)。</em></p>
+                        <span class="location-tag">🦀 珍寶海鮮餐廳</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">20:00 ~</div>
+                    <div class="activity">
+                        <h4>克拉克碼頭周邊自由活動 / 返回飯店休息</h4>
+                        <span class="location-tag">🌃 克拉碼頭</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <p style="text-align: center; color: #7f8c8d; margin-top: 40px;">
-        ※ 本計畫書內容與時間安排可視當日實際交通狀況與團員體力進行彈性微調。 ※<br>
-        祝您與家人有一趟平安、愉快且充滿美好回憶的新加坡之旅！
-    </p>
+        <!-- Day 3 -->
+        <div class="day-card day3">
+            <div class="day-header">
+                <span>Day 3：聖淘沙探險與夜間生態之旅</span>
+                <span class="day-header-date">4/4 (六)</span>
+            </div>
+            <div class="day-content">
+                <div class="day-info">
+                    <strong>參與人數：</strong> 25人 | <strong>交通：</strong> 45人座車 + 導遊1人 | <strong>票券：</strong> 已含3個行程門票
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">08:30</div>
+                    <div class="activity">
+                        <h4>飯店大廳集合</h4>
+                        <p>請提前5分鐘到達，確保準時出發</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">08:40 ~ 09:40</div>
+                    <div class="activity">
+                        <h4>搭車前往聖淘沙</h4>
+                        <span class="location-tag">🏝️ 聖淘沙</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">09:40 ~ 12:00</div>
+                    <div class="activity">
+                        <h4>上午活動 (二選一)</h4>
+                        <div class="options-box">
+                            <ul>
+                                <li><strong>S.E.A. 海洋館：</strong> 全區室內冷氣，走道寬敞，適合推嬰兒車及各年齡層。 <span class="location-tag">🐟 新加坡水族館</span></li>
+                                <li><strong>新加坡環球影城：</strong> 若前一天未去，可選擇今日前往。 <span class="location-tag">🎢 新加坡環球影城</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">12:00 ~ 13:30</div>
+                    <div class="activity">
+                        <h4>午餐：莆田餐廳 (Putien) - 全員會合</h4>
+                        <p>米其林一星餐廳，主打福建菜。口味清淡鮮美，適合長輩與孩童。推薦：百秒黃花魚、興化炒米粉、酥炒芋心。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">13:30 ~ 17:30</div>
+                    <div class="activity">
+                        <h4>下午分組活動</h4>
+                        <div class="options-box">
+                            <ul>
+                                <li><strong>方案 A (13人)：天際斜坡滑車 (Skyline Luge)</strong><br>搭乘空中吊椅上山，駕駛無動力滑車順坡而下。6歲以上或滿110cm可獨自駕駛。 <span class="location-tag">🏎️ 天際斜坡滑車</span></li>
+                                <li><strong>方案 B (12人)：哈利波特：魔法幻境</strong><br>沉浸式互動藝術展，全室內有冷氣，適合躲避午後炎熱。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">17:30 ~ 19:00</div>
+                    <div class="activity">
+                        <h4>晚餐：夜間動物園自助餐</h4>
+                        <p>Ulu Ulu Safari Restaurant 提供豐盛自助餐，環境充滿鄉村風情。</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">19:00 ~ 22:00</div>
+                    <div class="activity">
+                        <h4>夜間動物園 (Night Safari) 導覽</h4>
+                        <p>搭乘遊園車 (約40分鐘)。精靈動物表演 (19:30或20:30)。</p>
+                        <p><em>⚠️ 防蚊提醒：園區位於熱帶雨林，請務必噴灑防蚊液，穿著薄長褲。拍照嚴禁使用閃光燈。</em></p>
+                        <span class="location-tag">🦉 夜間野生動物園</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">22:00 ~</div>
+                    <div class="activity">
+                        <h4>搭車返回金沙酒店</h4>
+                        <p>預計23:00左右抵達飯店，請做好充分休息準備</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-card day4">
+            <div class="day-header">
+                <span>Day 4：滿載而歸，星耀樟宜</span>
+                <span class="day-header-date">4/5 (日)</span>
+            </div>
+            <div class="day-content">
+                <div class="day-info">
+                    <strong>參與人數：</strong> 15人 | <strong>交通：</strong> 45人座車接機
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">11:30</div>
+                    <div class="activity">
+                        <h4>飯店大廳集合 (15人)</h4>
+                        <p>45人座車接送，請提前準備行李</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">11:30 ~ 12:00</div>
+                    <div class="activity">
+                        <h4>前往樟宜機場</h4>
+                        <p>車程約30分鐘</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">12:00 ~ 12:30</div>
+                    <div class="activity">
+                        <h4>辦理登機手續、托運行李</h4>
+                        <p>請保管好登機證和護照</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time">12:30 ~</div>
+                    <div class="activity">
+                        <h4>機場自由活動 / 準備登機</h4>
+                        <div class="options-box">
+                            <h5>📍 星耀樟宜 (Jewel Changi) 攻略</h5>
+                            <ul>
+                                <li><strong>雨漩渦 (Rain Vortex)：</strong> 世界最高室內瀑布 (40公尺)，必拍打卡聖地。</li>
+                                <li><strong>星空花園 (Canopy Park)：</strong> 適合小孩放電，包含樹籬迷宮、鏡子迷宮、步行網與彈跳網 (需額外購票)。</li>
+                                <li><strong>最後採買推薦：</strong> 斑蘭蛋糕 (Bengawan Solo)、Bacha Coffee / TWG Tea、IRVINS 鹹蛋黃洋芋片。</li>
+                            </ul>
+                        </div>
+                        <span class="location-tag">✈️ 新加坡樟宜國際機場</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 頁腳 -->
+        <div class="footer">
+            <p>※ 本計畫書內容與時間安排可視當日實際交通狀況與團員體力進行彈性微調。 ※</p>
+            <p style="font-size: 1.05em; font-weight: 600; color: var(--text-main);">祝您與家人有一趟平安、愉快且充滿美好回憶的新加坡之旅！</p>
+        </div>
+    </main>
+
+    <script>
+        // 返回頂部按鈕功能
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        // 搜尋功能
+        function toggleSearch() {
+            const searchBox = document.getElementById('searchBox');
+            searchBox.classList.toggle('active');
+            if (searchBox.classList.contains('active')) {
+                document.getElementById('searchInput').focus();
+            }
+        }
+
+        function searchContent() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const dayCards = document.querySelectorAll('.day-card');
+            let found = false;
+
+            dayCards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (searchTerm === '' || text.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    if (searchTerm !== '') {
+                        card.style.opacity = '1';
+                        found = true;
+                    }
+                } else {
+                    card.style.opacity = '0.3';
+                }
+            });
+
+            // 搜尋其他內容
+            const allElements = document.querySelectorAll('h1, h2, h3, h4, p, li');
+            allElements.forEach(el => {
+                if (searchTerm === '') {
+                    el.style.backgroundColor = 'transparent';
+                } else if (el.textContent.toLowerCase().includes(searchTerm)) {
+                    el.style.backgroundColor = 'rgba(255, 193, 7, 0.3)';
+                }
+            });
+        }
+
+        // 鍵盤快捷鍵
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+F 或 Cmd+F 打開搜尋
+            if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                e.preventDefault();
+                toggleSearch();
+            }
+            // Escape 關閉搜尋
+            if (e.key === 'Escape') {
+                document.getElementById('searchBox').classList.remove('active');
+            }
+        });
+
+        // 平滑滾動支持
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({behavior: 'smooth'});
+                }
+            });
+        });
+
+        // 頁面加載完成後的初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 添加動畫延遲
+            const dayCards = document.querySelectorAll('.day-card');
+            dayCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
 
 </body>
 </html>
