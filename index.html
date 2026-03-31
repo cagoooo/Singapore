@@ -859,6 +859,136 @@
                 page-break-inside: avoid;
             }
         }
+        /* ===== MRT 站點顏色標籤 ===== */
+        .mrt-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            border-radius: 4px;
+            padding: 1px 6px;
+            font-size: 0.82em;
+            font-weight: 700;
+            white-space: nowrap;
+            vertical-align: middle;
+            line-height: 1.4;
+        }
+        .mrt-dt  { background: #0284c7; color: #fff; }
+        .mrt-ne  { background: #7c3aed; color: #fff; }
+        .mrt-ns  { background: #dc2626; color: #fff; }
+        .mrt-cc  { background: #f97316; color: #fff; }
+        .mrt-ew  { background: #16a34a; color: #fff; }
+        .mrt-multi { background: #374151; color: #fff; }
+
+        /* ===== 浮動書籤面板 (TOC) ===== */
+        .toc-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-medium);
+            transition: var(--transition);
+            z-index: 99;
+        }
+        .toc-btn:hover {
+            background: #0369a1;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-dark);
+        }
+
+        .toc-panel {
+            position: fixed;
+            bottom: 150px;
+            right: 30px;
+            width: 260px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            z-index: 200;
+            transform: scale(0.85) translateY(20px);
+            transform-origin: bottom right;
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease;
+            overflow: hidden;
+        }
+        .toc-panel.open {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .toc-head {
+            background: var(--color-primary);
+            color: white;
+            padding: 12px 16px;
+            font-weight: 700;
+            font-size: 0.95em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .toc-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.1em;
+            padding: 0 2px;
+            line-height: 1;
+        }
+        .toc-body {
+            padding: 10px 0;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        .toc-grp {
+            margin-bottom: 4px;
+        }
+        .toc-grp-lbl {
+            font-size: 0.72em;
+            font-weight: 700;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 6px 16px 2px;
+        }
+        .toc-a {
+            display: block;
+            padding: 7px 16px 7px 20px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: background 0.15s;
+            border-left: 3px solid transparent;
+        }
+        .toc-a:hover { background: #f0f9ff; }
+        .toc-a.d1 { border-left-color: #e53935; }
+        .toc-a.d1:hover { background: #fff5f5; }
+        .toc-a.d2 { border-left-color: #1e88e5; }
+        .toc-a.d2:hover { background: #eff6ff; }
+        .toc-a.d3 { border-left-color: #43a047; }
+        .toc-a.d3:hover { background: #f0fdf4; }
+        .toc-a.d4 { border-left-color: #fbbf24; }
+        .toc-a.d4:hover { background: #fffbeb; }
+        .toc-a.sub {
+            padding-left: 28px;
+            font-size: 0.85em;
+            color: #555;
+        }
+
+        @media (max-width: 480px) {
+            .toc-panel { right: 10px; width: 240px; }
+            .toc-btn { right: 10px; }
+        }
     </style>
 </head>
 <body>
@@ -882,9 +1012,79 @@
         ↑
     </button>
 
+    <!-- 浮動書籤按鈕 -->
+    <button class="toc-btn" id="tocBtn" onclick="toggleTOC()" aria-label="行程書籤">📑</button>
+
+    <!-- 書籤導航面板 -->
+    <div class="toc-panel" id="tocPanel">
+        <div class="toc-head">
+            <span>📑 快速跳轉</span>
+            <button class="toc-close" onclick="closeTOC()">✕</button>
+        </div>
+        <div class="toc-body">
+            <div class="toc-grp">
+                <div class="toc-grp-lbl">重要提醒</div>
+                <a class="toc-a" href="#today-update" onclick="closeTOC()">📅 3/31 今日更新</a>
+                <a class="toc-a" href="#ticket-prices" onclick="closeTOC()">📊 景點票價對照表</a>
+                <a class="toc-a" href="#pre-trip-notes" onclick="closeTOC()">⚠️ 出發前準備事項</a>
+            </div>
+            <div class="toc-grp">
+                <div class="toc-grp-lbl">行程天數</div>
+                <a class="toc-a d1" href="#day1" onclick="closeTOC()">Day 1 — 抵達・濱海灣 4/2</a>
+                <a class="toc-a d2" href="#day2" onclick="closeTOC()">Day 2 — 自由活動 4/3</a>
+                <a class="toc-a d3" href="#day3" onclick="closeTOC()">Day 3 — 聖淘沙・夜間動物園 4/4</a>
+                <a class="toc-a d4" href="#day4" onclick="closeTOC()">Day 4 — 星耀樟宜・返程 4/5</a>
+            </div>
+            <div class="toc-grp">
+                <div class="toc-grp-lbl">Day 2 路線</div>
+                <a class="toc-a d2 sub" href="#day2-transport" onclick="closeTOC()">🚇 交通方式指南</a>
+                <a class="toc-a d2 sub" href="#day2-route-a" onclick="closeTOC()">🎢 路線 A — 環球影城</a>
+                <a class="toc-a d2 sub" href="#day2-route-b" onclick="closeTOC()">🧱 路線 B — LEGOLAND</a>
+                <a class="toc-a d2 sub" href="#day2-route-c" onclick="closeTOC()">🕌 路線 C — 小印度</a>
+                <a class="toc-a d2 sub" href="#day2-dinner" onclick="closeTOC()">🦀 珍寶海鮮晚餐集合</a>
+            </div>
+            <div class="toc-grp">
+                <div class="toc-grp-lbl">Day 3 景點</div>
+                <a class="toc-a d3 sub" href="#putien" onclick="closeTOC()">🍽️ 莆田餐廳午餐</a>
+                <a class="toc-a d3 sub" href="#night-safari" onclick="closeTOC()">🦉 夜間動物園</a>
+            </div>
+        </div>
+    </div>
+
     <main>
         <h1>🇸🇬 新加坡四天三夜家族旅遊詳細計畫書</h1>
         <p class="subtitle">一場充滿歡樂與回憶的家族冒險</p>
+
+        <!-- ===== 3/31 今日更新提醒 ===== -->
+        <div id="today-update" style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white; padding: 22px 26px; border-radius: 14px; margin-bottom: 28px; box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35);">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;">
+                <span style="background: white; color: #dc2626; padding: 4px 14px; border-radius: 20px; font-size: 0.85em; font-weight: 700; white-space: nowrap;">📅 3月31日 今日重要更新</span>
+                <strong style="font-size: 1.05em;">出發前最後準備 — 請家人們確認！</strong>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+
+                <div style="background: rgba(255,255,255,0.18); border-radius: 10px; padding: 14px 16px;">
+                    <strong style="font-size: 0.98em;">🛂 SG Arrival Card 新加坡電子入境卡（今天起可以填了！）</strong>
+                    <p style="margin: 8px 0 0; font-size: 0.91em; line-height: 1.7; opacity: 0.97;">入境卡可在抵達前 3 天內填寫，<strong>4/2 抵達的家人們，今天（3/31）起即可至官方網站免費填寫</strong>。抵達新加坡時海關必查，未填寫將無法入境，請務必提前完成！</p>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.18); border-radius: 10px; padding: 14px 16px;">
+                    <strong style="font-size: 0.98em;">✈️ 長榮航空 4/2 班機 — 今天開放網路預辦登機！</strong>
+                    <p style="margin: 8px 0 0; font-size: 0.91em; line-height: 1.7; opacity: 0.97;">搭 4/2 長榮班機的家人們，<strong>今天（3/31）起開放網路預辦登機（Online Check-in）</strong>！提前輸入護照資訊後，到機場只需直接走行李托運，省去在登機櫃台大排長龍的時間。也可以趁現在確認座位，有需要的話也可以換位置喔！</p>
+                    <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <a href="https://booking.evaair.com/flyeva/eva/b2c/manage-your-trip/online-checked-in-login.aspx?lang=zh-tw" target="_blank" style="display: inline-block; background: white; color: #dc2626; padding: 8px 18px; border-radius: 20px; font-weight: 700; font-size: 0.88em; text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">✈️ 點此進入長榮預辦登機</a>
+                        <span style="font-size: 0.87em; opacity: 0.9;">（需輸入訂位代號或護照資訊）</span>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.12); border-radius: 8px; padding: 10px 14px; text-align: center; font-size: 0.89em; opacity: 0.95;">
+                    📌 如果家人們現在剛好聚在一起、身上也有護照的話，<strong>建議大家一起坐下來把這兩件事都辦一辦！</strong>
+                </div>
+
+            </div>
+        </div>
+        <!-- ===== 今日更新結束 ===== -->
 
         <a href="https://www.google.com/maps/d/edit?mid=19MNIhRfEu5DrsYhGoyzGZezXAP5u6fE&usp=sharing" target="_blank" class="map-link">
             🗺️ 點擊開啟 Google My Maps 專屬旅遊地圖
@@ -894,7 +1094,7 @@
         <div class="header-info">
             <div class="info-card">
                 <h3>📅 基本資訊</h3>
-                <p><strong>日期：</strong> 2024年4月2日 (四) - 4月5日 (日)</p>
+                <p><strong>日期：</strong> 2026年4月2日 (四) - 4月5日 (日)</p>
                 <p><strong>人數：</strong> 共 25 人</p>
                 <p><strong>組成：</strong> 台灣出發 17 人，海外會合 8 人</p>
                 <p><strong>家庭成員：</strong> 含 1 嬰兒、6 小孩</p>
@@ -913,8 +1113,79 @@
             </div>
         </div>
 
+        <!-- 景點票價快速對照表 -->
+        <div id="ticket-prices" class="notes-section" style="margin-bottom: 40px;">
+            <h2 style="color: var(--color-primary); border-bottom-color: var(--color-primary);">📊 景點票價快速對照表</h2>
+            <div class="notes-intro" style="background: #e0f2fe; border-left-color: var(--color-primary); color: #0c4a6e;">
+                <strong>💡 省錢小提示：</strong> 建議透過 Klook、Traveloka 或官網提前購票，通常比現場購票便宜 10-20%。熱門景點（環球影城、夜間動物園）旺季票可能售罄，請務必提早預訂！
+            </div>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.95em;">
+                    <thead>
+                        <tr style="background: var(--color-primary); color: white;">
+                            <th style="padding: 12px 15px; text-align: left; border: 1px solid #0369a1;">景點</th>
+                            <th style="padding: 12px 15px; text-align: center; border: 1px solid #0369a1;">成人票</th>
+                            <th style="padding: 12px 15px; text-align: center; border: 1px solid #0369a1;">兒童票</th>
+                            <th style="padding: 12px 15px; text-align: left; border: 1px solid #0369a1;">備註</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: white;">
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">🌿 濱海灣花園 雲霧林＋花穹聯票</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 46</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 32</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">天際樹燈光秀免費；建議線上預訂</td>
+                        </tr>
+                        <tr style="background: #f8fafc;">
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">🎢 新加坡環球影城</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 83 起</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 63 起</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">Express Pass 另購；週末建議早到</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">🐠 新加坡海洋館（原 S.E.A. Aquarium）</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 42 起</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 32 起</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">2025/7 全新升級；22 個主題區域</td>
+                        </tr>
+                        <tr style="background: #f8fafc;">
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">🏎️ 天際斜坡滑車 Skyline Luge（3趟）</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">~SGD 28</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">~SGD 24</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">需提前線上預訂；含空中吊椅</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">🧙 哈利波特：魔法幻境</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 45 起</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 32 起</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">全室內冷氣；10 個沉浸式場景</td>
+                        </tr>
+                        <tr style="background: #f8fafc;">
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">🦉 夜間動物園 Night Safari</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 58 起</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 38 起</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">含精靈動物表演；自助餐另計</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">🏨 MBS SkyPark 觀景台（非住客）</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 35-39</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 31-35</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">住客免費；57樓泳池為住客專屬</td>
+                        </tr>
+                        <tr style="background: #f8fafc;">
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">🌊 Jewel 星耀樟宜 星空花園</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 5-14</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 5-14</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">雨漩渦免費；各設施單獨收費</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="margin-top: 12px; font-size: 0.88em; color: #666; text-align: right;">※ 票價僅供參考，請以官網或購票平台實際標價為準。兒童票適用年齡與身高請依各景點規定。</p>
+        </div>
+
         <!-- 出發前準備 -->
-        <div class="notes-section">
+        <div id="pre-trip-notes" class="notes-section">
             <h2>⚠️ 出發前準備與注意事項</h2>
             <div class="notes-intro">
                 <strong>家族旅遊特別提醒：</strong> 本次行程包含嬰幼兒與長輩，新加坡氣候炎熱，請務必隨時補充水分。行程安排已盡量保持彈性，請依當天團員體力狀況適度調整。
@@ -940,17 +1211,79 @@
                     <p><strong>大眾運輸禁食：</strong> 地鐵 (MRT) 及巴士內絕對禁止飲食。</p>
                     <p><strong>吸菸規定：</strong> 僅能在指定的黃線吸菸區內抽菸。</p>
                 </div>
+                <div class="note-card" style="border-left-color: #10b981; background: linear-gradient(135deg, #f0fdf4 0%, #f7fffe 100%); grid-column: 1 / -1;">
+                    <h4>💳 新加坡數位支付完整指南</h4>
+                    <p style="font-size: 0.92em; color: #555; margin: 0 0 12px 0;">新加坡是全球最進步的無現金社會之一，信用卡、Apple Pay、Google Pay 幾乎暢行無阻！只需帶少量備用現金即可。</p>
+
+                    <div style="background: white; border-radius: 8px; padding: 12px 14px; margin: 8px 0; border-left: 3px solid #10b981;">
+                        <strong style="color: #166534;">✅ 完全可以數位支付（刷卡 / Apple Pay / Google Pay）</strong>
+                        <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px;">
+                            <span style="background: #dcfce7; color: #166534; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">🏨 金沙酒店消費</span>
+                            <span style="background: #dcfce7; color: #166534; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">🎢 各大景點門票</span>
+                            <span style="background: #dcfce7; color: #166534; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">🦀 珍寶海鮮</span>
+                            <span style="background: #dcfce7; color: #166534; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">🍽️ 莆田餐廳</span>
+                            <span style="background: #dcfce7; color: #166534; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">🛕 Muthu's Curry</span>
+                            <span style="background: #dcfce7; color: #166534; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">🏪 7-Eleven / Cold Storage</span>
+                            <span style="background: #dcfce7; color: #166534; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">🚕 Grab 叫車（App 內付款）</span>
+                            <span style="background: #dcfce7; color: #166534; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">🚇 MRT 地鐵感應過閘</span>
+                            <span style="background: #dcfce7; color: #166534; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">🛍️ 各大購物商場</span>
+                            <span style="background: #dcfce7; color: #166534; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">☕ TWG / Bacha Coffee</span>
+                        </div>
+                        <p style="font-size: 0.87em; color: #555; margin: 8px 0 0; padding: 6px 10px; background: #f0fdf4; border-radius: 6px;">💡 <strong>新加坡 MRT 地鐵免 EZ-Link 卡！</strong>直接用 Visa/Mastercard 信用卡或 Apple Pay 感應過閘，系統自動計費，超方便！</p>
+                    </div>
+
+                    <div style="background: white; border-radius: 8px; padding: 12px 14px; margin: 8px 0; border-left: 3px solid #f59e0b;">
+                        <strong style="color: #92400e;">⚡ 部分數位、建議備少量現金（熟食中心攤位）</strong>
+                        <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px;">
+                            <span style="background: #fef9c3; color: #713f12; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">🍜 竹腳中心熟食攤（部分有 QR）</span>
+                            <span style="background: #fef9c3; color: #713f12; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">🌿 夜間動物園自助餐（刷卡可）</span>
+                            <span style="background: #fef9c3; color: #713f12; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">🛒 Mustafa Centre（現金為主）</span>
+                        </div>
+                        <p style="font-size: 0.87em; color: #666; margin: 8px 0 0;">多數熟食中心大型攤位已支援 PayNow QR 掃碼，但部分傳統老攤位僅收現金，準備 SGD 20-30 即可應付。</p>
+                    </div>
+
+                    <div style="background: white; border-radius: 8px; padding: 12px 14px; margin: 8px 0; border-left: 3px solid #ef4444;">
+                        <strong style="color: #991b1b;">💵 建議帶現金（街邊小攤 / 傳統體驗）</strong>
+                        <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px;">
+                            <span style="background: #fee2e2; color: #991b1b; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">🌺 印度花圈攤（SGD 3-5）</span>
+                            <span style="background: #fee2e2; color: #991b1b; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">🎨 Henna 彩繪（SGD 10-15）</span>
+                            <span style="background: #fee2e2; color: #991b1b; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">🛕 廟宇香油錢</span>
+                            <span style="background: #fee2e2; color: #991b1b; padding: 3px 10px; border-radius: 20px; font-size: 0.82em; font-weight: 600;">🍢 路邊飲料攤小吃</span>
+                        </div>
+                    </div>
+
+                    <div style="background: #f0f9ff; border-radius: 8px; padding: 10px 14px; margin-top: 10px; border-left: 3px solid #0ea5e9; display: flex; align-items: flex-start; gap: 8px;">
+                        <span style="font-size: 1.2em;">💡</span>
+                        <div>
+                            <strong style="color: #0369a1;">建議現金備用量：SGD 100-200（約台幣 2,400-4,800 元）</strong>
+                            <p style="font-size: 0.87em; color: #555; margin: 4px 0 0;">ATM 提款：機場、7-Eleven、各大購物商場均有。Visa/Mastercard 可直接提取新幣，手續費約 SGD 5。備妥現金後，其餘消費盡量刷卡享回饋！</p>
+                            <p style="font-size: 0.87em; color: #555; margin: 4px 0 0;">🔌 <strong>電壓插座：</strong>230V，英式三腳方形插頭（Type G），台灣電器需帶轉接頭。📶 <strong>網路：</strong>建議提前購買 SIM 卡（樟宜機場一入境即可購買）或開通國際漫遊。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-card" style="border-left-color: #0ea5e9;">
+                    <h4>🚇 大眾運輸 & Grab 叫車指南</h4>
+                    <p><strong>MRT 地鐵（最快最省）：</strong> 直接感應 Visa/Mastercard 信用卡或 Apple Pay 即可過閘，無需購票！也可用 EZ-Link 卡（機場「Changi Recommends」或便利商店購買，SGD 10，含 SGD 5 儲值）。</p>
+                    <p><strong>Grab 叫車（類 Uber）：</strong> 提前下載安裝 Grab App，綁定信用卡後即可叫車。有長輩或嬰兒推車時強烈推薦——舒適、直達、不用擔心地鐵人潮。選擇 GrabCar 或 GrabFamily（含安全座椅）。</p>
+                    <p><strong>計程車費用參考：</strong></p>
+                    <p>機場 → 金沙酒店：約 SGD 20-30（30 分鐘）</p>
+                    <p>金沙 → 珍寶海鮮（Riverwalk）：約 SGD 8-12（10 分鐘）</p>
+                    <p>金沙 → 小印度：約 SGD 10-15（10-12 分鐘）</p>
+                    <p>金沙 → 聖淘沙：約 SGD 12-18（15 分鐘）</p>
+                </div>
                 <div class="note-card">
-                    <h4>🔌 交通與其他</h4>
-                    <p><strong>網路：</strong> 建議提前購買網卡或開通國際漫遊。</p>
-                    <p><strong>支付：</strong> 電子支付普及，準備適量新幣現金。</p>
-                    <p><strong>電壓插座：</strong> 230V，英式三腳方形插頭 (Type G)。</p>
+                    <h4>🛍️ 必買伴手禮清單</h4>
+                    <p><strong>零食類：</strong> IRVINS 鹹蛋黃洋芋片（樟宜機場限定口味）、OLD CHANG KEE 咖哩角。</p>
+                    <p><strong>甜點糕餅：</strong> Bengawan Solo 斑蘭蛋糕（冷藏）、喜來登酒店千層蛋糕。</p>
+                    <p><strong>茶葉咖啡：</strong> TWG Tea（金罐）、Bacha Coffee（必逛！）。</p>
+                    <p><strong>健康保養：</strong> Eu Yan Sang 燕窩、虎標萬金油、Medimix 印度草本香皂（小印度購買最划算）。</p>
+                    <p><strong>購買地點：</strong> 機場免稅店（出發前最後採購）、Jewel Changi 購物區、小印度 Mustafa Centre（24 小時，藥妝最便宜）。</p>
                 </div>
             </div>
         </div>
 
         <!-- Day 1 -->
-        <div class="day-card day1">
+        <div id="day1" class="day-card day1">
             <div class="day-header">
                 <span>Day 1：抵達星國，探索濱海灣</span>
                 <span class="day-header-date">4/2 (四)</span>
@@ -1003,10 +1336,20 @@
                         <div class="options-box">
                             <h5>📍 下午自由活動推薦與設施指南</h5>
                             <ul>
-                                <li><strong>金沙酒店設施：</strong> 57樓無邊際泳池 (房客專屬，建議傍晚前往)、空中花園觀景台 (SkyPark)、室內舢舨遊船 (適合小孩)。</li>
-                                <li><strong>魚尾獅公園：</strong> 步行穿越螺旋橋或搭計程車5分鐘。傍晚氣候涼爽，最佳拍照時機。 <span class="location-tag">🦁 魚尾獅公園</span></li>
-                                <li><strong>濱海灣花園：</strong> 天空樹 (19:45/20:45 免費燈光秀)、室內溫室 (雲霧林與花穹，需購票)。 <span class="location-tag">🌳 濱海灣花園</span></li>
-                                <li><strong>幻彩生輝 SPECTRA 光影水舞秀：</strong> 每晚 19:30 及 20:30 在濱海灣浮動舞台上演。 <span class="location-tag">🎆 浮動舞台</span></li>
+                                <li><strong>金沙酒店設施：</strong> 57樓無邊際泳池（<strong>房客憑房卡專屬免費</strong>，建議傍晚 5-7 點前往，光線絕美）；非住客可至 56 樓觀景台 SkyPark Observation Deck，票價 SGD 35-39。室內舢舨遊船「Wonder Full」適合小孩，於酒店 The Shoppes 商場內。</li>
+                                <li><strong>魚尾獅公園：</strong> 步行穿越螺旋橋或搭計程車 5 分鐘。傍晚氣候涼爽，最佳拍照時機。建議 17:00-18:30 前往，搭配對岸金沙酒店背景超上鏡！ <span class="location-tag">🦁 魚尾獅公園</span></li>
+                                <li>
+                                    <strong>濱海灣花園（Gardens by the Bay）：</strong>
+                                    <span class="location-tag">🌳 濱海灣花園</span>
+                                    <ul style="margin-top: 8px; padding-left: 16px;">
+                                        <li>🌸 <strong>花穹（Flower Dome）＋雲霧林（Cloud Forest）聯票：</strong> 成人 SGD 46 / 兒童 SGD 32；建議上午 9-11 點入場（涼爽、人少）。雲霧林現設有「侏羅紀世界：探索之旅」沉浸式體驗。</li>
+                                        <li>🌲 <strong>天空步道 OCBC Skyway：</strong> SGD 14，在天際樹之間的懸空步道漫步，居高臨下視野開闊。</li>
+                                        <li>🔭 <strong>天際樹觀景台 Supertree Observatory：</strong> SGD 14，可 360° 俯瞰整個花園。</li>
+                                        <li>✨ <strong>Garden Rhapsody 燈光秀（免費）：</strong> 每晚 <strong>19:45 及 20:45</strong>，天際樹配合音樂變換燈光，免費觀賞，花園廣場有草地可席地而坐。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>幻彩生輝 SPECTRA 光影水舞秀：</strong> 每晚 <strong>19:30 及 20:30</strong> 在濱海灣浮動舞台上演，免費觀賞，約 15 分鐘。建議提前 15 分鐘佔位，以 MBS 前廣場為最佳觀賞點。 <span class="location-tag">🎆 浮動舞台</span></li>
+                                <li><strong>📅 建議時程安排：</strong> 15:00 酒店 → 16:00 魚尾獅公園拍照 → 17:30 濱海灣花園戶外散步 → 19:30 SPECTRA 水舞秀 → 20:45 Garden Rhapsody 燈光秀 → 21:00 步行返回酒店</li>
                             </ul>
                         </div>
                     </div>
@@ -1015,7 +1358,7 @@
         </div>
 
         <!-- Day 2 -->
-        <div class="day-card day2">
+        <div id="day2" class="day-card day2">
             <div class="day-header">
                 <span>Day 2：樂園狂歡或市區漫遊</span>
                 <span class="day-header-date">4/3 (五)</span>
@@ -1030,10 +1373,181 @@
                     <div class="activity">
                         <h4>白天自由活動 (依家庭喜好分組)</h4>
 
+                        <div id="day2-transport" class="options-box" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-left-color: var(--color-primary); margin-bottom: 20px;">
+                            <h5>🚇 各路線交通方式詳細指南</h5>
+                            <p style="font-size: 0.9em; color: #555; margin-bottom: 14px;">今天全天自由活動，請依選擇的路線按下方步驟出發。<strong>MRT 直接刷信用卡/Apple Pay 過閘，免換零錢！</strong></p>
+
+                            <!-- Route A Transport -->
+                            <div id="day2-route-a" style="background: white; border-radius: 10px; padding: 14px 16px; margin: 10px 0; border-left: 4px solid #f97316;">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                                    <span style="background: #fff3e0; color: #c2410c; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.9em;">🎢 路線 A</span>
+                                    <strong style="color: #c2410c;">前往新加坡環球影城（聖淘沙島）</strong>
+                                </div>
+                                <div style="margin-bottom: 12px;">
+                                    <p style="font-weight: 700; color: #333; margin: 0 0 8px; font-size: 0.93em;">🚕 方式一：Grab 直達（最推薦・省時省力）</p>
+                                    <p style="font-size: 0.92em; color: #444; margin: 0 0 8px;">在 <strong>金沙酒店大廳門口或 B1 接送區</strong>叫 Grab，目的地輸入「<strong>Universal Studios Singapore</strong>」或「<strong>Resorts World Sentosa</strong>」。費用約 <strong>SGD 12-18</strong>，車程約 15 分鐘，App 內信用卡直接付款，不用換車、不用提重物。</p>
+                                    <p style="font-size: 0.85em; color: #666; margin: 0; padding: 6px 10px; background: #fff7ed; border-radius: 6px;">⏱️ 總時間約 15 分鐘 ｜ 💰 費用：約 SGD 12-18 ｜ 💳 App 內信用卡付款</p>
+                                </div>
+                                <div style="margin-bottom: 12px; padding-top: 10px; border-top: 1px dashed #e0e0e0;">
+                                    <p style="font-weight: 700; color: #333; margin: 0 0 8px; font-size: 0.93em;">🚇 方式二：MRT + 聖淘沙快線（約 35-40 分鐘，需轉乘）</p>
+                                    <div style="display: flex; flex-direction: column; gap: 6px; padding-left: 4px;">
+                                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                            <span style="background: #e3f2fd; color: #1565c0; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 700; flex-shrink: 0; margin-top: 2px;">1</span>
+                                            <p style="margin: 0; font-size: 0.92em; color: #444;">從 <strong>金沙酒店</strong> 步行至 <strong>海灣舫站 Bayfront MRT</strong>（酒店 B1 地下通道直達，約 3-5 分鐘）</p>
+                                        </div>
+                                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                            <span style="background: #e3f2fd; color: #1565c0; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 700; flex-shrink: 0; margin-top: 2px;">2</span>
+                                            <p style="margin: 0; font-size: 0.92em; color: #444;">搭 <span style="background: #f97316; color: white; padding: 1px 8px; border-radius: 10px; font-size: 0.82em; font-weight: 700;">橙線 Circle Line (CE)</span> 1 站至 <strong>濱海灣站 Marina Bay (CE2)</strong></p>
+                                        </div>
+                                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                            <span style="background: #e3f2fd; color: #1565c0; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 700; flex-shrink: 0; margin-top: 2px;">3</span>
+                                            <p style="margin: 0; font-size: 0.92em; color: #444;">在 Marina Bay 站轉乘 <span style="background: #dc2626; color: white; padding: 1px 8px; border-radius: 10px; font-size: 0.82em; font-weight: 700;">紅線 North-South Line</span>，往 <strong>Jurong East 方向南行</strong>（注意：往 Jurong East，不是往 Woodlands），至 <strong>港灣站 HarbourFront (NS4 / CC29)</strong></p>
+                                        </div>
+                                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                            <span style="background: #e3f2fd; color: #1565c0; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 700; flex-shrink: 0; margin-top: 2px;">4</span>
+                                            <p style="margin: 0; font-size: 0.92em; color: #444;">步行至 <strong>VivoCity 購物中心 3 樓</strong>，搭 <span style="background: #ef4444; color: white; padding: 1px 8px; border-radius: 10px; font-size: 0.82em; font-weight: 700;">聖淘沙快線 Sentosa Express</span> 至 <strong>海灣站 Waterfront</strong>（SGD 4，含全日島上交通）</p>
+                                        </div>
+                                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                            <span style="background: #e3f2fd; color: #1565c0; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 700; flex-shrink: 0; margin-top: 2px;">5</span>
+                                            <p style="margin: 0; font-size: 0.92em; color: #444;">從 Waterfront 站步行約 8-10 分鐘至 <strong>環球影城正門入口</strong></p>
+                                        </div>
+                                    </div>
+                                    <p style="font-size: 0.85em; color: #666; margin: 8px 0 0; padding: 6px 10px; background: #fff7ed; border-radius: 6px;">⏱️ 總時間約 35-40 分鐘（含轉乘）｜ 💰 費用：約 SGD 5-7 ｜ 💳 全程可刷信用卡/Apple Pay 感應過閘</p>
+                                </div>
+                                <div style="padding-top: 10px; border-top: 1px dashed #e0e0e0; background: #f0fdf4; border-radius: 6px; padding: 10px 12px; margin-top: 8px;">
+                                    <p style="font-weight: 700; color: #166534; margin: 0 0 6px; font-size: 0.93em;">🔄 回程：環球影城 → 金沙酒店</p>
+                                    <p style="font-size: 0.92em; color: #444; margin: 0 0 6px;"><strong>Grab（推薦）：</strong>在 RWS 或 USS 門口叫 Grab，輸入「<strong>Marina Bay Sands</strong>」，費用約 SGD 12-18，約 15 分鐘直達。</p>
+                                    <p style="font-size: 0.92em; color: #444; margin: 0;"><strong>MRT（省錢）：</strong>反向搭聖淘沙快線回 VivoCity → HarbourFront 站搭 NS 線至 Marina Bay → CE 線 1 站至 Bayfront → 步行回金沙酒店。</p>
+                                </div>
+                            </div>
+
+                            <!-- Route B Transport -->
+                            <div id="day2-route-b" style="background: white; border-radius: 10px; padding: 14px 16px; margin: 10px 0; border-left: 4px solid #6366f1;">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                                    <span style="background: #ede9fe; color: #4338ca; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.9em;">🧱 路線 B</span>
+                                    <strong style="color: #4338ca;">前往樂高樂園（馬來西亞新山）</strong>
+                                </div>
+                                <div style="background: #fef3c7; border-radius: 6px; padding: 8px 12px; margin-bottom: 10px; font-size: 0.88em; color: #78350f;">
+                                    ⚠️ <strong>跨國注意：</strong>需攜帶護照過境；事先填寫 <strong>馬來西亞電子入境卡 MDAC</strong>（免費，官網填寫）；路線較遠，建議 08:00 前出發。
+                                </div>
+                                <div style="margin-bottom: 12px;">
+                                    <p style="font-weight: 700; color: #333; margin: 0 0 8px; font-size: 0.93em;">🚌 推薦方式：Klook / Viator 預訂往返接駁巴士（最省力）</p>
+                                    <p style="font-size: 0.92em; color: #444; margin: 0 0 8px;">在 Klook App 搜尋「<strong>Singapore to LEGOLAND Malaysia shuttle</strong>」，預訂含 <strong>金沙酒店附近</strong> 上下車點的往返接駁，費用約 SGD 20-30/人。去程返程皆由接駁巴士直達，最省事。建議出發前 1 週預訂，確認接送地點。</p>
+                                    <p style="font-weight: 700; color: #333; margin: 8px 0; font-size: 0.93em;">🚇 大眾運輸方式（省錢但耗時，單程約 2-2.5 小時）：</p>
+                                    <div style="display: flex; flex-direction: column; gap: 6px; padding-left: 4px;">
+                                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                            <span style="background: #ede9fe; color: #4338ca; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 700; flex-shrink: 0; margin-top: 2px;">1</span>
+                                            <p style="margin: 0; font-size: 0.92em; color: #444;">從 <strong>金沙酒店</strong> 步行至 <strong>海灣舫站 Bayfront (CE1)</strong>（B1 地下通道，3-5 分鐘）</p>
+                                        </div>
+                                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                            <span style="background: #ede9fe; color: #4338ca; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 700; flex-shrink: 0; margin-top: 2px;">2</span>
+                                            <p style="margin: 0; font-size: 0.92em; color: #444;">搭 <span style="background: #f97316; color: white; padding: 1px 8px; border-radius: 10px; font-size: 0.82em; font-weight: 700;">橙線 Circle Line (CE)</span> 1 站至 <strong>濱海灣站 Marina Bay (CE2/NS27)</strong></p>
+                                        </div>
+                                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                            <span style="background: #ede9fe; color: #4338ca; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 700; flex-shrink: 0; margin-top: 2px;">3</span>
+                                            <p style="margin: 0; font-size: 0.92em; color: #444;">在 Marina Bay 轉乘 <span style="background: #dc2626; color: white; padding: 1px 8px; border-radius: 10px; font-size: 0.82em; font-weight: 700;">紅線 North-South Line</span>，往 <strong>Woodlands / Jurong East 方向北行</strong>，至 <strong>兀蘭站 Woodlands (NS9)</strong>（約 18 站，35 分鐘）</p>
+                                        </div>
+                                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                            <span style="background: #ede9fe; color: #4338ca; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 700; flex-shrink: 0; margin-top: 2px;">4</span>
+                                            <p style="margin: 0; font-size: 0.92em; color: #444;">步行至 <strong>兀蘭關卡 Woodlands Checkpoint</strong>，辦理新加坡出境手續（約 15-30 分鐘，視人潮）</p>
+                                        </div>
+                                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                            <span style="background: #ede9fe; color: #4338ca; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 700; flex-shrink: 0; margin-top: 2px;">5</span>
+                                            <p style="margin: 0; font-size: 0.92em; color: #444;">搭 <strong>巴士 170</strong> 或 Causeway Link 跨越長堤，至馬來西亞新山關卡（JB CIQ）辦理入境</p>
+                                        </div>
+                                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                            <span style="background: #ede9fe; color: #4338ca; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 700; flex-shrink: 0; margin-top: 2px;">6</span>
+                                            <p style="margin: 0; font-size: 0.92em; color: #444;">在新山叫 <strong>Grab Malaysia</strong>（馬幣 MYR 付款）或搭計程車至 LEGOLAND Malaysia，約 20-25 分鐘</p>
+                                        </div>
+                                    </div>
+                                    <p style="font-size: 0.85em; color: #666; margin: 8px 0 0; padding: 6px 10px; background: #f5f3ff; border-radius: 6px;">⏱️ 單程約 2-2.5 小時 ｜ 💰 費用：約 SGD 5-10（含過境）｜ ⚠️ 需備少量馬幣 MYR 現金（匯率約 1 SGD ≈ 3.5 MYR）</p>
+                                </div>
+                                <div style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed #c4b5fd;">
+                                    <p style="font-weight: 700; color: #4338ca; margin: 0 0 8px; font-size: 0.93em;">🚐 方式三：從金沙酒店包車直達樂高樂園（最舒適推薦）</p>
+                                    <p style="font-size: 0.92em; color: #444; margin: 0 0 8px;">由金沙酒店門口出發，私人包車直達 LEGOLAND Malaysia 並原車等候或定時接回，全程不需要過 MRT 或等接駁，是有嬰兒或長輩時的最佳選擇。</p>
+                                    <ul style="margin: 0 0 8px; padding-left: 18px; font-size: 0.92em; color: #444; line-height: 1.8;">
+                                        <li><strong>預訂方式：</strong>在 Klook / GetYourGuide / Viator 搜尋「<strong>Private car transfer Singapore to LEGOLAND</strong>」，或請金沙酒店禮賓部（Concierge）安排</li>
+                                        <li><strong>車型選擇：</strong>4 人以內可叫 Grab 大型車或私家轎車；5-8 人建議 MPV 7 座；9 人以上請預訂 mini-van 或小巴</li>
+                                        <li><strong>費用參考：</strong>私人轎車（4 人）單程約 SGD 80-120；7 座 MPV 單程約 SGD 120-160；含等候費與回程約 SGD 250-350</li>
+                                        <li><strong>優點：</strong>門對門、免轉乘、可存放行李、司機可協助指引過關流程、準時掌控回程時間</li>
+                                    </ul>
+                                    <p style="font-size: 0.85em; color: #666; padding: 6px 10px; background: #ede9fe; border-radius: 6px;">⏱️ 車程：金沙酒店 → LEGOLAND 約 1-1.5 小時（視過關等候時間）｜ 建議 07:30 從酒店出發</p>
+                                </div>
+                                <div style="background: #f0f9ff; border-radius: 6px; padding: 10px 12px; margin-top: 10px;">
+                                    <p style="font-weight: 700; color: #0369a1; margin: 0 0 6px; font-size: 0.93em;">🔄 回程：樂高樂園 → 珍寶海鮮餐廳（今晚集合地點！）</p>
+                                    <p style="font-size: 0.92em; color: #444; margin: 0 0 6px;"><strong>接駁巴士 / 包車（推薦）：</strong>直接請司機送至珍寶海鮮 Riverside Point，或搭回程接駁到新加坡後再叫 Grab 前往。</p>
+                                    <p style="font-size: 0.92em; color: #444; margin: 0;"><strong>自行返回 MRT：</strong>LEGOLAND → Grab Malaysia 至 JB 關卡 → 過境 → 巴士至 Woodlands → NS 線南行至 City Hall → NE 線至 Clarke Quay → 步行 5 分鐘至珍寶海鮮。</p>
+                                    <p style="font-size: 0.85em; color: #e05a00; margin: 8px 0 0; font-weight: 600; padding: 6px 10px; background: #fff3e0; border-radius: 6px;">⚠️ 路線 B 特別注意：回程過關排隊有時長達 30-60 分鐘！請務必在 <strong>13:30 前離開 LEGOLAND</strong>，預留充足時間，確保 18:00 前抵達珍寶海鮮！</p>
+                                </div>
+                            </div>
+
+                            <!-- Route C Transport -->
+                            <div id="day2-route-c" style="background: white; border-radius: 10px; padding: 14px 16px; margin: 10px 0; border-left: 4px solid #10b981;">
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                                    <span style="background: #d1fae5; color: #065f46; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.9em;">🌶️ 路線 C</span>
+                                    <strong style="color: #065f46;">前往小印度（最輕鬆・10 分鐘直達）</strong>
+                                </div>
+                                <div style="margin-bottom: 12px;">
+                                    <p style="font-weight: 700; color: #333; margin: 0 0 8px; font-size: 0.93em;">🚇 方式一：MRT 直達（強烈推薦・快速便宜）</p>
+                                    <div style="display: flex; flex-direction: column; gap: 6px; padding-left: 4px;">
+                                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                            <span style="background: #d1fae5; color: #065f46; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 700; flex-shrink: 0; margin-top: 2px;">1</span>
+                                            <p style="margin: 0; font-size: 0.92em; color: #444;">步行至 <strong>海灣舫站 Bayfront MRT</strong>（酒店地下通道 B1，約 3-5 分鐘）</p>
+                                        </div>
+                                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                            <span style="background: #d1fae5; color: #065f46; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 700; flex-shrink: 0; margin-top: 2px;">2</span>
+                                            <p style="margin: 0; font-size: 0.92em; color: #444;">搭 <span style="background: #0284c7; color: white; padding: 1px 8px; border-radius: 10px; font-size: 0.82em; font-weight: 700;">藍線 Downtown Line</span> 往 Bukit Panjang 方向，至 <strong>小印度站 Little India (DT12)</strong>（4 站，約 8-10 分鐘）</p>
+                                        </div>
+                                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                            <span style="background: #d1fae5; color: #065f46; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 700; flex-shrink: 0; margin-top: 2px;">3</span>
+                                            <p style="margin: 0; font-size: 0.92em; color: #444;">出站走 <strong>C 出口</strong>，步行約 3-5 分鐘即到竹腳中心（Tekka Centre）正門</p>
+                                        </div>
+                                    </div>
+                                    <p style="font-size: 0.85em; color: #666; margin: 8px 0 0; padding: 6px 10px; background: #f0fdf4; border-radius: 6px;">⏱️ 總時間約 15-20 分鐘 ｜ 💰 費用：約 SGD 2-3 ｜ 💳 直接 Apple Pay/信用卡感應過閘，超方便</p>
+                                </div>
+                                <div style="padding-top: 10px; border-top: 1px dashed #e0e0e0; margin-bottom: 10px;">
+                                    <p style="font-weight: 700; color: #333; margin: 0 0 6px; font-size: 0.93em;">🚕 方式二：Grab 叫車（有嬰兒/長輩時推薦）</p>
+                                    <p style="font-size: 0.92em; color: #444; margin: 0;">Grab 輸入目的地「<strong>Tekka Centre</strong>」或「<strong>Little India MRT</strong>」，費用約 <strong>SGD 10-15</strong>，車程約 10 分鐘，App 內信用卡付款。<br>📍 回程：在小印度任何地點開 Grab 叫車返回金沙酒店即可。</p>
+                                </div>
+                                <div style="background: #ecfdf5; border-radius: 6px; padding: 8px 12px; font-size: 0.87em; color: #065f46;">
+                                    🦀 <strong>前往珍寶海鮮：</strong>建議 <strong>17:30 前從小印度出發</strong>，不必回酒店，直接前往珍寶海鮮。搭 <span style="background: #7c3aed; color: white; padding: 1px 6px; border-radius: 8px; font-size: 0.85em;">紫線 NE</span> 從小印度站 (NE7) 往南 2 站至 Clarke Quay (NE5)，出站步行 5 分鐘即達 Riverside Point。或叫 Grab 直達（約 SGD 8-12）。<strong>18:00 前請務必到達珍寶海鮮報到！</strong>
+                                </div>
+                            </div>
+
+                            <!-- Safety tip -->
+                            <div style="background: #fef9c3; border-radius: 8px; padding: 10px 14px; margin-top: 10px; border-left: 3px solid #fbbf24;">
+                                <strong style="color: #78350f;">📱 出發前必做事項</strong>
+                                <ul style="margin: 6px 0 0; padding-left: 18px; font-size: 0.88em; color: #555; line-height: 1.8;">
+                                    <li>確認手機已安裝 <strong>Grab App</strong> 並綁定信用卡，隨時可叫車</li>
+                                    <li>確認信用卡已開通「<strong>海外感應支付</strong>」功能（出發前致電發卡銀行確認）</li>
+                                    <li>各家庭互報選擇路線，加入同一 LINE / WhatsApp 群組方便聯繫</li>
+                                    <li>攜帶護照（路線 B 必須；路線 A/C 可不帶，但建議備用）</li>
+                                    <li>🦀 <strong>18:00 前直接前往珍寶海鮮餐廳報到</strong>（各自從景點直接過去，不必先回酒店！）</li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <div class="options-box">
                             <h5>📍 路線建議</h5>
                             <ul>
-                                <li><strong>路線 A：新加坡環球影城 (電影迷首選)</strong><br>位於聖淘沙島，東南亞唯一環球影城。 <span class="location-tag">🎢 新加坡環球影城</span></li>
+                                <li><strong>路線 A：新加坡環球影城 (電影迷首選)</strong><br>位於聖淘沙島，東南亞唯一環球影城。一般票 SGD 83 起，建議 10:00 開園即入場，直奔人氣設施。旺季強烈建議加購 Express Pass 快速通關。 <span class="location-tag">🎢 新加坡環球影城</span>
+                                    <div style="margin-top: 10px; padding: 12px; background: #fff3e0; border-radius: 6px; border-left: 3px solid #f97316;">
+                                        <strong style="color: #c2410c;">🆕 2025 全新開幕 Minion Land（2025/2/14 正式開幕）：</strong>
+                                        <ul style="margin: 8px 0; padding-left: 18px;">
+                                            <li><strong>Despicable Me Minion Mayhem</strong> — 3D 動感模擬器，跟小小兵一起闖關！</li>
+                                            <li><strong>Buggie Boogie</strong> — 小小兵主題旋轉木馬，適合全年齡</li>
+                                            <li><strong>Silly Swirly</strong> — 新加坡環球影城獨家旋轉空中飛椅</li>
+                                        </ul>
+                                        <strong style="color: #1e40af;">🎡 必玩經典設施：</strong>
+                                        <ul style="margin: 8px 0; padding-left: 18px;">
+                                            <li><strong>星際大戰：銀河帝國決戰</strong> (Battlestar Galactica) — 世界最高雙軌過山車，刺激感十足</li>
+                                            <li><strong>變形金剛 3D 極速對決</strong> — 超真實 3D 動感影院，有熱浪、風效、霧氣特效</li>
+                                            <li><strong>木乃伊之謎</strong> (Revenge of the Mummy) — 室內黑暗雲霄飛車，適合膽大的孩童</li>
+                                            <li><strong>侏羅紀公園激流勇進</strong> — 水上設施，準備被淋濕！建議備一套換洗衣物</li>
+                                        </ul>
+                                        <strong style="color: #166534;">💡 攻略貼士：</strong> 開園直衝 Battlestar Galactica 或變形金剛；午餐前熱門設施等候時間最短；USS App 可查即時等候時間。
+                                    </div>
+                                </li>
                                 <li><strong>路線 B：馬來西亞樂高樂園 (孩童最愛)</strong><br>建議預訂私人包車或接駁巴士 (車程1.5-2小時)。需攜帶護照跨國。 <span class="location-tag">🧱 LEGOLAND Malaysia</span></li>
                                 <li><strong>路線 C：小印度自助探險 (文化美食愛好者首選) ⭐ 推薦</strong><br>從金沙酒店出發，探索新加坡最具異國風情的社區。品嚐道地印度美食、欣賞五彩繽紛建築、體驗 Henna 彩繪、參訪印度廟宇。適合全家族，包括長輩和孩童。</li>
                             </ul>
@@ -1102,6 +1616,24 @@
                                 <p><strong>停留時間</strong>：30 分鐘 | <strong>拍照景點</strong>：⭐⭐⭐⭐</p>
                             </div>
 
+                            <div style="margin: 12px 0; padding: 12px; background: white; border-radius: 6px;">
+                                <h6 style="margin-top: 0; color: var(--day3-color);">7️⃣ 印度文化遺產中心 Indian Heritage Centre（可選，12:00-12:30）</h6>
+                                <p>了解新加坡印度移民社群的歷史與文化，館內展示從 19 世紀移民潮至今的珍貴文物與互動裝置。共 5 層、5 個主題展廳。</p>
+                                <p><strong>票價</strong>：SGD 10 / 人（年長者 SGD 5）| <strong>停留時間</strong>：30-45 分鐘 | <strong>特色</strong>：適合喜愛文化歷史的家族成員</p>
+                            </div>
+
+                            <div style="margin: 12px 0; padding: 12px; background: white; border-radius: 6px; border: 2px solid #f97316;">
+                                <h6 style="margin-top: 0; color: #c2410c;">🏬 Mustafa Centre 慕達發購物中心（自由活動時間，14:30-16:00）</h6>
+                                <p>小印度最著名的購物地標，<strong>24 小時全年無休</strong>，四層樓超大購物中心。藥妝、香料、黃金珠寶、服飾、電子產品應有盡有，是採購伴手禮的絕佳地點！</p>
+                                <ul style="margin: 8px 0; padding-left: 20px;">
+                                    <li>💊 <strong>藥妝保養</strong>：Medimix 印度草本香皂、老虎萬金油（比機場便宜 30%）</li>
+                                    <li>🌶️ <strong>香料食材</strong>：各式咖哩粉、印度香米、印度奶茶粉</li>
+                                    <li>💎 <strong>黃金珠寶</strong>：純金飾品，在此採購需有耐心議價</li>
+                                    <li>🍫 <strong>零食糖果</strong>：各國進口零食，Kinder 系列超便宜</li>
+                                </ul>
+                                <p><strong>地址</strong>：145 Syed Alwi Rd（距維拉瑪卡里亞曼興都廟步行約 8 分鐘）| <strong>貼心提醒</strong>：人潮多、走道窄，嬰兒車不易通行，建議嬰兒改由家人抱著進入</p>
+                            </div>
+
                             <h6 style="margin-top: 15px; color: var(--day3-color); font-weight: 700;">🚇 交通指南</h6>
                             <div style="margin: 12px 0; padding: 12px; background: white; border-radius: 6px;">
                                 <p><strong>從金沙酒店到小印度</strong>：</p>
@@ -1125,7 +1657,7 @@
                                 <tr>
                                     <td style="border: 1px solid var(--day3-color); padding: 8px;">地鐵車資（往返）</td>
                                     <td style="border: 1px solid var(--day3-color); padding: 8px;">4-6 新幣</td>
-                                    <td style="border: 1px solid var(--day3-color); padding: 8px;">使用 EZ-Link 卡</td>
+                                    <td style="border: 1px solid var(--day3-color); padding: 8px;">信用卡 / Apple Pay 感應即可</td>
                                 </tr>
                                 <tr>
                                     <td style="border: 1px solid var(--day3-color); padding: 8px;">竹腳中心早午餐</td>
@@ -1171,6 +1703,46 @@
                     </div>
                 </div>
 
+                <div id="day2-dinner" class="timeline-item">
+                    <div class="time">17:00 ~ 18:00</div>
+                    <div class="activity">
+                        <h4>🦀 全員出發！各自前往珍寶海鮮集合</h4>
+                        <p style="font-weight: 600; color: #c2410c;">不論今天走哪條路線，請在 <strong>18:00 前</strong> 抵達珍寶海鮮餐廳報到！這是今晚全家族的大團圓婚宴，不要讓新人久等 🎊</p>
+
+                        <a href="https://maps.app.goo.gl/fMbWQvKCk1gSbWJ26" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background: #4285f4; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9em; margin: 10px 0 14px; box-shadow: 0 2px 8px rgba(66,133,244,0.3);">
+                            📍 珍寶海鮮餐廳 Google Maps 定位（點此導航）
+                        </a>
+
+                        <div style="background: #fff7ed; border-radius: 10px; padding: 14px 16px; border-left: 4px solid #f97316;">
+                            <p style="font-weight: 700; color: #c2410c; margin: 0 0 10px; font-size: 0.95em;">🚗 各路線前往珍寶海鮮方式</p>
+
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+
+                                <div style="background: white; border-radius: 8px; padding: 10px 12px; border-left: 3px solid #f97316;">
+                                    <p style="margin: 0 0 6px; font-weight: 700; font-size: 0.9em; color: #c2410c;">🎢 路線 A（環球影城）⏰ 最晚 16:30 離開 USS</p>
+                                    <p style="margin: 0; font-size: 0.88em; color: #444; line-height: 1.7;"><strong>Grab（推薦）：</strong>在 RWS/USS 門口叫 Grab，輸入「<strong>Jumbo Seafood Riverside Point</strong>」，約 SGD 12-18，20 分鐘直達。<br><strong>MRT：</strong>聖淘沙快線至 VivoCity → HarbourFront → <span style="background: #7c3aed; color: white; padding: 1px 6px; border-radius: 8px; font-size: 0.82em;">紫線 NE</span> 2 站至 Clarke Quay (NE5) → 步行 5-8 分鐘至 Riverside Point。</p>
+                                </div>
+
+                                <div style="background: white; border-radius: 8px; padding: 10px 12px; border-left: 3px solid #6366f1;">
+                                    <p style="margin: 0 0 6px; font-weight: 700; font-size: 0.9em; color: #4338ca;">🧱 路線 B（樂高樂園）⏰ 最晚 13:30 離開 LEGOLAND！</p>
+                                    <p style="margin: 0; font-size: 0.88em; color: #444; line-height: 1.7;"><strong>包車（最省心）：</strong>請司機從 LEGOLAND 直送至珍寶海鮮 Riverside Point，免轉乘。<br><strong>Grab + MRT：</strong>過關後至 Woodlands → <span style="background: #dc2626; color: white; padding: 1px 6px; border-radius: 8px; font-size: 0.82em;">紅線 NS</span> 南行至 City Hall (NS25) → 轉 <span style="background: #7c3aed; color: white; padding: 1px 6px; border-radius: 8px; font-size: 0.82em;">紫線 NE</span> 至 Clarke Quay (NE5) → 步行至 Riverside Point。或從 Woodlands 叫 Grab 直達（約 SGD 18-25，30 分鐘）。</p>
+                                </div>
+
+                                <div style="background: white; border-radius: 8px; padding: 10px 12px; border-left: 3px solid #10b981;">
+                                    <p style="margin: 0 0 6px; font-weight: 700; font-size: 0.9em; color: #065f46;">🌶️ 路線 C（小印度）⏰ 最晚 17:30 離開小印度</p>
+                                    <p style="margin: 0; font-size: 0.88em; color: #444; line-height: 1.7;"><strong>MRT（最快）：</strong>小印度站 (NE7/DT12) → <span style="background: #7c3aed; color: white; padding: 1px 6px; border-radius: 8px; font-size: 0.82em;">紫線 NE</span> 2 站南行至 Clarke Quay (NE5) → 出站步行 5-8 分鐘至 Riverside Point，全程約 15 分鐘。<br><strong>Grab：</strong>小印度叫 Grab 至珍寶海鮮，約 SGD 8-12，10 分鐘直達。</p>
+                                </div>
+
+                                <div style="background: white; border-radius: 8px; padding: 10px 12px; border-left: 3px solid #0ea5e9;">
+                                    <p style="margin: 0 0 6px; font-weight: 700; font-size: 0.9em; color: #0369a1;">🏨 留在金沙酒店（未外出者）</p>
+                                    <p style="margin: 0; font-size: 0.88em; color: #444; line-height: 1.7;"><strong>步行：</strong>從金沙酒店沿河步行約 15-20 分鐘至 Riverside Point。<br><strong>Grab：</strong>輸入「<strong>Jumbo Seafood Riverside Point</strong>」，約 SGD 8-12，8-10 分鐘直達。</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="timeline-item">
                     <div class="time">18:00 ~ 20:00</div>
                     <div class="activity">
@@ -1193,8 +1765,11 @@
                             </ul>
                         </div>
 
-                        <p><em>貼心提醒：離飯店步行約10分鐘，考量嬰兒推車與長輩，建議搭乘計程車 (Grab)。</em></p>
-                        <span class="location-tag">🦀 珍寶海鮮餐廳</span>
+                        <a href="https://maps.app.goo.gl/fMbWQvKCk1gSbWJ26" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background: #4285f4; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9em; margin: 10px 0; box-shadow: 0 2px 8px rgba(66,133,244,0.3);">
+                            📍 珍寶海鮮餐廳 Google Maps 定位
+                        </a>
+                        <p><em>💡 各路線前往方式請見上方「17:00 全員出發」時間軸。考量嬰兒推車與長輩，從酒店出發者建議搭乘 Grab（約 SGD 8-12）。</em></p>
+                        <span class="location-tag">🦀 珍寶海鮮餐廳 Riverside Point</span>
                     </div>
                 </div>
 
@@ -1209,7 +1784,7 @@
         </div>
 
         <!-- Day 3 -->
-        <div class="day-card day3">
+        <div id="day3" class="day-card day3">
             <div class="day-header">
                 <span>Day 3：聖淘沙探險與夜間生態之旅</span>
                 <span class="day-header-date">4/4 (六)</span>
@@ -1241,14 +1816,26 @@
                         <h4>上午活動 (二選一)</h4>
                         <div class="options-box">
                             <ul>
-                                <li><strong>S.E.A. 海洋館：</strong> 全區室內冷氣，走道寬敞，適合推嬰兒車及各年齡層。 <span class="location-tag">🐟 新加坡水族館</span></li>
-                                <li><strong>新加坡環球影城：</strong> 若前一天未去，可選擇今日前往。 <span class="location-tag">🎢 新加坡環球影城</span></li>
+                                <li>
+                                    <strong>新加坡海洋館（Singapore Oceanarium）：</strong> 全區室內冷氣，走道寬敞，適合推嬰兒車及各年齡層。 <span class="location-tag">🐠 新加坡海洋館</span>
+                                    <div style="margin-top: 8px; padding: 10px; background: #e0f2fe; border-radius: 6px; border-left: 3px solid #0ea5e9;">
+                                        <strong style="color: #0369a1;">🆕 2025/7/24 全面升級更名為「新加坡海洋館 Singapore Oceanarium」</strong>（前身為 S.E.A. Aquarium），22 個全新主題區域，更大更精彩！
+                                        <ul style="margin: 8px 0; padding-left: 18px;">
+                                            <li>🌊 <strong>Open Ocean</strong> — 36 公尺超寬巨型觀景窗，魟魚、斑馬鯊、成群魚海優游其中，壯觀無比</li>
+                                            <li>🦈 <strong>Shark Seas</strong> — 穿越鯊魚隧道，近距離感受鯊魚從頭頂游過的震撼（有 AR 擴增實境體驗）</li>
+                                            <li>🪼 <strong>Ocean Wonders</strong> — 發光水母缸，夢幻唯美的拍照聖地</li>
+                                            <li>🦕 <strong>Ancient Waters</strong> — 史前海洋巨獸化石與動畫，孩童超喜歡</li>
+                                        </ul>
+                                        <strong>建議：</strong> 開館時（9-10 點）入場人少，約 2-3 小時可逛完。票價約 SGD 42（成人）/ SGD 32（兒童）。
+                                    </div>
+                                </li>
+                                <li><strong>新加坡環球影城：</strong> 若前一天未去，可選擇今日前往（詳見 Day 2 路線 A 攻略）。 <span class="location-tag">🎢 新加坡環球影城</span></li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="timeline-item">
+                <div id="putien" class="timeline-item">
                     <div class="time">12:00 ~ 13:30</div>
                     <div class="activity">
                         <h4>午餐：莆田餐廳 (Putien) - 全員會合</h4>
@@ -1262,8 +1849,25 @@
                         <h4>下午分組活動</h4>
                         <div class="options-box">
                             <ul>
-                                <li><strong>方案 A (13人)：天際斜坡滑車 (Skyline Luge)</strong><br>搭乘空中吊椅上山，駕駛無動力滑車順坡而下。6歲以上或滿110cm可獨自駕駛。 <span class="location-tag">🏎️ 天際斜坡滑車</span></li>
-                                <li><strong>方案 B (12人)：哈利波特：魔法幻境</strong><br>沉浸式互動藝術展，全室內有冷氣，適合躲避午後炎熱。</li>
+                                <li>
+                                    <strong>方案 A (13人)：天際斜坡滑車 Skyline Luge</strong><br>
+                                    搭乘空中吊椅（Skyride）上山，駕駛無動力滑車順坡而下，穿越熱帶雨林與海景賽道。 <span class="location-tag">🏎️ 天際斜坡滑車</span>
+                                    <ul style="margin: 8px 0; padding-left: 18px;">
+                                        <li><strong>身高限制：</strong> 滿 110cm 可獨自駕駛；85-110cm 兒童可與大人同乘雙座車（大人需付雙座票）；85cm 以下幼兒不可乘坐</li>
+                                        <li><strong>套票建議：</strong> 初次體驗建議選 <strong>3 趟套票</strong>（SGD 28 左右），可選不同路線；玩得盡興可現場加購</li>
+                                        <li><strong>夜間滑車：</strong> 傍晚 6 點後開放 Night Luge，沿途燈光迷幻，是截然不同的體驗，可考慮在此延長遊玩時間</li>
+                                        <li><strong>貼心提醒：</strong> 務必提前於官網或 Klook 預訂，現場排隊可能等候 30-60 分鐘；穿包覆式鞋類，避免拖鞋</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>方案 B (12人)：哈利波特：魔法幻境</strong><br>
+                                    沉浸式互動藝術展，全室內有冷氣，適合躲避午後炎熱。位於聖淘沙 Resorts World Sentosa B1 層。
+                                    <ul style="margin: 8px 0; padding-left: 18px;">
+                                        <li><strong>10 個沉浸式場景：</strong> 魔法部、霍格華茲學院、奇獸保育、禁忌森林等，新加坡限定「密室」和「陷阱門」場景全球獨有</li>
+                                        <li><strong>開放時間：</strong> 11:00-22:00（最後入場 20:00）</li>
+                                        <li><strong>票價：</strong> SGD 45 起（成人）/ SGD 32 起（兒童）；建議線上預訂指定時段入場</li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -1273,17 +1877,41 @@
                     <div class="time">17:30 ~ 19:00</div>
                     <div class="activity">
                         <h4>晚餐：夜間動物園自助餐</h4>
-                        <p>Ulu Ulu Safari Restaurant 提供豐盛自助餐，環境充滿鄉村風情。</p>
+                        <p>🆕 <strong>最新資訊（2025年起）：</strong> 自助餐已從 Ulu Ulu Safari Restaurant 遷移至 <strong>Mandai Wildlife East – The Courtyard</strong>，提供亞洲料理及新加坡在地美食（海南雞飯、叻沙、辣椒螃蟹等），環境更寬敞舒適。</p>
+                        <p>Ulu Ulu Safari Restaurant 仍提供單點菜單（à la carte），可依喜好選擇。</p>
+                        <p><em>💡 用餐小技巧：自助餐排隊較快，建議 17:45 前抵達入座，避免 18:00 以後的人潮高峰。</em></p>
                     </div>
                 </div>
 
-                <div class="timeline-item">
+                <div id="night-safari" class="timeline-item">
                     <div class="time">19:00 ~ 22:00</div>
                     <div class="activity">
                         <h4>夜間動物園 (Night Safari) 導覽</h4>
-                        <p>搭乘遊園車 (約40分鐘)。精靈動物表演 (19:30或20:30)。</p>
-                        <p><em>⚠️ 防蚊提醒：園區位於熱帶雨林，請務必噴灑防蚊液，穿著薄長褲。拍照嚴禁使用閃光燈。</em></p>
                         <span class="location-tag">🦉 夜間野生動物園</span>
+
+                        <div class="options-box" style="margin-top: 12px;">
+                            <h5>🌙 夜間動物園完整攻略</h5>
+                            <p><strong>精靈動物表演 Creatures of the Night Show：</strong></p>
+                            <ul>
+                                <li>場次時間：<strong>19:30 / 20:30 / 21:30</strong>（每場約 20 分鐘）</li>
+                                <li>強烈建議觀看 <strong>19:30 場次</strong>，入園後直接前往劇場排隊，提前 10 分鐘入座</li>
+                                <li>表演內容：貓頭鷹、豪豬、水獺等夜行動物近距離互動表演</li>
+                            </ul>
+                            <p><strong>軌道遊園車（約 40 分鐘）：</strong></p>
+                            <ul>
+                                <li>🦘 <strong>塔斯馬尼亞袋獾步道</strong>：澳洲特有物種，珍貴難得一見</li>
+                                <li>🦔 <strong>穿山甲步道</strong>：東南亞原生夜行動物</li>
+                                <li>🐆 <strong>豹步道</strong>：非洲大型貓科動物</li>
+                                <li>自由行步道可下車近距離觀察各種夜行動物，推薦「東方小徑」</li>
+                            </ul>
+                            <p><strong>⚠️ 重要提醒：</strong></p>
+                            <ul>
+                                <li>🦟 園區位於熱帶雨林，<strong>務必出發前噴好防蚊液</strong>，穿著薄長褲（蚊子很多！）</li>
+                                <li>📸 <strong>嚴禁使用閃光燈</strong>，傷害動物夜視力，也可能被驅離，請使用相機夜拍模式</li>
+                                <li>👟 穿著舒適運動鞋，步道地面不平整，部分區域光線昏暗</li>
+                                <li>🌡️ 夜晚仍悶熱潮濕，請補充水分</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -1298,7 +1926,7 @@
         </div>
 
         <!-- Day 4 -->
-        <div class="day-card day4">
+        <div id="day4" class="day-card day4">
             <div class="day-header">
                 <span>Day 4：滿載而歸，星耀樟宜</span>
                 <span class="day-header-date">4/5 (日)</span>
@@ -1337,12 +1965,40 @@
                     <div class="activity">
                         <h4>機場自由活動 / 準備登機</h4>
                         <div class="options-box">
-                            <h5>📍 星耀樟宜 (Jewel Changi) 攻略</h5>
+                            <h5>📍 星耀樟宜 Jewel Changi 完整攻略</h5>
+
+                            <p><strong>🌊 雨漩渦 Rain Vortex（免費）：</strong></p>
                             <ul>
-                                <li><strong>雨漩渦 (Rain Vortex)：</strong> 世界最高室內瀑布 (40公尺)，必拍打卡聖地。</li>
-                                <li><strong>星空花園 (Canopy Park)：</strong> 適合小孩放電，包含樹籬迷宮、鏡子迷宮、步行網與彈跳網 (需額外購票)。</li>
-                                <li><strong>最後採買推薦：</strong> 斑蘭蛋糕 (Bengawan Solo)、Bacha Coffee / TWG Tea、IRVINS 鹹蛋黃洋芋片。</li>
+                                <li>世界最高室內瀑布，高達 <strong>40 公尺</strong>，從頂層玻璃天窗傾瀉而下，震撼壯觀</li>
+                                <li>日間自然採光美麗，傍晚後光線更戲劇性</li>
+                                <li>最佳觀賞位置：B2 層正下方仰視，或 L2-L4 各樓層俯瞰</li>
                             </ul>
+
+                            <p><strong>🎵 HSBC 雨漩渦燈光音樂秀（免費）：</strong></p>
+                            <ul>
+                                <li>週一至週四：<strong>20:00 & 21:00</strong></li>
+                                <li>週五至週日及公眾假期：<strong>20:00、21:00 & 22:00</strong></li>
+                                <li>（4/5 週日出發，可安排看 20:00 場次後才去登機！）</li>
+                            </ul>
+
+                            <p><strong>🌿 星空花園 Canopy Park（需購票）：</strong></p>
+                            <ul>
+                                <li>樹籬迷宮 Hedge Maze、鏡子迷宮 Mirror Maze — SGD 5/人</li>
+                                <li>步行網 Walking Net — SGD 12/人（懸空行走，刺激感十足）</li>
+                                <li>彈跳網 Bouncing Net — SGD 14/人（適合孩童，超好玩）</li>
+                                <li>若時間有限，可只逛免費的花園景觀區</li>
+                            </ul>
+
+                            <p><strong>🛍️ 出發前最後採購清單：</strong></p>
+                            <ul>
+                                <li>🎂 <strong>Bengawan Solo</strong>（B2 層）— 斑蘭蛋糕、椰糖千層糕，新加坡最代表性伴手禮</li>
+                                <li>☕ <strong>Bacha Coffee / TWG Tea</strong>（L1 層）— 精美禮盒裝，送禮首選</li>
+                                <li>🥔 <strong>IRVINS 鹹蛋黃洋芋片</strong>（B2 層）— 機場限定口味，務必多買幾包</li>
+                                <li>🍔 <strong>Shake Shack</strong>（L1 層）— 樟宜機場限定口味漢堡，候機前最後一餐好選擇</li>
+                                <li>💊 <strong>Watson's / Guardian 藥妝</strong> — 最後補購保養品或藥品</li>
+                            </ul>
+
+                            <p><em>💡 小提醒：登機前請預留充足時間通過安檢（建議起飛前 2 小時抵達閘口）。新加坡機場安檢效率高，但假日旅客多，請勿拖延。</em></p>
                         </div>
                         <span class="location-tag">✈️ 新加坡樟宜國際機場</span>
                     </div>
@@ -1431,6 +2087,100 @@
             });
         });
 
+        // ===== TOC 書籤面板 =====
+        function toggleTOC() {
+            document.getElementById('tocPanel').classList.toggle('open');
+        }
+        function closeTOC() {
+            document.getElementById('tocPanel').classList.remove('open');
+        }
+        document.addEventListener('click', function(e) {
+            const panel = document.getElementById('tocPanel');
+            const btn   = document.getElementById('tocBtn');
+            if (panel && btn && !panel.contains(e.target) && !btn.contains(e.target)) {
+                closeTOC();
+            }
+        });
+
+        // ===== MRT 站點名稱自動標色 =====
+        function initMRTBadges() {
+            const rules = [
+                // 複合中英文形式（優先匹配，避免重複標記同一站）
+                { re: /海灣舫[站]?\s*Bayfront(?:\s*MRT)?/,   cls: 'mrt-multi', lbl: 'DT·CC', display: '海灣舫 Bayfront' },
+                { re: /濱海灣[站]?\s*Marina Bay/,             cls: 'mrt-multi', lbl: 'CC·NS', display: '濱海灣 Marina Bay' },
+                { re: /港灣[站]?\s*HarbourFront/,              cls: 'mrt-multi', lbl: 'NE·CC', display: '港灣 HarbourFront' },
+                { re: /小印度[站]?\s*Little India/,            cls: 'mrt-multi', lbl: 'DT·NE', display: '小印度 Little India' },
+                // 英文站名
+                { re: /\bBayfront\b/,                          cls: 'mrt-multi', lbl: 'DT·CC' },
+                { re: /Marina Bay(?!\s*Sands)/,                cls: 'mrt-multi', lbl: 'CC·NS' },
+                { re: /\bHarbourFront\b/,                      cls: 'mrt-multi', lbl: 'NE·CC' },
+                { re: /\bLittle India\b/,                      cls: 'mrt-multi', lbl: 'DT·NE' },
+                { re: /\bClarke Quay\b/,                       cls: 'mrt-ne',    lbl: 'NE'    },
+                { re: /\bWoodlands\b(?!\s*Checkpoint)/,        cls: 'mrt-ns',    lbl: 'NS'    },
+                { re: /\bCity Hall\b/,                         cls: 'mrt-multi', lbl: 'NS·EW' },
+                // 中文站名（僅在未被複合規則匹配時才觸發）
+                { re: /海灣舫/,                                cls: 'mrt-multi', lbl: 'DT·CC' },
+                { re: /小印度/,                                cls: 'mrt-multi', lbl: 'DT·NE' },
+            ];
+
+            // 建立帶命名群組的合併正則（每條規則對應一個群組）
+            const combined = new RegExp(
+                rules.map(function(r, i) { return '(?<g' + i + '>' + r.re.source + ')'; }).join('|'),
+                'g'
+            );
+
+            function walk(root) {
+                const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+                const nodes = [];
+                let n;
+                while ((n = walker.nextNode())) nodes.push(n);
+
+                nodes.forEach(function(node) {
+                    const parent = node.parentElement;
+                    if (!parent) return;
+                    if (parent.closest('[data-mrt]')) return;
+                    if (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE') return;
+
+                    const text = node.nodeValue;
+                    combined.lastIndex = 0;
+                    if (!combined.test(text)) return;
+
+                    combined.lastIndex = 0;
+                    const frag = document.createDocumentFragment();
+                    let last = 0, m;
+
+                    while ((m = combined.exec(text)) !== null) {
+                        let rule = null;
+                        for (let i = 0; i < rules.length; i++) {
+                            if (m.groups['g' + i] !== undefined) { rule = rules[i]; break; }
+                        }
+                        if (!rule) continue;
+
+                        if (m.index > last) {
+                            frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+                        }
+
+                        const span = document.createElement('span');
+                        span.className = 'mrt-badge ' + rule.cls;
+                        span.setAttribute('data-mrt', '1');
+                        span.textContent = (rule.display || m[0]) + ' ' + rule.lbl;
+                        frag.appendChild(span);
+
+                        last = m.index + m[0].length;
+                    }
+
+                    if (last < text.length) {
+                        frag.appendChild(document.createTextNode(text.slice(last)));
+                    }
+
+                    node.parentNode.replaceChild(frag, node);
+                });
+            }
+
+            const main = document.querySelector('main');
+            if (main) walk(main);
+        }
+
         // 頁面加載完成後的初始化
         document.addEventListener('DOMContentLoaded', () => {
             // 添加動畫延遲
@@ -1438,6 +2188,8 @@
             dayCards.forEach((card, index) => {
                 card.style.animationDelay = `${index * 0.1}s`;
             });
+            // MRT 站點標色
+            initMRTBadges();
         });
     </script>
 
