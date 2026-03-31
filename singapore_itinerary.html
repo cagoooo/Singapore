@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新加坡四天三夜家族旅遊計畫</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+        }
+        
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .day-section {
+            padding: 30px 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .day-section:last-child {
+            border-bottom: none;
+        }
+        
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid;
+        }
+        
+        .day-header.day1 {
+            border-bottom-color: #FF4444;
+        }
+        
+        .day-header.day2 {
+            border-bottom-color: #4444FF;
+        }
+        
+        .day-header.day3 {
+            border-bottom-color: #44AA44;
+        }
+        
+        .day-header.day4 {
+            border-bottom-color: #FFAA00;
+        }
+        
+        .day-badge {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .day-badge.day1 {
+            background: #FF4444;
+        }
+        
+        .day-badge.day2 {
+            background: #4444FF;
+        }
+        
+        .day-badge.day3 {
+            background: #44AA44;
+        }
+        
+        .day-badge.day4 {
+            background: #FFAA00;
+        }
+        
+        .day-title {
+            flex: 1;
+        }
+        
+        .day-title h2 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        
+        .day-title p {
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        .landmarks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .landmark-card {
+            background: #f8f9fa;
+            border-left: 5px solid;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .landmark-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .landmark-card.day1 {
+            border-left-color: #FF4444;
+        }
+        
+        .landmark-card.day2 {
+            border-left-color: #4444FF;
+        }
+        
+        .landmark-card.day3 {
+            border-left-color: #44AA44;
+        }
+        
+        .landmark-card.day4 {
+            border-left-color: #FFAA00;
+        }
+        
+        .landmark-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .landmark-time {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .landmark-description {
+            color: #555;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+        
+        .landmark-description strong {
+            color: #333;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 2px solid #e9ecef;
+        }
+        
+        .map-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .map-link:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .map-link {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌏 新加坡四天三夜家族旅遊計畫</h1>
+            <p>2026年4月2日 - 4月5日 | 完整行程指南</p>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #FF4444;"></div>
+                <span>Day 1 (4/2)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #4444FF;"></div>
+                <span>Day 2 (4/3)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #44AA44;"></div>
+                <span>Day 3 (4/4)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #FFAA00;"></div>
+                <span>Day 4 (4/5)</span>
+            </div>
+        </div>
+        
+        <!-- DAY 1 -->
+        <div class="day-section">
+            <div class="day-header day1">
+                <div class="day-badge day1">1</div>
+                <div class="day-title">
+                    <h2>Day 1 - 星期四 (4月2日)</h2>
+                    <p>抵達星國，探索濱海灣</p>
+                </div>
+            </div>
+            
+            <div class="landmarks-grid">
+                <div class="landmark-card day1">
+                    <div class="landmark-name">✈️ 新加坡樟宜國際機場</div>
+                    <div class="landmark-time">12:30 抵達</div>
+                    <div class="landmark-description">
+                        <strong>行程：</strong>19人搭乘45人座車接機<br>
+                        <strong>內容：</strong>辦理出關手續、領取行李<br>
+                        <strong>備註：</strong>樟宜機場設施完善，可先在機場內用餐
+                    </div>
+                </div>
+                
+                <div class="landmark-card day1">
+                    <div class="landmark-name">🏨 濱海灣金沙酒店</div>
+                    <div class="landmark-time">14:00-15:00 Check-in</div>
+                    <div class="landmark-description">
+                        <strong>住宿地點：</strong>Marina Bay Sands<br>
+                        <strong>特色：</strong>57樓無邊際泳池、空中花園觀景台<br>
+                        <strong>設施：</strong>室內舢舨遊船、高級餐飲<br>
+                        <strong>提示：</strong>房間內可俯瞰濱海灣全景
+                    </div>
+                </div>
+                
+                <div class="landmark-card day1">
+                    <div class="landmark-name">🦁 魚尾獅公園</div>
+                    <div class="landmark-time">15:00 起自由活動</div>
+                    <div class="landmark-description">
+                        <strong>特色：</strong>新加坡最具代表性地標<br>
+                        <strong>開放時間：</strong>24小時<br>
+                        <strong>最佳時機：</strong>傍晚氣候涼爽，最佳拍照時間<br>
+                        <strong>交通：</strong>步行或計程車5分鐘可抵達金沙酒店
+                    </div>
+                </div>
+                
+                <div class="landmark-card day1">
+                    <div class="landmark-name">🌳 濱海灣花園</div>
+                    <div class="landmark-time">15:00 起自由活動</div>
+                    <div class="landmark-description">
+                        <strong>必看：</strong>天空樹(Supertree Grove)<br>
+                        <strong>燈光秀時間：</strong>晚上19:45、20:45(免費)<br>
+                        <strong>室內景點：</strong>雲霧林、花穹(需購票)<br>
+                        <strong>提示：</strong>室內冷氣強，為孩童準備外套
+                    </div>
+                </div>
+                
+                <div class="landmark-card day1">
+                    <div class="landmark-name">💧 金沙水舞秀</div>
+                    <div class="landmark-time">20:00、21:00 (週五週六加開22:00)</div>
+                    <div class="landmark-description">
+                        <strong>秀名：</strong>幻彩生輝SPECTRA光影水舞秀<br>
+                        <strong>地點：</strong>金沙酒店戶外活動廣場<br>
+                        <strong>特色：</strong>結合雷射、噴泉與投影的免費大型戶外水舞秀<br>
+                        <strong>適合：</strong>全家觀賞，每場約15分鐘
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- DAY 2 -->
+        <div class="day-section">
+            <div class="day-header day2">
+                <div class="day-badge day2">2</div>
+                <div class="day-title">
+                    <h2>Day 2 - 星期五 (4月3日)</h2>
+                    <p>樂園狂歡或市區漫遊</p>
+                </div>
+            </div>
+            
+            <div class="landmarks-grid">
+                <div class="landmark-card day2">
+                    <div class="landmark-name">🎢 新加坡環球影城</div>
+                    <div class="landmark-time">08:00-18:00 自由活動(可選)</div>
+                    <div class="landmark-description">
+                        <strong>位置：</strong>聖淘沙島<br>
+                        <strong>特色：</strong>東南亞唯一環球影城<br>
+                        <strong>設施：</strong>刺激雲霄飛車到孩童卡通主題區應有盡有<br>
+                        <strong>建議：</strong>早到避免排隊，穿舒適鞋子
+                    </div>
+                </div>
+                
+                <div class="landmark-card day2">
+                    <div class="landmark-name">🧱 馬來西亞樂高樂園</div>
+                    <div class="landmark-time">08:00-18:00 自由活動(可選)</div>
+                    <div class="landmark-description">
+                        <strong>位置：</strong>馬來西亞柔佛州<br>
+                        <strong>車程：</strong>約1.5-2小時<br>
+                        <strong>交通：</strong>建議預訂私人包車或直達接駁巴士<br>
+                        <strong>重要：</strong>需攜帶護照跨國，確認簽證與馬來西亞入境卡
+                    </div>
+                </div>
+                
+                <div class="landmark-card day2">
+                    <div class="landmark-name">🦞 珍寶海鮮餐廳</div>
+                    <div class="landmark-time">18:00-20:00 晚餐</div>
+                    <div class="landmark-description">
+                        <strong>地址：</strong>20 Upper Circular Rd, #B1-48 The Riverwalk<br>
+                        <strong>特色：</strong>新加坡國寶級海鮮餐廳<br>
+                        <strong>活動：</strong>祝賀Alex新婚宴<br>
+                        <strong>必點：</strong>辣椒螃蟹、黑胡椒螃蟹、麥片蝦、咕咾肉
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- DAY 3 -->
+        <div class="day-section">
+            <div class="day-header day3">
+                <div class="day-badge day3">3</div>
+                <div class="day-title">
+                    <h2>Day 3 - 星期六 (4月4日)</h2>
+                    <p>聖淘沙探險與夜間生態之旅</p>
+                </div>
+            </div>
+            
+            <div class="landmarks-grid">
+                <div class="landmark-card day3">
+                    <div class="landmark-name">🏝️ 聖淘沙</div>
+                    <div class="landmark-time">08:40-09:40 搭車前往</div>
+                    <div class="landmark-description">
+                        <strong>集合時間：</strong>08:30 飯店大廳<br>
+                        <strong>交通：</strong>45人座車+導遊1人<br>
+                        <strong>行程：</strong>團體行動前往聖淘沙島<br>
+                        <strong>備註：</strong>確保準時集合，帶上防曬用品
+                    </div>
+                </div>
+                
+                <div class="landmark-card day3">
+                    <div class="landmark-name">🐠 新加坡水族館</div>
+                    <div class="landmark-time">09:40-12:00 上午活動(選項)</div>
+                    <div class="landmark-description">
+                        <strong>名稱：</strong>S.E.A. 海洋館<br>
+                        <strong>特色：</strong>全球最大水族館之一<br>
+                        <strong>環境：</strong>全區室內冷氣，走道寬敞<br>
+                        <strong>適合：</strong>推嬰兒車及各年齡層同樂
+                    </div>
+                </div>
+                
+                <div class="landmark-card day3">
+                    <div class="landmark-name">🍜 莆田餐廳</div>
+                    <div class="landmark-time">12:00-13:30 午餐</div>
+                    <div class="landmark-description">
+                        <strong>評級：</strong>米其林一星餐廳<br>
+                        <strong>菜系：</strong>主打福建菜<br>
+                        <strong>特色：</strong>口味清淡鮮美，適合長輩與孩童<br>
+                        <strong>推薦菜色：</strong>百秒黃花魚、興化炒米粉、酥炸芋心
+                    </div>
+                </div>
+                
+                <div class="landmark-card day3">
+                    <div class="landmark-name">🛷 天際斜坡滑車</div>
+                    <div class="landmark-time">13:30-17:30 下午分組活動(13人)</div>
+                    <div class="landmark-description">
+                        <strong>方案A：</strong>先搭乘空中吊椅上山，再駕駛無動力滑車順坡而下<br>
+                        <strong>參與條件：</strong>6歲以上或身高110cm可獨自駕駛<br>
+                        <strong>刺激度：</strong>輕度刺激，適合親子共遊<br>
+                        <strong>時間：</strong>約2-3小時
+                    </div>
+                </div>
+                
+                <div class="landmark-card day3">
+                    <div class="landmark-name">🌙 夜間動物園</div>
+                    <div class="landmark-time">17:30-22:00 晚餐+導覽</div>
+                    <div class="landmark-description">
+                        <strong>晚餐：</strong>17:30-19:00 Ulu Ulu Safari Restaurant自助餐<br>
+                        <strong>導覽：</strong>19:00-22:00 遊園車導覽(約40分鐘)<br>
+                        <strong>表演：</strong>19:30或20:30精靈動物表演<br>
+                        <strong>提示：</strong>務必噴防蚊液、穿薄長褲、禁用閃光燈
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- DAY 4 -->
+        <div class="day-section">
+            <div class="day-header day4">
+                <div class="day-badge day4">4</div>
+                <div class="day-title">
+                    <h2>Day 4 - 星期日 (4月5日)</h2>
+                    <p>滿載而歸，星耀樟宜</p>
+                </div>
+            </div>
+            
+            <div class="landmarks-grid">
+                <div class="landmark-card day4">
+                    <div class="landmark-name">✈️ 樟宜機場</div>
+                    <div class="landmark-time">11:30-12:30 集合+辦理登機</div>
+                    <div class="landmark-description">
+                        <strong>集合時間：</strong>11:30 飯店大廳<br>
+                        <strong>交通：</strong>11:30-12:00 前往機場<br>
+                        <strong>手續：</strong>12:00-12:30 辦理登機手續、托運行李<br>
+                        <strong>備註：</strong>提早到達避免趕時間
+                    </div>
+                </div>
+                
+                <div class="landmark-card day4">
+                    <div class="landmark-name">🌟 星耀樟宜</div>
+                    <div class="landmark-time">12:30 起機場自由活動</div>
+                    <div class="landmark-description">
+                        <strong>雨漩渦：</strong>世界最高室內瀑布，高40公尺(免費)<br>
+                        <strong>星空花園：</strong>樹籬迷宮、鏡子迷宮、步行網、彈跳網(需購票)<br>
+                        <strong>推薦伴手禮：</strong>斑蘭蛋糕、Bacha Coffee、IRVINS鹹蛋黃洋芋片<br>
+                        <strong>購物：</strong>免稅店、精品店應有盡有
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <h3>📍 Google My Maps 分享連結</h3>
+            <p>所有景點已添加到 Google My Maps 中，你可以透過以下連結查看完整地圖：</p>
+            <a href="https://www.google.com/maps/d/edit?mid=19MNIhRfEu5DrsYhGoyzGZezXAP5u6fE&usp=sharing" class="map-link" target="_blank">
+                查看 Google My Maps 旅遊計畫
+            </a>
+            <p style="margin-top: 20px; font-size: 0.9em;">
+                ✅ 16個景點已完整添加 | 🎨 按日期分類 | 📱 可在手機上查看交通路線
+            </p>
+        </div>
+    </div>
+</body>
+</html>
