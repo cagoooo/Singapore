@@ -1345,6 +1345,12 @@
             </div>
 
             <div class="notes-grid">
+                <div class="note-card" style="border-left-color: #ef4444; background: #fff5f5;">
+                    <h4>✈️ 機票與航班重要規定</h4>
+                    <p><strong>航班未搭乘 (No-show) 警告：</strong> 若當天無法前往機場搭機，**務必親自打電話給長榮取消更改**，否則機票將作廢無效。台北：(02)2501-1999 / 新加坡：+65-6226-1533。</p>
+                    <p><strong>改票退票限制：</strong> 本機票不可退票。開票後若要更改日期或航班，需收每人台幣 7000 元以上改票費與旅行社手續費。</p>
+                    <p><strong>名字與證件確認：</strong> 請確保役男護照條碼效期、新加坡簽證，以及護照英文拼音與機票完全相符。</p>
+                </div>
                 <div class="note-card">
                     <h4>📄 必備文件與入境</h4>
                     <p><strong>護照效期：</strong> 需在預定回國日期的 6 個月以上。</p>
@@ -1446,11 +1452,30 @@
                     <strong>參與人數：</strong> 19人 | <strong>交通：</strong> 45人座車接機
                 </div>
 
-                <div id="day1-airport" class="timeline-item">
-                    <div class="time">12:30</div>
+                <div id="day1-tpe" class="timeline-item">
+                    <div class="time">05:40</div>
                     <div class="activity">
-                        <h4>抵達樟宜機場</h4>
-                        <p>19人抵達，45人座車接機</p>
+                        <h4>桃園國際機場集合 (TPE)</h4>
+                        <p>請前往第二航站 長榮航空櫃台辦理報到。人數眾多，請務必提早抵達！</p>
+                        <span class="location-tag">✈️ 桃園國際機場T2</span>
+                    </div>
+                </div>
+
+                <div id="day1-flight" class="timeline-item">
+                    <div class="time">07:40 ~ 12:00</div>
+                    <div class="activity">
+                        <h4>搭乘長榮航空 BR225 前往新加坡</h4>
+                        <p>波音 777-300ER / 經濟艙。飛行時間約 4 小時 20 分，機上供餐（已預訂 3 份孩童餐）。</p>
+                        <p>預選座位：54、55 排 (G/H/J/K側)</p>
+                        <span class="location-tag">✈️ 長榮班機 BR225</span>
+                    </div>
+                </div>
+
+                <div id="day1-airport" class="timeline-item">
+                    <div class="time">12:00</div>
+                    <div class="activity">
+                        <h4>抵達樟宜機場 (SIN)</h4>
+                        <p>降落第三航站 (T3)，預計 19 人會合後，45 人座專車接機</p>
                         <span class="location-tag">✈️ 新加坡樟宜國際機場</span>
                     </div>
                 </div>
@@ -2151,9 +2176,19 @@
                                 <li>💊 <strong>Watson's / Guardian 藥妝</strong> — 最後補購保養品或藥品</li>
                             </ul>
 
-                            <p><em>💡 小提醒：登機前請預留充足時間通過安檢（建議起飛前 2 小時抵達閘口）。新加坡機場安檢效率高，但假日旅客多，請勿拖延。</em></p>
+                            <p><em>💡 小提醒：新加坡機場的安檢隸屬於「登機門前安檢」，登機前請隨時留意時間，建議最晚於起飛前 1 小時抵達準備過安檢。假日旅客多，請勿拖延。</em></p>
                         </div>
                         <span class="location-tag">✈️ 新加坡樟宜國際機場</span>
+                    </div>
+                </div>
+
+                <div id="day4-flight" class="timeline-item">
+                    <div class="time">15:10 ~ 19:50</div>
+                    <div class="activity">
+                        <h4>搭乘長榮航空 BR216 返回台灣</h4>
+                        <p>第三航站 (T3) 出發，波音 777-300ER / 經濟艙。飛行時間約 4 小時 40 分，機上供餐。</p>
+                        <p>預選座位：54、55 排 (A/B/C/D側)</p>
+                        <span class="location-tag">✈️ 抵達桃園國際機場T2</span>
                     </div>
                 </div>
             </div>
@@ -2336,8 +2371,8 @@
 
         // ========= 倒數計時器 =========
         function initCountdown() {
-            // 出發時間：2026年4月2日 凌晨 00:00 (台灣/新加坡同為 UTC+8)
-            const targetDate = new Date("2026-04-02T00:00:00+08:00").getTime();
+            // 出發時間：2026年4月2日 早上 07:40 (台灣/新加坡同為 UTC+8)
+            const targetDate = new Date("2026-04-02T07:40:00+08:00").getTime();
             const elements = document.querySelectorAll('.cd-num');
             if (elements.length !== 4) return;
             
