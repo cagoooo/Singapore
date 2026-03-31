@@ -789,29 +789,61 @@
             right: 20px;
             z-index: 98;
             display: none;
+            align-items: center;
+            gap: 4px;
+            background: white;
+            border: 2px solid var(--day2-color);
+            border-radius: 10px;
+            padding: 4px 6px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
         }
 
         .search-box.active {
-            display: block;
+            display: flex;
         }
 
         .search-input {
-            padding: 10px 15px;
-            border: 2px solid var(--day2-color);
-            border-radius: 8px;
-            width: 250px;
+            padding: 6px 10px;
+            border: none;
+            border-radius: 6px;
+            width: 200px;
             font-size: 0.95em;
-            transition: var(--transition);
-            color: #1a1a1a;                /* 改為深灰色/黑色 */
+            color: #1a1a1a;
+            outline: none;
+            background: transparent;
         }
 
         .search-input::placeholder {
-            color: #999999;                /* 淺灰色佔位符 */
+            color: #999999;
         }
 
-        .search-input:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+        .search-nav-btn {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            width: 30px;
+            height: 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #374151;
+            transition: background 0.15s;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .search-nav-btn:hover { background: #e2e8f0; }
+        .search-nav-btn:disabled { opacity: 0.35; cursor: default; }
+
+        .search-counter {
+            font-size: 0.78em;
+            color: #6b7280;
+            white-space: nowrap;
+            min-width: 54px;
+            text-align: center;
+            font-weight: 600;
         }
 
         /* 動畫 */
@@ -1143,7 +1175,10 @@
 
     <!-- 搜尋框 -->
     <div class="search-box" id="searchBox">
-        <input type="text" class="search-input" id="searchInput" placeholder="搜尋內容..." onkeyup="searchContent()">
+        <input type="text" class="search-input" id="searchInput" placeholder="搜尋內容..." oninput="searchContent()" onkeydown="handleSearchKey(event)">
+        <button class="search-nav-btn" id="searchPrev" onclick="navigateMatch(-1)" title="上一個 (Shift+Enter)">&#8679;</button>
+        <button class="search-nav-btn" id="searchNext" onclick="navigateMatch(1)" title="下一個 (Enter)">&#8681;</button>
+        <span class="search-counter" id="searchCounter"></span>
     </div>
 
     <!-- 返回頂部按鈕 -->
@@ -1431,8 +1466,31 @@
                 <div class="note-card">
                     <h4>📄 必備文件與入境</h4>
                     <p><strong>護照效期：</strong> 需在預定回國日期的 6 個月以上。</p>
-                    <p><strong>SG Arrival Card：</strong> 抵達前 3 天內至官方網站免費填寫完畢，未填寫將無法入境。</p>
-                    <p><strong>跨國簽證：</strong> 若前往馬來西亞樂高樂園，需填寫馬來西亞電子入境卡 MDAC。</p>
+                    <p><strong>SG Arrival Card (SGAC)：</strong> 入境前 <strong>3 天內</strong>免費填寫，未填寫將無法入境。<br>
+                    🔗 <strong>官方申請網站：</strong><a href="https://www.ica.gov.sg/" target="_blank" rel="noopener" style="color: #1d4ed8; font-weight: 600;">https://www.ica.gov.sg/</a><br>
+                    📖 <strong>中文填寫教學：</strong><a href="https://luka-life.com/sgac/" target="_blank" rel="noopener" style="color: #1d4ed8; font-weight: 600;">2026 SGAC 詳細圖文攻略</a>（建議出發前一週完成）</p>
+                    <p><strong>跨國簽證：</strong> 若前往馬來西亞樂高樂園，需另填馬來西亞電子入境卡 MDAC。</p>
+                </div>
+                <div class="note-card" style="border-left-color: #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 40%, #ffffff 100%);">
+                    <h4>🌟 溫馨提示 — 行前小叮嚀</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px;">
+                        <p style="margin: 4px 0;">🔌 <strong>電壓 230V、英式三腳插頭</strong>（燦坤、全國電子有賣轉接頭）</p>
+                        <p style="margin: 4px 0;">🧴 <strong>防曬乳 + 防蚊液</strong>（夜間動物園尤其必備）</p>
+                        <p style="margin: 4px 0;">🕶️ <strong>太陽眼鏡 + 帽子</strong>（帽子建議有帽帶，風大容易吹走）</p>
+                        <p style="margin: 4px 0;">🌧️ <strong>雨衣或折疊傘</strong>（午後常有雷陣雨）</p>
+                        <p style="margin: 4px 0;">👟 <strong>涼鞋 + 止滑好走布鞋</strong>（走路量很大）</p>
+                        <p style="margin: 4px 0;">📶 <strong>網卡或國際漫遊</strong>（建議出發前購買，入境即用）</p>
+                        <p style="margin: 4px 0;">🌬️ <strong>扇子或小風扇</strong>（怕熱者強烈建議攜帶）</p>
+                        <p style="margin: 4px 0;">🩱 <strong>泳衣 + 泳帽</strong>（57F 無邊際泳池、聖淘沙水上活動必備）</p>
+                        <p style="margin: 4px 0;">🧻 <strong>溼紙巾 + 手帕</strong>（部分餐廳紙巾另外收費）</p>
+                        <p style="margin: 4px 0;">💵 <strong>床頭小費</strong>：每天可留 SGD 1～2 給房務人員（非強制）</p>
+                        <p style="margin: 4px 0;">🔋 <strong>充電線 + 行動電源 + 平板手機</strong></p>
+                        <p style="margin: 4px 0;">💧 <strong>自備水壺</strong>（新加坡自來水可直飲，隨處可補水）</p>
+                        <p style="margin: 4px 0;">😷 <strong>口罩</strong>（室內冷氣強，或有感冒症狀時使用）</p>
+                        <p style="margin: 4px 0;">🧼 <strong>酒精乾洗手</strong>（外出隨身攜帶）</p>
+                        <p style="margin: 4px 0;">💊 <strong>腸胃藥 + 感冒藥必備</strong>；安眠藥請備妥醫師處方箋</p>
+                        <p style="margin: 4px 0;">💱 <strong>新加坡幣</strong>（臺灣銀行、兆豐銀行均可換）</p>
+                    </div>
                 </div>
                 <div class="note-card">
                     <h4>☀️ 氣候與穿著</h4>
@@ -1514,6 +1572,23 @@
                     <p><strong>茶葉咖啡：</strong> TWG Tea（金罐）、Bacha Coffee（必逛！）。</p>
                     <p><strong>健康保養：</strong> Eu Yan Sang 燕窩、虎標萬金油、Medimix 印度草本香皂（小印度購買最划算）。</p>
                     <p><strong>購買地點：</strong> 機場免稅店（出發前最後採購）、Jewel Changi 購物區、小印度 Mustafa Centre（24 小時，藥妝最便宜）。</p>
+                </div>
+                <div class="note-card" style="grid-column: 1 / -1; border-left-color: #d97706; background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 50%, #fffbeb 100%); border-left-width: 5px;">
+                    <h4>🏊 特別提醒：57樓無邊際泳池絕景 — 千萬別錯過！</h4>
+                    <div style="display: flex; align-items: flex-start; gap: 16px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 220px;">
+                            <p style="margin: 0 0 8px;">濱海灣金沙酒店 <strong>57 樓 SkyPark 無邊際泳池</strong>是新加坡最具代表性的打卡景點，三棟大樓頂端連成一片，俯瞰整個濱海灣天際線。</p>
+                            <p style="margin: 0 0 6px;">🏨 <strong>住客專屬免費</strong>：憑房卡即可上樓，不限次數使用</p>
+                            <p style="margin: 0 0 6px;">🌅 <strong>最佳時段</strong>：傍晚 17:00–19:00，夕陽光線絕美、城市燈光初亮，最適合拍照</p>
+                            <p style="margin: 0 0 6px;">🩱 <strong>記得帶泳衣泳帽</strong>，泳帽為入場必備（可在酒店購買備用）</p>
+                        </div>
+                        <div style="background: white; border-radius: 10px; padding: 12px 16px; min-width: 200px; border: 1px solid #fde68a;">
+                            <p style="margin: 0 0 6px; font-weight: 700; color: #92400e;">👥 非住客也可前往</p>
+                            <p style="margin: 0 0 4px; font-size: 0.9em;">56F SkyPark Observation Deck</p>
+                            <p style="margin: 0 0 4px; font-size: 0.9em;">成人 SGD 35–39／兒童 SGD 31–35</p>
+                            <p style="margin: 0; font-size: 0.85em; color: #666;">（住客憑房卡免費，不需購票）</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2275,6 +2350,7 @@
         <div class="footer">
             <p>※ 本計畫書內容與時間安排可視當日實際交通狀況與團員體力進行彈性微調。 ※</p>
             <p style="font-size: 1.05em; font-weight: 600; color: var(--text-main);">祝您與家人有一趟平安、愉快且充滿美好回憶的新加坡之旅！</p>
+            <p style="font-size: 0.8em; color: #aaa; margin-top: 16px;">v1.7.0 · 最後更新 2026-03-31</p>
         </div>
     </main>
 
@@ -2299,33 +2375,130 @@
             }
         }
 
+        // 搜尋導覽狀態
+        let _matches = [];
+        let _matchIdx = -1;
+
         function searchContent() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
             const dayCards = document.querySelectorAll('.day-card');
-            let found = false;
 
+            // 清除舊 highlight（還原 DOM text nodes）
+            document.querySelectorAll('.search-highlight').forEach(el => {
+                const parent = el.parentNode;
+                if (parent) {
+                    parent.replaceChild(document.createTextNode(el.textContent), el);
+                    parent.normalize();
+                }
+            });
+
+            // 重置 day-card 樣式
             dayCards.forEach(card => {
-                const text = card.textContent.toLowerCase();
-                if (searchTerm === '' || text.includes(searchTerm)) {
-                    card.style.display = 'block';
-                    if (searchTerm !== '') {
-                        card.style.opacity = '1';
-                        found = true;
+                card.style.opacity = '';
+                card.style.outline = '';
+            });
+
+            _matches = [];
+            _matchIdx = -1;
+            updateCounter();
+
+            if (searchTerm === '') return;
+
+            // 在 text nodes 中標記所有命中
+            function highlightInNode(node) {
+                if (node.nodeType === 3) {
+                    const text = node.textContent;
+                    const lower = text.toLowerCase();
+                    let idx = lower.indexOf(searchTerm);
+                    if (idx === -1) return;
+                    const frag = document.createDocumentFragment();
+                    let last = 0;
+                    while (idx !== -1) {
+                        if (idx > last) frag.appendChild(document.createTextNode(text.slice(last, idx)));
+                        const mark = document.createElement('mark');
+                        mark.className = 'search-highlight';
+                        mark.style.cssText = 'background:#fbbf24;color:#1a1a1a;border-radius:3px;padding:0 2px;outline:2px solid transparent;transition:outline 0.2s;';
+                        mark.textContent = text.slice(idx, idx + searchTerm.length);
+                        frag.appendChild(mark);
+                        _matches.push(mark);
+                        last = idx + searchTerm.length;
+                        idx = lower.indexOf(searchTerm, last);
                     }
+                    if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+                    node.parentNode.replaceChild(frag, node);
+                } else if (node.nodeType === 1 && !['SCRIPT','STYLE','INPUT','TEXTAREA'].includes(node.tagName)) {
+                    Array.from(node.childNodes).forEach(highlightInNode);
+                }
+            }
+
+            document.querySelectorAll('main').forEach(highlightInNode);
+
+            // Day card 樣式
+            dayCards.forEach(card => {
+                if (card.querySelector('.search-highlight')) {
+                    card.style.opacity = '1';
+                    card.style.outline = '3px solid #fbbf24';
                 } else {
-                    card.style.opacity = '0.3';
+                    card.style.opacity = '0.25';
                 }
             });
 
-            // 搜尋其他內容
-            const allElements = document.querySelectorAll('h1, h2, h3, h4, p, li');
-            allElements.forEach(el => {
-                if (searchTerm === '') {
-                    el.style.backgroundColor = 'transparent';
-                } else if (el.textContent.toLowerCase().includes(searchTerm)) {
-                    el.style.backgroundColor = 'rgba(255, 193, 7, 0.3)';
-                }
+            // 跳到第一個
+            if (_matches.length > 0) {
+                _matchIdx = 0;
+                scrollToMatch();
+            }
+            updateCounter();
+        }
+
+        function navigateMatch(dir) {
+            if (_matches.length === 0) return;
+            _matchIdx = (_matchIdx + dir + _matches.length) % _matches.length;
+            scrollToMatch();
+            updateCounter();
+        }
+
+        function scrollToMatch() {
+            // 移除所有 active 樣式
+            _matches.forEach(m => {
+                m.style.background = '#fbbf24';
+                m.style.outline = '2px solid transparent';
             });
+            const cur = _matches[_matchIdx];
+            if (!cur) return;
+            // 當前命中加上醒目邊框
+            cur.style.background = '#f97316';
+            cur.style.outline = '2px solid #ea580c';
+            cur.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function updateCounter() {
+            const counter = document.getElementById('searchCounter');
+            const prev = document.getElementById('searchPrev');
+            const next = document.getElementById('searchNext');
+            if (_matches.length === 0) {
+                const term = document.getElementById('searchInput').value.trim();
+                counter.textContent = term ? '無結果' : '';
+                counter.style.color = term ? '#dc2626' : '#6b7280';
+                if (prev) prev.disabled = true;
+                if (next) next.disabled = true;
+            } else {
+                counter.textContent = `${_matchIdx + 1} / ${_matches.length}`;
+                counter.style.color = '#059669';
+                if (prev) prev.disabled = false;
+                if (next) next.disabled = false;
+            }
+        }
+
+        function handleSearchKey(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (e.shiftKey) {
+                    navigateMatch(-1);  // Shift+Enter → 上一個
+                } else {
+                    navigateMatch(1);   // Enter → 下一個
+                }
+            }
         }
 
         // 鍵盤快捷鍵
@@ -2335,9 +2508,11 @@
                 e.preventDefault();
                 toggleSearch();
             }
-            // Escape 關閉搜尋
+            // Escape 關閉搜尋並清除 highlight
             if (e.key === 'Escape') {
                 document.getElementById('searchBox').classList.remove('active');
+                document.getElementById('searchInput').value = '';
+                searchContent();
             }
         });
 
