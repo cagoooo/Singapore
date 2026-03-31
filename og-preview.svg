@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <!-- Night sky gradient -->
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#05081a"/>
+      <stop offset="50%"  stop-color="#0b1e3d"/>
+      <stop offset="100%" stop-color="#0a3a6e"/>
+    </linearGradient>
+    <!-- Water reflection gradient -->
+    <linearGradient id="water" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#0a3a6e" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#020710" stop-opacity="1"/>
+    </linearGradient>
+    <!-- Text overlay — dark fade from mid-image to bottom -->
+    <linearGradient id="overlay" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#05081a" stop-opacity="0"/>
+      <stop offset="38%"  stop-color="#05081a" stop-opacity="0.55"/>
+      <stop offset="68%"  stop-color="#05081a" stop-opacity="0.88"/>
+      <stop offset="100%" stop-color="#05081a" stop-opacity="0.97"/>
+    </linearGradient>
+    <!-- City horizon warm glow -->
+    <radialGradient id="cityGlow" cx="50%" cy="73%" r="58%">
+      <stop offset="0%"   stop-color="#f97316" stop-opacity="0.13"/>
+      <stop offset="100%" stop-color="#f97316" stop-opacity="0"/>
+    </radialGradient>
+    <!-- MBS pool glow -->
+    <radialGradient id="poolGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#38bdf8" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Blur for glow effects -->
+    <filter id="glow4" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <filter id="glow10" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SKY BACKGROUND                              -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect width="1200" height="630" fill="url(#sky)"/>
+
+  <!-- City warm glow on horizon -->
+  <ellipse cx="600" cy="458" rx="680" ry="195" fill="url(#cityGlow)"/>
+
+  <!-- Stars — scattered white dots -->
+  <g fill="white">
+    <circle cx="58"   cy="26"  r="1.3" opacity="0.85"/>
+    <circle cx="128"  cy="50"  r="1.0" opacity="0.7"/>
+    <circle cx="220"  cy="18"  r="1.5" opacity="0.9"/>
+    <circle cx="302"  cy="42"  r="0.9" opacity="0.65"/>
+    <circle cx="388"  cy="22"  r="1.2" opacity="0.8"/>
+    <circle cx="458"  cy="58"  r="0.8" opacity="0.6"/>
+    <circle cx="535"  cy="14"  r="1.4" opacity="0.85"/>
+    <circle cx="612"  cy="38"  r="0.9" opacity="0.7"/>
+    <circle cx="690"  cy="22"  r="1.1" opacity="0.75"/>
+    <circle cx="768"  cy="54"  r="0.8" opacity="0.65"/>
+    <circle cx="848"  cy="17"  r="1.3" opacity="0.9"/>
+    <circle cx="924"  cy="44"  r="1.0" opacity="0.7"/>
+    <circle cx="1002" cy="27"  r="1.5" opacity="0.85"/>
+    <circle cx="1085" cy="50"  r="0.9" opacity="0.75"/>
+    <circle cx="1158" cy="20"  r="1.2" opacity="0.8"/>
+    <circle cx="22"   cy="65"  r="0.8" opacity="0.6"/>
+    <circle cx="178"  cy="78"  r="1.0" opacity="0.65"/>
+    <circle cx="476"  cy="82"  r="0.8" opacity="0.55"/>
+    <circle cx="718"  cy="74"  r="1.1" opacity="0.7"/>
+    <circle cx="958"  cy="68"  r="0.9" opacity="0.6"/>
+    <circle cx="1126" cy="80"  r="0.8" opacity="0.55"/>
+    <circle cx="342"  cy="72"  r="0.7" opacity="0.5"/>
+    <circle cx="840"  cy="80"  r="0.7" opacity="0.5"/>
+  </g>
+
+  <!-- Moon — top right, golden crescent -->
+  <!-- Glow halo -->
+  <circle cx="1090" cy="70" r="36" fill="#fde68a" opacity="0.12" filter="url(#glow10)"/>
+  <!-- Moon disk -->
+  <circle cx="1090" cy="70" r="27" fill="#fde68a" opacity="0.93"/>
+  <!-- Crescent shadow (cuts into moon) -->
+  <circle cx="1100" cy="64" r="23" fill="#0b1e3d"/>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SINGAPORE SKYLINE SILHOUETTE               -->
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- All shapes in very dark navy (#030912) for depth -->
+
+  <!-- LEFT CBD / Raffles Place buildings -->
+  <rect x="-2"  y="368" width="36"  height="88"  fill="#030a18"/>
+  <rect x="38"  y="332" width="46"  height="124" fill="#030912"/>
+  <rect x="34"  y="318" width="13"  height="17"  fill="#030912"/><!-- antenna -->
+  <rect x="88"  y="354" width="40"  height="102" fill="#040b19"/>
+  <rect x="132" y="316" width="50"  height="140" fill="#030912"/>
+  <rect x="150" y="302" width="16"  height="17"  fill="#030912"/><!-- antenna -->
+  <rect x="186" y="348" width="34"  height="108" fill="#040b19"/>
+  <rect x="224" y="362" width="28"  height="94"  fill="#030a18"/>
+  <rect x="256" y="324" width="52"  height="132" fill="#030912"/>
+  <rect x="268" y="308" width="12"  height="19"  fill="#030912"/><!-- antenna -->
+  <rect x="312" y="342" width="44"  height="114" fill="#040b19"/>
+  <rect x="360" y="302" width="38"  height="154" fill="#030912"/>
+  <rect x="362" y="287" width="34"  height="18"  fill="#030912"/><!-- tapered top -->
+  <rect x="402" y="340" width="36"  height="116" fill="#040b19"/>
+  <rect x="442" y="356" width="30"  height="100" fill="#030a18"/>
+  <rect x="476" y="342" width="36"  height="114" fill="#040b19"/>
+
+  <!-- Subtle window lights (warm orange, very faint) -->
+  <g fill="#f97316" opacity="0.35">
+    <rect x="41"  y="338" width="4" height="3"/>
+    <rect x="48"  y="338" width="4" height="3"/>
+    <rect x="41"  y="346" width="4" height="3"/>
+    <rect x="135" y="322" width="4" height="3"/>
+    <rect x="143" y="322" width="4" height="3"/>
+    <rect x="260" y="330" width="4" height="3"/>
+    <rect x="268" y="330" width="4" height="3"/>
+    <rect x="363" y="293" width="4" height="3"/>
+    <rect x="371" y="293" width="4" height="3"/>
+    <rect x="363" y="302" width="4" height="3"/>
+  </g>
+
+  <!-- MARINA BAY SANDS — the hero landmark (center) -->
+  <!-- Tower 1 (left, slightly shorter) -->
+  <polygon points="546,456 563,456 567,286 542,286" fill="#02080f"/>
+  <!-- Tower 2 (center, tallest) -->
+  <polygon points="580,456 597,456 601,260 576,260" fill="#02080f"/>
+  <!-- Tower 3 (right, same as tower 1) -->
+  <polygon points="614,456 631,456 635,286 610,286" fill="#02080f"/>
+  <!-- Sky Park — wide horizontal "boat" bar connecting towers -->
+  <rect x="527" y="272" width="123" height="17" rx="8.5" fill="#02080f"/>
+  <!-- Infinity pool surface (blue shimmer on sky park) -->
+  <rect x="531" y="272" width="115" height="8" rx="4" fill="#38bdf8" opacity="0.45"/>
+  <!-- Pool glow (blurred) -->
+  <ellipse cx="589" cy="282" rx="54" ry="9" fill="#0ea5e9" opacity="0.2" filter="url(#glow10)"/>
+
+  <!-- SINGAPORE FLYER (ferris wheel) -->
+  <!-- Support leg -->
+  <rect x="662" y="398" width="8" height="58" fill="#040b19"/>
+  <!-- Wheel ring -->
+  <circle cx="666" cy="368" r="50" fill="none" stroke="#040b19" stroke-width="5.5"/>
+  <!-- Hub -->
+  <circle cx="666" cy="368" r="6"  fill="#040b19"/>
+  <!-- Spokes (8) -->
+  <g stroke="#040b19" stroke-width="2">
+    <line x1="666" y1="318" x2="666" y2="418"/>
+    <line x1="616" y1="368" x2="716" y2="368"/>
+    <line x1="631" y1="333" x2="701" y2="403"/>
+    <line x1="701" y1="333" x2="631" y2="403"/>
+  </g>
+
+  <!-- GARDENS BY THE BAY — Supertrees -->
+  <!-- Supertree 1 (smaller, background-left) -->
+  <rect x="758"  y="402" width="11" height="54"  rx="2" fill="#040b19"/>
+  <ellipse cx="763" cy="390" rx="30" ry="16"  fill="#040b19"/>
+  <ellipse cx="763" cy="387" rx="26" ry="11"  fill="#071b0d"/><!-- dark green tint -->
+
+  <!-- Supertree 2 (tallest, main feature) -->
+  <rect x="796"  y="380" width="13" height="76"  rx="2" fill="#040b19"/>
+  <ellipse cx="802" cy="366" rx="43" ry="23"  fill="#040b19"/>
+  <ellipse cx="802" cy="361" rx="38" ry="17"  fill="#071b0d"/>
+  <!-- Supertree warm glow (light show effect) -->
+  <ellipse cx="802" cy="361" rx="34" ry="13"  fill="#f97316" opacity="0.07" filter="url(#glow4)"/>
+
+  <!-- Supertree 3 -->
+  <rect x="852"  y="392" width="11" height="64"  rx="2" fill="#040b19"/>
+  <ellipse cx="857" cy="380" rx="34" ry="18"  fill="#040b19"/>
+  <ellipse cx="857" cy="377" rx="29" ry="12"  fill="#071b0d"/>
+
+  <!-- Supertree 4 (background, shorter) -->
+  <rect x="898"  y="407" width="9"  height="49"  rx="2" fill="#051320"/>
+  <ellipse cx="902" cy="398" rx="24" ry="13"  fill="#051320"/>
+
+  <!-- Right side buildings -->
+  <rect x="936"  y="357" width="46" height="99"  fill="#040b19"/>
+  <rect x="944"  y="343" width="12" height="17"  fill="#040b19"/><!-- antenna -->
+  <rect x="986"  y="372" width="40" height="84"  fill="#030a18"/>
+  <rect x="1030" y="350" width="50" height="106" fill="#040b19"/>
+  <rect x="1036" y="336" width="38" height="17"  fill="#040b19"/><!-- top detail -->
+  <rect x="1084" y="370" width="42" height="86"  fill="#030912"/>
+  <rect x="1130" y="384" width="70" height="72"  fill="#040b19"/>
+
+  <!-- Ground / shoreline -->
+  <rect x="0" y="455" width="1200" height="4" fill="#031525" opacity="0.9"/>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- WATER                                       -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect x="0" y="459" width="1200" height="171" fill="url(#water)"/>
+
+  <!-- Water shimmer lines (subtle wavy paths) -->
+  <g stroke="#1968a0" stroke-width="0.9" fill="none" opacity="0.18">
+    <path d="M0,480 Q300,474 600,480 Q900,486 1200,480"/>
+    <path d="M0,504 Q300,498 600,505 Q900,511 1200,504"/>
+    <path d="M0,528 Q300,523 600,528 Q900,534 1200,528"/>
+    <path d="M0,554 Q300,549 600,555 Q900,560 1200,554"/>
+    <path d="M0,580 Q300,575 600,581 Q900,586 1200,580"/>
+    <path d="M0,608 Q300,604 600,609 Q900,614 1200,608"/>
+  </g>
+
+  <!-- MBS water reflection (faint, inverted) -->
+  <!-- reflect about y=456: new_y = 912 - old_y -->
+  <g opacity="0.13" transform="translate(0,912) scale(1,-1)">
+    <rect x="527" y="272" width="123" height="17" rx="8.5" fill="#38bdf8"/>
+    <polygon points="546,456 563,456 567,286 542,286" fill="#38bdf8"/>
+    <polygon points="580,456 597,456 601,260 576,260" fill="#38bdf8"/>
+    <polygon points="614,456 631,456 635,286 610,286" fill="#38bdf8"/>
+  </g>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TEXT OVERLAY GRADIENT                       -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect x="0" y="300" width="1200" height="330" fill="url(#overlay)"/>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- CONTENT                                     -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <!-- Singapore flag colour accent bar (left edge of content) -->
+  <rect x="78" y="396" width="5" height="200" rx="2.5" fill="#c8102e"/>
+
+  <!-- ── TITLE: 新加坡四天三夜 ── -->
+  <text
+    x="600" y="455"
+    font-family="'Noto Sans CJK TC','Noto Sans TC','PingFang TC','Microsoft JhengHei','Heiti TC','WenQuanYi Micro Hei',sans-serif"
+    font-size="86" font-weight="900" fill="white"
+    text-anchor="middle" letter-spacing="5">
+    新加坡四天三夜
+  </text>
+
+  <!-- ── SUBTITLE: 家族旅遊計畫書 ── -->
+  <text
+    x="600" y="526"
+    font-family="'Noto Sans CJK TC','Noto Sans TC','PingFang TC','Microsoft JhengHei','Heiti TC','WenQuanYi Micro Hei',sans-serif"
+    font-size="46" font-weight="700" fill="#7dd3fc"
+    text-anchor="middle" letter-spacing="4">
+    家族旅遊計畫書
+  </text>
+
+  <!-- Thin divider line -->
+  <rect x="438" y="540" width="324" height="1.5" rx="0.75" fill="#38bdf8" opacity="0.55"/>
+
+  <!-- ── DATE &amp; INFO ── -->
+  <text
+    x="600" y="568"
+    font-family="'Noto Sans CJK TC','Noto Sans TC','PingFang TC','Microsoft JhengHei','Heiti TC',sans-serif"
+    font-size="23" fill="#bae6fd"
+    text-anchor="middle" letter-spacing="1.5">
+    2026 年 4 月 2 日 — 5 日　·　25 人大家族　·　濱海灣金沙酒店
+  </text>
+
+  <!-- ── DAY BADGES (centred row) ── -->
+  <!-- Total badge widths: 145+145+165+165 = 620, gaps 3×18=54, total=674 -->
+  <!-- Left start: (1200-674)/2 = 263 -->
+
+  <!-- Day 1 (red) -->
+  <rect x="263" y="584" width="145" height="36" rx="18" fill="#e53935"/>
+  <text x="335" y="607"
+    font-family="'Noto Sans CJK TC','Noto Sans TC','PingFang TC',sans-serif"
+    font-size="16" fill="white" text-anchor="middle" font-weight="700">Day 1 · 4/2 抵達</text>
+
+  <!-- Day 2 (blue) -->
+  <rect x="426" y="584" width="145" height="36" rx="18" fill="#1e88e5"/>
+  <text x="498" y="607"
+    font-family="'Noto Sans CJK TC','Noto Sans TC','PingFang TC',sans-serif"
+    font-size="16" fill="white" text-anchor="middle" font-weight="700">Day 2 · 4/3 樂園</text>
+
+  <!-- Day 3 (green) -->
+  <rect x="589" y="584" width="165" height="36" rx="18" fill="#2e7d32"/>
+  <text x="671" y="607"
+    font-family="'Noto Sans CJK TC','Noto Sans TC','PingFang TC',sans-serif"
+    font-size="16" fill="white" text-anchor="middle" font-weight="700">Day 3 · 4/4 聖淘沙</text>
+
+  <!-- Day 4 (amber) -->
+  <rect x="772" y="584" width="165" height="36" rx="18" fill="#f59e0b"/>
+  <text x="854" y="607"
+    font-family="'Noto Sans CJK TC','Noto Sans TC','PingFang TC',sans-serif"
+    font-size="16" fill="white" text-anchor="middle" font-weight="700">Day 4 · 4/5 返程</text>
+
+  <!-- Bottom-right watermark -->
+  <text x="1138" y="618"
+    font-family="'Helvetica Neue',Arial,sans-serif"
+    font-size="16" fill="white" opacity="0.38" text-anchor="end">
+    🇸🇬 Singapore 2026
+  </text>
+</svg>
