@@ -1015,6 +1015,75 @@
             font-size: 0.85em;
             color: #555;
         }
+        /* ================= 儀表板區域樣式 ================= */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 800px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+
+        /* 倒數計時卡片 */
+        .countdown-card {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: white;
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.25);
+        }
+        .cd-title { font-size: 0.9em; font-weight: 700; opacity: 0.95; margin-bottom: 12px; letter-spacing: 1px;}
+        .cd-timer { display: flex; justify-content: center; gap: 12px; }
+        .cd-box { background: rgba(255,255,255,0.15); border-radius: 8px; padding: 12px 14px; min-width: 64px; backdrop-filter: blur(4px); }
+        .cd-num { font-size: 1.8em; font-weight: 900; line-height: 1; margin-bottom: 5px; font-family: 'Arial Black', Impact, sans-serif;}
+        .cd-lbl { font-size: 0.75em; text-transform: uppercase; font-weight: 600; opacity: 0.85; }
+
+        /* 天氣預報卡片 */
+        .weather-card {
+            background: white; border: 1px solid #e5e7eb; border-radius: 14px; padding: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column;
+        }
+        .weather-title { font-size: 0.95em; font-weight: 700; color: #4b5563; margin-bottom: 14px; border-bottom: 1px solid #f3f4f6; padding-bottom: 8px;}
+        .weather-forecast { display: flex; justify-content: space-between; gap: 8px; flex: 1; }
+        .wx-day { text-align: center; font-size: 0.85em; flex: 1; }
+        .wx-date { font-weight: 700; color: #6b7280; margin-bottom: 6px; }
+        .wx-icon { font-size: 1.8em; margin-bottom: 4px; line-height: 1.2; }
+        .wx-temp { font-weight: 700; color: #111827; }
+        .wx-temp span { color: #9ca3af; font-weight: 400; font-size: 0.9em; }
+
+        /* 快捷連結區塊 */
+        .quick-links {
+            display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px;
+        }
+        .ql-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: white; border: 1px solid #e5e7eb; padding: 10px 16px; border-radius: 20px;
+            text-decoration: none; color: #374151; font-weight: 600; font-size: 0.88em;
+            transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .ql-btn:hover { background: #f8fafc; border-color: #cbd5e1; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.06); }
+
+        /* 當日行事曆高亮特效 */
+        .day-card.active-day {
+            border: 2px solid #f59e0b;
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15), 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            transform: scale(1.01);
+            transition: all 0.3s;
+        }
+        .day-card.active-day::before {
+            content: '⭐ 今天的行程';
+            position: absolute;
+            top: -16px; right: 20px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white; font-weight: 700; font-size: 0.9em;
+            padding: 6px 16px; border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+            z-index: 10;
+        }
 
         @media (max-width: 480px) {
             .toc-panel { right: 10px; width: 240px; }
@@ -1139,10 +1208,40 @@
             </div>
         </div>
         <!-- ===== 今日更新結束 ===== -->
+        <!-- ===== 今日更新結束 ===== -->
 
-        <a href="https://www.google.com/maps/d/edit?mid=19MNIhRfEu5DrsYhGoyzGZezXAP5u6fE&usp=sharing" target="_blank" class="map-link">
-            🗺️ 點擊開啟 Google My Maps 專屬旅遊地圖
-        </a>
+        <!-- ===== 實用小工具：倒數 / 天氣 / 連結 ===== -->
+        <div class="dashboard-grid">
+            <!-- 倒數計時器 -->
+            <div class="countdown-card">
+                <div class="cd-title">⏳ 距離 4/2 新加坡旅行出發還有</div>
+                <div class="cd-timer" id="countdown-timer">
+                    <div class="cd-box"><div class="cd-num">-</div><div class="cd-lbl">天</div></div>
+                    <div class="cd-box"><div class="cd-num">-</div><div class="cd-lbl">時</div></div>
+                    <div class="cd-box"><div class="cd-num">-</div><div class="cd-lbl">分</div></div>
+                    <div class="cd-box"><div class="cd-num">-</div><div class="cd-lbl">秒</div></div>
+                </div>
+            </div>
+
+            <!-- 天氣預報 -->
+            <div class="weather-card">
+                <div class="weather-title">⛅ 新加坡天氣預報 (4/2 - 4/5)</div>
+                <div class="weather-forecast" id="weather-forecast">
+                    <div style="text-align:center; flex:1; color:#9ca3af; font-size:0.9em; margin-top:20px;">
+                        載入最新氣象資料中... 🛰️
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 快捷連結區塊 -->
+        <div class="quick-links">
+            <a href="https://eservices.ica.gov.sg/sgarrivalcard/" target="_blank" class="ql-btn">🛂 SG Arrival Card</a>
+            <a href="https://booking.evaair.com/flyeva/eva/b2c/manage-your-trip/online-checked-in-login.aspx?lang=zh-tw" target="_blank" class="ql-btn">✈️ 長榮預辦登機</a>
+            <a href="https://www.google.com/maps/d/edit?mid=19MNIhRfEu5DrsYhGoyzGZezXAP5u6fE&usp=sharing" target="_blank" class="ql-btn">📍 Google Maps 行程地圖</a>
+            <a href="https://www.klook.com/zh-TW/city/6-singapore-things-to-do/" target="_blank" class="ql-btn">🎫 Klook 快速訂票</a>
+            <a href="https://www.ezlink.com.sg/" target="_blank" class="ql-btn">💳 EZ-Link App 交通網</a>
+        </div>
 
         <!-- 基本資訊 -->
         <div class="header-info">
@@ -2235,6 +2334,98 @@
             if (main) walk(main);
         }
 
+        // ========= 倒數計時器 =========
+        function initCountdown() {
+            // 出發時間：2026年4月2日 凌晨 00:00 (台灣/新加坡同為 UTC+8)
+            const targetDate = new Date("2026-04-02T00:00:00+08:00").getTime();
+            const elements = document.querySelectorAll('.cd-num');
+            if (elements.length !== 4) return;
+            
+            setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+                
+                // 若時間已到或超過
+                if (distance < 0) {
+                    elements.forEach(el => el.textContent = "0");
+                    const titleEl = document.querySelector('.cd-title');
+                    if (titleEl) titleEl.textContent = "🎉 出發啦！新加坡之旅開始！";
+                    return;
+                }
+                
+                // 計算天、時、分、秒
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                elements[0].textContent = days;
+                elements[1].textContent = hours < 10 ? "0" + hours : hours;
+                elements[2].textContent = minutes < 10 ? "0" + minutes : minutes;
+                elements[3].textContent = seconds < 10 ? "0" + seconds : seconds;
+            }, 1000);
+        }
+
+        // ========= 當日行程高亮 =========
+        function initActiveDay() {
+            const today = new Date();
+            const y = today.getFullYear();
+            const m = today.getMonth() + 1; // 0-indexed
+            const d = today.getDate();
+            
+            // 若為 2026/04，且日期為 2-5 號，則將對應 ID 加上 active-day class
+            if (y === 2026 && m === 4) {
+                if (d === 2) document.getElementById('day1')?.classList.add('active-day');
+                if (d === 3) document.getElementById('day2')?.classList.add('active-day');
+                if (d === 4) document.getElementById('day3')?.classList.add('active-day');
+                if (d === 5) document.getElementById('day4')?.classList.add('active-day');
+            }
+        }
+
+        // ========= 天氣預報 API 串接 =========
+        async function initWeather() {
+            const weatherBox = document.getElementById('weather-forecast');
+            if (!weatherBox) return;
+            try {
+                // 使用 Open-Meteo 免費 API，不需註冊與金鑰
+                // 取得濱海灣金沙(Lat:1.2834, Lon:103.8607)的日預報 (最高/低溫, 天氣代碼)
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=1.2834&longitude=103.8607&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FSingapore&start_date=2026-04-02&end_date=2026-04-05');
+                const data = await res.json();
+                
+                let html = '';
+                const dateLabels = ['4/2 (四)', '4/3 (五)', '4/4 (六)', '4/5 (日)'];
+                
+                for(let i=0; i<4; i++) {
+                    const code = data.daily.weather_code[i];
+                    const max = Math.round(data.daily.temperature_2m_max[i]);
+                    const min = Math.round(data.daily.temperature_2m_min[i]);
+                    
+                    // WMO Weather interpretation codes
+                    let emoji = '🌥️';
+                    if (code <= 1) emoji = '☀️';
+                    else if (code === 2) emoji = '⛅';
+                    else if (code === 3) emoji = '☁️';
+                    else if (code >= 45 && code <= 48) emoji = '🌫️';
+                    else if (code >= 51 && code <= 67) emoji = '🌧️';
+                    else if (code >= 71 && code <= 77) emoji = '❄️'; 
+                    else if (code >= 80 && code <= 82) emoji = '🌦️'; 
+                    else if (code >= 95) emoji = '⛈️';
+                    
+                    html += `
+                    <div class="wx-day">
+                        <div class="wx-date">${dateLabels[i]}</div>
+                        <div class="wx-icon">${emoji}</div>
+                        <div class="wx-temp">${max}°<span> / ${min}°</span></div>
+                    </div>`;
+                }
+                
+                weatherBox.innerHTML = html;
+            } catch (err) {
+                weatherBox.innerHTML = '<div style="text-align:center; flex:1; color:#dc2626; font-size:0.9em; margin-top:20px;">無法取得天氣預報，請稍後再試。</div>';
+                console.error("Open-Meteo API Error:", err);
+            }
+        }
+
         // 頁面加載完成後的初始化
         document.addEventListener('DOMContentLoaded', () => {
             // 添加動畫延遲
@@ -2244,6 +2435,11 @@
             });
             // MRT 站點標色
             initMRTBadges();
+            
+            // 實用工具初始化
+            initCountdown();
+            initActiveDay();
+            initWeather();
         });
     </script>
 
