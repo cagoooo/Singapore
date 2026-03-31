@@ -1,0 +1,16 @@
+{
+  "name": "SG 家族旅遊行程",
+  "short_name": "SG 行程表",
+  "description": "2026 新加坡四天三夜家族旅遊計畫書",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F0F9FF",
+  "theme_color": "#0EA5E9",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    }
+  ]
+}

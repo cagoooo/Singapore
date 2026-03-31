@@ -10,6 +10,12 @@
     <!-- ═══ Favicon ═══ -->
     <!-- SVG favicon (Chrome, Firefox, Safari, Edge) -->
     <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+    <!-- PWA Manifest & App Info -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#0EA5E9">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SG 行程表">
     <!-- Fallback for older browsers (same SVG, browsers ignore if unsupported) -->
     <link rel="alternate icon" href="./favicon.svg">
     <!-- Apple touch icon for iOS home-screen shortcut -->
@@ -1016,6 +1022,39 @@
             color: #555;
         }
         /* ================= 儀表板區域樣式 ================= */
+        /* 行李清單 (Checklist) */
+        .checklist-container {
+            background: white; border-radius: 12px; border: 1px solid #e5e7eb;
+            margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); overflow: hidden;
+            grid-column: 1 / -1;
+        }
+        .chk-header {
+            background: #f8fafc; padding: 12px 18px; border-bottom: 1px solid #e5e7eb;
+            font-weight: 700; color: #1e293b; display: flex; justify-content: space-between; align-items: center;
+        }
+        .chk-reset {
+            background: none; border: none; font-size: 0.8em; color: #64748b; cursor: pointer; text-decoration: underline; padding: 4px 8px; border-radius: 4px;
+        }
+        .chk-reset:hover { background: #e2e8f0; color: #334155; }
+        .chk-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; padding: 18px;
+        }
+        .chk-group-title {
+            font-size: 0.85em; font-weight: 700; color: #64748b; margin-bottom: 10px; text-transform: uppercase; border-left: 3px solid #0ea5e9; padding-left: 6px;
+        }
+        .chk-label {
+            display: flex; align-items: center; gap: 8px; margin-bottom: 8px; cursor: pointer; font-size: 0.9em; color: #334155; transition: all 0.2s; user-select: none;
+        }
+        .chk-label:hover { color: #0f172a; }
+        .chk-input { display: none; }
+        .chk-custom {
+            width: 20px; height: 20px; border: 2px solid #cbd5e1; border-radius: 6px; flex-shrink: 0;
+            display: inline-flex; justify-content: center; align-items: center; transition: all 0.2s; background: white;
+        }
+        .chk-input:checked + .chk-custom { background: #10b981; border-color: #10b981; transform: scale(1.05); }
+        .chk-input:checked + .chk-custom::after { content: '✓'; color: white; font-size: 14px; line-height: 1; font-weight: bold; }
+        .chk-input:checked ~ span.chk-text { color: #94a3b8; text-decoration: line-through; }
+
         .dashboard-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1345,6 +1384,44 @@
             </div>
 
             <div class="notes-grid">
+                <!-- 行李準備清單 -->
+                <div class="checklist-container">
+                    <div class="chk-header">
+                        <span>🧳 專屬行李檢查表 (自動儲存)</span>
+                        <button class="chk-reset" onclick="resetChecklist()">清除重置</button>
+                    </div>
+                    <div class="chk-grid">
+                        <div>
+                            <div class="chk-group-title">必備證件與票卡</div>
+                            <label class="chk-label"><input type="checkbox" class="chk-input" data-chk="passport"><div class="chk-custom"></div><span class="chk-text">護照 (滿 6 個月效期)</span></label>
+                            <label class="chk-label"><input type="checkbox" class="chk-input" data-chk="sgarrival"><div class="chk-custom"></div><span class="chk-text">SG Arrival Card (截圖或列印)</span></label>
+                            <label class="chk-label"><input type="checkbox" class="chk-input" data-chk="credit_card"><div class="chk-custom"></div><span class="chk-text">海外回饋信用卡 (Apple Pay)</span></label>
+                            <label class="chk-label"><input type="checkbox" class="chk-input" data-chk="cash"><div class="chk-custom"></div><span class="chk-text">新幣現金 (100~200)</span></label>
+                        </div>
+                        <div>
+                            <div class="chk-group-title">電子與網路</div>
+                            <label class="chk-label"><input type="checkbox" class="chk-input" data-chk="sim"><div class="chk-custom"></div><span class="chk-text">SIM 卡 / 網卡 (已開通)</span></label>
+                            <label class="chk-label"><input type="checkbox" class="chk-input" data-chk="power_bank"><div class="chk-custom"></div><span class="chk-text">行動電源與充電線</span></label>
+                            <label class="chk-label"><input type="checkbox" class="chk-input" data-chk="adapter"><div class="chk-custom"></div><span class="chk-text">英式三角轉接頭</span></label>
+                            <label class="chk-label"><input type="checkbox" class="chk-input" data-chk="grab"><div class="chk-custom"></div><span class="chk-text">安裝並註冊 Grab App</span></label>
+                        </div>
+                        <div>
+                            <div class="chk-group-title">個人日用與防護</div>
+                            <label class="chk-label"><input type="checkbox" class="chk-input" data-chk="sunscreen"><div class="chk-custom"></div><span class="chk-text">防曬乳 / 太陽眼鏡 / 帽子</span></label>
+                            <label class="chk-label"><input type="checkbox" class="chk-input" data-chk="umbrella"><div class="chk-custom"></div><span class="chk-text">雨傘 (防午後陣雨)</span></label>
+                            <label class="chk-label"><input type="checkbox" class="chk-input" data-chk="shoes"><div class="chk-custom"></div><span class="chk-text">耐走舒適運動鞋 / 拖鞋</span></label>
+                            <label class="chk-label"><input type="checkbox" class="chk-input" data-chk="jacket"><div class="chk-custom"></div><span class="chk-text">薄外套 (抗室內冷氣)</span></label>
+                        </div>
+                        <div>
+                            <div class="chk-group-title">醫藥與其他 (中老人/嬰幼兒)</div>
+                            <label class="chk-label"><input type="checkbox" class="chk-input" data-chk="meds"><div class="chk-custom"></div><span class="chk-text">個人常備慢性藥品</span></label>
+                            <label class="chk-label"><input type="checkbox" class="chk-input" data-chk="gastro"><div class="chk-custom"></div><span class="chk-text">腸胃藥 / 暈車藥</span></label>
+                            <label class="chk-label"><input type="checkbox" class="chk-input" data-chk="mosquito"><div class="chk-custom"></div><span class="chk-text">防蚊液 (夜間動物園必備)</span></label>
+                            <label class="chk-label"><input type="checkbox" class="chk-input" data-chk="stroller"><div class="chk-custom"></div><span class="chk-text">嬰兒輕便推車</span></label>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="note-card" style="border-left-color: #ef4444; background: #fff5f5;">
                     <h4>✈️ 機票與航班重要規定</h4>
                     <p><strong>航班未搭乘 (No-show) 警告：</strong> 若當天無法前往機場搭機，**務必親自打電話給長榮取消更改**，否則機票將作廢無效。台北：(02)2501-1999 / 新加坡：+65-6226-1533。</p>
@@ -2369,6 +2446,45 @@
             if (main) walk(main);
         }
 
+        // ========= PWA 離線快取註冊 (Service Worker) =========
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                .then(registration => {
+                    console.log('📦 ServiceWorker 註冊成功，範圍:', registration.scope);
+                })
+                .catch(err => {
+                    console.log('⚠️ ServiceWorker 註冊失敗:', err);
+                });
+            });
+        }
+
+        // ========= 行李檢核表 (Checklist) =========
+        function initChecklist() {
+            const checkboxes = document.querySelectorAll('.chk-input');
+            checkboxes.forEach(chk => {
+                const key = 'sg_chk_' + chk.getAttribute('data-chk');
+                // 恢復儲存狀態
+                if (localStorage.getItem(key) === 'true') {
+                    chk.checked = true;
+                }
+                // 綁定更新事件
+                chk.addEventListener('change', (e) => {
+                    localStorage.setItem(key, e.target.checked);
+                });
+            });
+        }
+
+        function resetChecklist() {
+            if (confirm("確清空目前所有打勾狀態嗎？")) {
+                const checkboxes = document.querySelectorAll('.chk-input');
+                checkboxes.forEach(chk => {
+                    chk.checked = false;
+                    localStorage.removeItem('sg_chk_' + chk.getAttribute('data-chk'));
+                });
+            }
+        }
+
         // ========= 倒數計時器 =========
         function initCountdown() {
             // 出發時間：2026年4月2日 早上 07:40 (台灣/新加坡同為 UTC+8)
@@ -2475,6 +2591,7 @@
             initCountdown();
             initActiveDay();
             initWeather();
+            initChecklist();
         });
     </script>
 
