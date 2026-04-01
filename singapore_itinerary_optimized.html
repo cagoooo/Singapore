@@ -43,9 +43,14 @@
     <meta name="twitter:title"       content="🇸🇬 新加坡四天三夜家族旅遊計畫書">
     <meta name="twitter:description" content="2026年4月2日－5日 · 25人大家族同遊新加坡 · 濱海灣金沙酒店">
     <meta name="twitter:image"       content="https://cagoooo.github.io/Singapore/og-preview.png">
+    <!-- Google Fonts：preconnect 提前建立連線，改 <link> 避免 render-blocking @import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;700&display=swap">
+    <!-- Leaflet.js 互動地圖 -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer crossorigin=""></script>
     <style>
-        /* 導入 Noto Sans Thai 字體 */
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;700&display=swap');
         
         :root {
             /* UI/UX Pro Max 設計系統色彩 */
@@ -846,6 +851,38 @@
             font-weight: 600;
         }
 
+        /* 時間軸狀態：已過 / 進行中 / 未來 */
+        .timeline-item.tl-past {
+            opacity: 0.45;
+        }
+        .timeline-item.tl-past .time {
+            color: #9ca3af;
+            text-decoration: line-through;
+        }
+        .timeline-item.tl-current {
+            background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+            border-left: 4px solid #3b82f6 !important;
+            border-radius: 8px;
+            padding: 12px 16px;
+            animation: tlCurrentPulse 2.5s ease-in-out infinite;
+        }
+        .tl-now-badge {
+            display: inline-block;
+            margin-left: 8px;
+            background: #3b82f6;
+            color: white;
+            font-size: 0.72em;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 12px;
+            vertical-align: middle;
+            animation: tlCurrentPulse 2.5s ease-in-out infinite;
+        }
+        @keyframes tlCurrentPulse {
+            0%, 100% { box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+            50%       { box-shadow: 0 0 0 7px rgba(59,130,246,0.08); }
+        }
+
         /* 動畫 */
         @keyframes slideInDown {
             from {
@@ -1409,6 +1446,20 @@
                 </table>
             </div>
             <p style="margin-top: 12px; font-size: 0.88em; color: #666; text-align: right;">※ 票價僅供參考，請以官網或購票平台實際標價為準。兒童票適用年齡與身高請依各景點規定。</p>
+        </div>
+
+        <!-- 景點地圖一覽 -->
+        <div id="attractions-map" class="notes-section">
+            <h2>🗺️ 四天景點地圖一覽</h2>
+            <p style="color:#555;font-size:0.9em;margin-bottom:12px;">點擊地圖標記可查看景點名稱與所屬天次。</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+                <span style="background:#fee2e2;color:#991b1b;padding:4px 14px;border-radius:20px;font-size:0.82em;font-weight:700;">● Day 1 抵達濱海灣</span>
+                <span style="background:#dbeafe;color:#1e40af;padding:4px 14px;border-radius:20px;font-size:0.82em;font-weight:700;">● Day 2 樂園／市區</span>
+                <span style="background:#dcfce7;color:#166534;padding:4px 14px;border-radius:20px;font-size:0.82em;font-weight:700;">● Day 3 聖淘沙夜生態</span>
+                <span style="background:#fef9c3;color:#713f12;padding:4px 14px;border-radius:20px;font-size:0.82em;font-weight:700;">● Day 4 星耀樟宜</span>
+            </div>
+            <div id="sg-map" style="height:460px;border-radius:12px;border:1px solid #e5e7eb;overflow:hidden;"></div>
+            <p style="font-size:0.78em;color:#9ca3af;margin-top:8px;text-align:right;">地圖資料 © OpenStreetMap contributors</p>
         </div>
 
         <!-- 出發前準備 -->
@@ -2755,6 +2806,104 @@
             }
         }
 
+        // ===== 時間軸狀態高亮（已過 / 進行中 / 未來）=====
+        function initTimelineStatus() {
+            const now = new Date();
+            const todayStr = now.toISOString().slice(0, 10);
+            const nowMin = now.getHours() * 60 + now.getMinutes();
+
+            const tripDays = [
+                { date: '2026-04-02', id: 'day1' },
+                { date: '2026-04-03', id: 'day2' },
+                { date: '2026-04-04', id: 'day3' },
+                { date: '2026-04-05', id: 'day4' },
+            ];
+
+            tripDays.forEach(({ date, id }) => {
+                const card = document.getElementById(id);
+                if (!card) return;
+                const items = Array.from(card.querySelectorAll('.timeline-item'));
+
+                if (todayStr > date) {
+                    // 已過去的天：全部標 past
+                    items.forEach(item => item.classList.add('tl-past'));
+                    return;
+                }
+                if (todayStr < date) return; // 未來的天：不標記
+
+                // 今天：依時間分類
+                const times = items.map(item => {
+                    const el = item.querySelector('.time');
+                    if (!el) return -1;
+                    const m = el.textContent.match(/(\d{2}):(\d{2})/);
+                    return m ? parseInt(m[1]) * 60 + parseInt(m[2]) : -1;
+                });
+
+                // 找最後一個已開始的 item
+                let curIdx = -1;
+                times.forEach((t, i) => { if (t !== -1 && t <= nowMin) curIdx = i; });
+
+                items.forEach((item, i) => {
+                    if (i < curIdx) {
+                        item.classList.add('tl-past');
+                    } else if (i === curIdx) {
+                        item.classList.add('tl-current');
+                        const badge = document.createElement('span');
+                        badge.className = 'tl-now-badge';
+                        badge.textContent = '📍 進行中';
+                        const timeEl = item.querySelector('.time');
+                        if (timeEl) timeEl.appendChild(badge);
+                    }
+                });
+            });
+        }
+
+        // ===== 景點地圖一覽（Leaflet.js）=====
+        function initMap() {
+            const mapEl = document.getElementById('sg-map');
+            if (!mapEl || typeof L === 'undefined') return;
+
+            const map = L.map('sg-map', { zoomControl: true }).setView([1.3000, 103.8400], 11);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 19
+            }).addTo(map);
+
+            const colors = { 1: '#e53935', 2: '#1e88e5', 3: '#43a047', 4: '#f59e0b' };
+            const spots = [
+                // Day 1
+                { d:1, n:'✈️ 新加坡樟宜國際機場',    lat:1.3592, lng:103.9894 },
+                { d:1, n:'🏨 濱海灣金沙酒店',          lat:1.2834, lng:103.8607 },
+                { d:1, n:'🦁 魚尾獅公園',              lat:1.2868, lng:103.8545 },
+                { d:1, n:'🌿 濱海灣花園',              lat:1.2816, lng:103.8636 },
+                { d:1, n:'🎆 SPECTRA 光影水舞秀',      lat:1.2840, lng:103.8590 },
+                // Day 2
+                { d:2, n:'🎢 新加坡環球影城',          lat:1.2543, lng:103.8238 },
+                { d:2, n:'🧱 LEGOLAND Malaysia',       lat:1.4254, lng:103.6284 },
+                { d:2, n:'🦀 珍寶海鮮 Riverside Point',lat:1.2898, lng:103.8494 },
+                { d:2, n:'🌉 克拉碼頭',                lat:1.2904, lng:103.8465 },
+                { d:2, n:'🍛 竹腳中心',                lat:1.3067, lng:103.8517 },
+                { d:2, n:'🛒 慕斯塔法購物中心',        lat:1.3074, lng:103.8560 },
+                { d:2, n:'🕌 印度文化遺產中心',        lat:1.3065, lng:103.8510 },
+                // Day 3
+                { d:3, n:'🏝️ 聖淘沙',                  lat:1.2494, lng:103.8303 },
+                { d:3, n:'🐠 新加坡海洋館',            lat:1.2534, lng:103.8188 },
+                { d:3, n:'🧙 哈利波特：魔法幻境',      lat:1.2543, lng:103.8235 },
+                { d:3, n:'🛷 天際斜坡滑車',            lat:1.2487, lng:103.8282 },
+                { d:3, n:'🍚 莆田餐廳（怡豐城）',      lat:1.2644, lng:103.8221 },
+                { d:3, n:'🦁 夜間野生動物園',          lat:1.4043, lng:103.7930 },
+                // Day 4
+                { d:4, n:'💎 星耀樟宜 Jewel Changi',   lat:1.3597, lng:103.9893 },
+            ];
+
+            spots.forEach(({ d, n, lat, lng }) => {
+                L.circleMarker([lat, lng], {
+                    radius: 9, fillColor: colors[d], color: '#fff',
+                    weight: 2, opacity: 1, fillOpacity: 0.9
+                }).addTo(map).bindPopup(`<strong style="font-size:0.95em">Day ${d}</strong><br>${n}`);
+            });
+        }
+
         // 頁面加載完成後的初始化
         document.addEventListener('DOMContentLoaded', () => {
             // 添加動畫延遲
@@ -2770,6 +2919,8 @@
             initActiveDay();
             initWeather();
             initChecklist();
+            initTimelineStatus();
+            initMap();
         });
     </script>
 
