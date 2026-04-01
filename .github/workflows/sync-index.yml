@@ -1,0 +1,28 @@
+name: 同步 index.html
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'singapore_itinerary_optimized.html'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 複製最新版到 index.html
+        run: cp singapore_itinerary_optimized.html index.html
+
+      - name: 若有變更則自動 commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git diff --quiet index.html || (
+            git add index.html &&
+            git commit -m "🔄 自動同步 index.html（由 Actions 觸發）" &&
+            git push
+          )

@@ -2715,7 +2715,10 @@
             try {
                 // 使用 Open-Meteo 免費 API，不需註冊與金鑰
                 // 取得濱海灣金沙(Lat:1.2834, Lon:103.8607)的日預報 (最高/低溫, 天氣代碼)
-                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=1.2834&longitude=103.8607&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FSingapore&start_date=2026-04-02&end_date=2026-04-05');
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=1.2834&longitude=103.8607&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FSingapore&start_date=2026-04-02&end_date=2026-04-05', { signal: controller.signal });
+                clearTimeout(timeoutId);
                 const data = await res.json();
                 
                 let html = '';
