@@ -851,6 +851,11 @@
             font-weight: 600;
         }
 
+        /* 地圖響應式高度 */
+        .sg-map-container { height: 460px; }
+        @media (max-width: 768px) { .sg-map-container { height: 300px; } }
+        @media (max-width: 480px) { .sg-map-container { height: 240px; } }
+
         /* 時間軸狀態：已過 / 進行中 / 未來 */
         .timeline-item.tl-past {
             opacity: 0.45;
@@ -1237,6 +1242,7 @@
                 <div class="toc-grp-lbl">重要提醒</div>
                 <a class="toc-a" href="#today-update" onclick="closeTOC()">📅 3/31 今日更新</a>
                 <a class="toc-a" href="#ticket-prices" onclick="closeTOC()">📊 景點票價對照表</a>
+                <a class="toc-a" href="#attractions-map" onclick="closeTOC()">🗺️ 四天景點地圖</a>
                 <a class="toc-a" href="#pre-trip-notes" onclick="closeTOC()">⚠️ 出發前準備事項</a>
             </div>
             <div class="toc-grp">
@@ -1458,7 +1464,7 @@
                 <span style="background:#dcfce7;color:#166534;padding:4px 14px;border-radius:20px;font-size:0.82em;font-weight:700;">● Day 3 聖淘沙夜生態</span>
                 <span style="background:#fef9c3;color:#713f12;padding:4px 14px;border-radius:20px;font-size:0.82em;font-weight:700;">● Day 4 星耀樟宜</span>
             </div>
-            <div id="sg-map" style="height:460px;border-radius:12px;border:1px solid #e5e7eb;overflow:hidden;"></div>
+            <div id="sg-map" style="height:460px;border-radius:12px;border:1px solid #e5e7eb;overflow:hidden;" class="sg-map-container"></div>
             <p style="font-size:0.78em;color:#9ca3af;margin-top:8px;text-align:right;">地圖資料 © OpenStreetMap contributors</p>
         </div>
 
@@ -2401,7 +2407,7 @@
         <div class="footer">
             <p>※ 本計畫書內容與時間安排可視當日實際交通狀況與團員體力進行彈性微調。 ※</p>
             <p style="font-size: 1.05em; font-weight: 600; color: var(--text-main);">祝您與家人有一趟平安、愉快且充滿美好回憶的新加坡之旅！</p>
-            <p style="font-size: 0.8em; color: #aaa; margin-top: 16px;">v1.7.0 · 最後更新 2026-03-31</p>
+            <p style="font-size: 0.8em; color: #aaa; margin-top: 16px;">v1.9.0 · 最後更新 2026-04-01</p>
         </div>
     </main>
 

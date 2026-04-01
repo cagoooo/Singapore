@@ -1,10 +1,13 @@
-const CACHE_NAME = 'sg-itinerary-v1';
+const CACHE_NAME = 'sg-itinerary-v2';
 const ASSETS = [
     './',
     './index.html',
     './singapore_itinerary_optimized.html',
     './favicon.svg',
-    './og-preview.png'
+    './og-preview.png',
+    './icon-192.png',
+    './icon-384.png',
+    './manifest.json'
 ];
 
 // 1. Install 階段：立刻緩存核心資源
