@@ -856,14 +856,7 @@
         @media (max-width: 768px) { .sg-map-container { height: 300px; } }
         @media (max-width: 480px) { .sg-map-container { height: 240px; } }
 
-        /* 時間軸狀態：已過 / 進行中 / 未來 */
-        .timeline-item.tl-past {
-            opacity: 0.45;
-        }
-        .timeline-item.tl-past .time {
-            color: #9ca3af;
-            text-decoration: line-through;
-        }
+        /* 時間軸狀態：進行中（旅程結束後 tl-past 不再套用淡化效果） */
         .timeline-item.tl-current {
             background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
             border-left: 4px solid #3b82f6 !important;
@@ -2458,7 +2451,7 @@
         <div class="footer">
             <p>※ 本計畫書內容與時間安排可視當日實際交通狀況與團員體力進行彈性微調。 ※</p>
             <p style="font-size: 1.05em; font-weight: 600; color: var(--text-main);">祝您與家人有一趟平安、愉快且充滿美好回憶的新加坡之旅！</p>
-            <p style="font-size: 0.8em; color: #aaa; margin-top: 16px;">v1.9.4 · 最後更新 2026-04-06</p>
+            <p style="font-size: 0.8em; color: #aaa; margin-top: 16px;">v1.9.5 · 最後更新 2026-04-06</p>
         </div>
     </main>
 
