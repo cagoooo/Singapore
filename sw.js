@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sg-itinerary-v3';
+const CACHE_NAME = 'sg-itinerary-v4';
 const ASSETS = [
     './',
     './index.html',

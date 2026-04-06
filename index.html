@@ -43,12 +43,14 @@
     <meta name="twitter:title"       content="🇸🇬 新加坡四天三夜家族旅遊計畫書">
     <meta name="twitter:description" content="2026年4月2日－5日 · 25人大家族同遊新加坡 · 濱海灣金沙酒店">
     <meta name="twitter:image"       content="https://cagoooo.github.io/Singapore/og-preview.png">
-    <!-- Google Fonts：preconnect 提前建立連線，改 <link> 避免 render-blocking @import -->
+    <!-- Google Fonts：preconnect 提前建立連線，preload 非阻塞載入字體 CSS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;700&display=swap">
-    <!-- Leaflet.js 互動地圖 -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;700&display=swap"></noscript>
+    <!-- Leaflet.js 互動地圖：CSS 非阻塞載入，JS 使用 defer -->
+    <link rel="preload" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" as="style" crossorigin="" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""></noscript>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer crossorigin=""></script>
     <style>
         
@@ -1279,7 +1281,7 @@
             <h3 data-en="📲 Scan to Open Trip Guide">📲 掃碼開啟計畫書</h3>
             <p data-en="Scan with your phone to share with family">用手機掃描 QR Code 即可分享給家人</p>
             <img src="https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fcagoooo.github.io%2FSingapore%2F&size=220x220&color=1e1b4b&bgcolor=ffffff&margin=6"
-                 alt="QR Code" width="220" height="220" style="border-radius:10px; display:block; margin:0 auto;"
+                 alt="QR Code" width="220" height="220" loading="lazy" style="border-radius:10px; display:block; margin:0 auto;"
                  onerror="this.outerHTML='<p style=&quot;color:#64748b;font-size:0.88em;margin:16px 0&quot;>⚠️ QR Code 需要網路連線才能顯示</p>'">
             <button class="qr-close" onclick="closeQR()" data-en="Close">關閉</button>
         </div>
@@ -3339,8 +3341,19 @@
             initWeather();
             initChecklist();
             initTimelineStatus();
-            initMap();
             initLang();
+
+            // 地圖延遲初始化：捲入畫面才載入，節省初始解析時間
+            const mapEl = document.getElementById('sg-map');
+            if (mapEl) {
+                const mapObserver = new IntersectionObserver((entries, obs) => {
+                    if (entries[0].isIntersecting) {
+                        initMap();
+                        obs.disconnect();
+                    }
+                }, { rootMargin: '200px' });
+                mapObserver.observe(mapEl);
+            }
         });
     </script>
 
