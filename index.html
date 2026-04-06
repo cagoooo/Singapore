@@ -50,6 +50,8 @@
     <!-- Leaflet.js 互動地圖 -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer crossorigin=""></script>
+    <!-- QR Code 產生器 -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" defer></script>
     <style>
         
         :root {
@@ -1195,6 +1197,50 @@
             .toc-panel { right: 10px; width: 240px; }
             .toc-btn { right: 10px; }
         }
+
+        /* QR Code Modal */
+        .qr-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.55); z-index: 2000;
+            align-items: center; justify-content: center;
+        }
+        .qr-overlay.open { display: flex; }
+        .qr-box {
+            background: white; border-radius: 20px; padding: 32px 28px;
+            text-align: center; max-width: 300px; width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: qrPop 0.2s ease;
+        }
+        @keyframes qrPop {
+            from { transform: scale(0.85); opacity: 0; }
+            to   { transform: scale(1);    opacity: 1; }
+        }
+        .qr-box h3 { margin: 0 0 4px; font-size: 1.1em; color: #1e293b; }
+        .qr-box p  { margin: 0 0 18px; font-size: 0.82em; color: #64748b; }
+        #qr-canvas { border-radius: 10px; }
+        .qr-close {
+            margin-top: 18px; display: block; width: 100%;
+            padding: 10px; border: none; border-radius: 10px;
+            background: #f1f5f9; color: #475569; font-size: 0.92em;
+            font-weight: 600; cursor: pointer;
+        }
+        .qr-close:hover { background: #e2e8f0; }
+
+        /* 地圖天次篩選按鈕 */
+        .map-filter-bar {
+            display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;
+        }
+        .map-filter-btn {
+            padding: 6px 16px; border-radius: 20px; border: 2px solid transparent;
+            font-size: 0.83em; font-weight: 700; cursor: pointer;
+            transition: all 0.18s;
+        }
+        .map-filter-btn.all  { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
+        .map-filter-btn.d1   { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+        .map-filter-btn.d2   { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+        .map-filter-btn.d3   { background: #dcfce7; color: #166534; border-color: #86efac; }
+        .map-filter-btn.d4   { background: #fef9c3; color: #713f12; border-color: #fde68a; }
+        .map-filter-btn.active, .map-filter-btn:hover { filter: brightness(0.92); transform: translateY(-1px); box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
@@ -1204,9 +1250,20 @@
         <div class="nav-title">🇸🇬 新加坡家族旅遊計畫</div>
         <div class="nav-buttons">
             <button class="nav-btn" onclick="toggleSearch()">🔍 搜尋</button>
+            <button class="nav-btn" onclick="openQR()">📲 分享</button>
             <button class="nav-btn" onclick="window.print()">列印</button>
         </div>
     </nav>
+
+    <!-- QR Code Modal -->
+    <div class="qr-overlay" id="qrOverlay" onclick="if(event.target===this)closeQR()">
+        <div class="qr-box">
+            <h3>📲 掃碼開啟計畫書</h3>
+            <p>用手機掃描 QR Code 即可分享給家人</p>
+            <canvas id="qr-canvas"></canvas>
+            <button class="qr-close" onclick="closeQR()">關閉</button>
+        </div>
+    </div>
 
     <!-- 搜尋框 -->
     <div class="search-box" id="searchBox">
@@ -1489,11 +1546,12 @@
         <div id="attractions-map" class="notes-section">
             <h2>🗺️ 四天景點地圖一覽</h2>
             <p style="color:#555;font-size:0.9em;margin-bottom:12px;">點擊地圖標記可查看景點名稱與所屬天次。</p>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
-                <span style="background:#fee2e2;color:#991b1b;padding:4px 14px;border-radius:20px;font-size:0.82em;font-weight:700;">● Day 1 抵達濱海灣</span>
-                <span style="background:#dbeafe;color:#1e40af;padding:4px 14px;border-radius:20px;font-size:0.82em;font-weight:700;">● Day 2 樂園／市區</span>
-                <span style="background:#dcfce7;color:#166534;padding:4px 14px;border-radius:20px;font-size:0.82em;font-weight:700;">● Day 3 聖淘沙夜生態</span>
-                <span style="background:#fef9c3;color:#713f12;padding:4px 14px;border-radius:20px;font-size:0.82em;font-weight:700;">● Day 4 星耀樟宜</span>
+            <div class="map-filter-bar">
+                <button class="map-filter-btn all active" onclick="filterMap(0, this)">🗺️ 全部</button>
+                <button class="map-filter-btn d1" onclick="filterMap(1, this)">● Day 1 抵達濱海灣</button>
+                <button class="map-filter-btn d2" onclick="filterMap(2, this)">● Day 2 樂園／市區</button>
+                <button class="map-filter-btn d3" onclick="filterMap(3, this)">● Day 3 聖淘沙夜生態</button>
+                <button class="map-filter-btn d4" onclick="filterMap(4, this)">● Day 4 星耀樟宜</button>
             </div>
             <div id="sg-map" style="height:460px;border-radius:12px;border:1px solid #e5e7eb;overflow:hidden;" class="sg-map-container"></div>
             <p style="font-size:0.78em;color:#9ca3af;margin-top:8px;text-align:right;">地圖資料 © OpenStreetMap contributors</p>
@@ -2488,7 +2546,7 @@
         <div class="footer">
             <p>※ 本計畫書內容與時間安排可視當日實際交通狀況與團員體力進行彈性微調。 ※</p>
             <p style="font-size: 1.05em; font-weight: 600; color: var(--text-main);">祝您與家人有一趟平安、愉快且充滿美好回憶的新加坡之旅！</p>
-            <p style="font-size: 0.8em; color: #aaa; margin-top: 16px;">v1.9.6 · 最後更新 2026-04-06</p>
+            <p style="font-size: 0.8em; color: #aaa; margin-top: 16px;">v1.9.7 · 最後更新 2026-04-06</p>
         </div>
     </main>
 
@@ -2945,12 +3003,44 @@
             });
         }
 
+        // ===== QR Code 分享 =====
+        function openQR() {
+            document.getElementById('qrOverlay').classList.add('open');
+            if (typeof QRCode !== 'undefined') {
+                QRCode.toCanvas(document.getElementById('qr-canvas'),
+                    'https://cagoooo.github.io/Singapore/',
+                    { width: 220, margin: 2, color: { dark: '#1e1b4b', light: '#ffffff' } }
+                );
+            }
+        }
+        function closeQR() {
+            document.getElementById('qrOverlay').classList.remove('open');
+        }
+
         // ===== 景點地圖一覽（Leaflet.js）=====
+        let _mapLayers = {};   // { 1: layerGroup, 2: layerGroup, ... }
+        let _mapInstance = null;
+
+        function filterMap(day, btn) {
+            // 更新按鈕 active 狀態
+            document.querySelectorAll('.map-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            // 顯示/隱藏 layerGroup
+            Object.entries(_mapLayers).forEach(([d, lg]) => {
+                if (day === 0 || Number(d) === day) {
+                    _mapInstance.addLayer(lg);
+                } else {
+                    _mapInstance.removeLayer(lg);
+                }
+            });
+        }
+
         function initMap() {
             const mapEl = document.getElementById('sg-map');
             if (!mapEl || typeof L === 'undefined') return;
 
             const map = L.map('sg-map', { zoomControl: true }).setView([1.3000, 103.8400], 11);
+            _mapInstance = map;
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors',
                 maxZoom: 19
@@ -2983,11 +3073,14 @@
                 { d:4, n:'💎 星耀樟宜 Jewel Changi',   lat:1.3597, lng:103.9893 },
             ];
 
+            // 建立每天的 layerGroup
+            [1,2,3,4].forEach(d => { _mapLayers[d] = L.layerGroup().addTo(map); });
+
             spots.forEach(({ d, n, lat, lng }) => {
                 L.circleMarker([lat, lng], {
                     radius: 9, fillColor: colors[d], color: '#fff',
                     weight: 2, opacity: 1, fillOpacity: 0.9
-                }).addTo(map).bindPopup(`<strong style="font-size:0.95em">Day ${d}</strong><br>${n}`);
+                }).addTo(_mapLayers[d]).bindPopup(`<strong style="font-size:0.95em">Day ${d}</strong><br>${n}`);
             });
         }
 
