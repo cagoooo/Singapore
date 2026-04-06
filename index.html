@@ -1821,7 +1821,7 @@
         <div id="day1" class="day-card day1">
             <div class="day-header">
                 <span data-en="Day 1: Arrival &amp; Marina Bay Exploration">Day 1：抵達星國，探索濱海灣</span>
-                <span class="day-header-date">4/2 (四)</span>
+                <span class="day-header-date" data-en="4/2 (Thu)">4/2 (四)</span>
             </div>
             <div class="day-content" id="day1-content">
                 <div class="day-info">
@@ -1915,7 +1915,7 @@
         <div id="day2" class="day-card day2">
             <div class="day-header">
                 <span data-en="Day 2: Theme Parks or City Exploration">Day 2：樂園狂歡或市區漫遊</span>
-                <span class="day-header-date">4/3 (五)</span>
+                <span class="day-header-date" data-en="4/3 (Fri)">4/3 (五)</span>
             </div>
             <div class="day-content" id="day2-content">
                 <div class="day-info">
@@ -2341,7 +2341,7 @@
         <div id="day3" class="day-card day3">
             <div class="day-header">
                 <span data-en="Day 3: Sentosa Adventure &amp; Night Safari">Day 3：聖淘沙探險與夜間生態之旅</span>
-                <span class="day-header-date">4/4 (六)</span>
+                <span class="day-header-date" data-en="4/4 (Sat)">4/4 (六)</span>
             </div>
             <div class="day-content" id="day3-content">
                 <div class="day-info">
@@ -2483,7 +2483,7 @@
         <div id="day4" class="day-card day4">
             <div class="day-header">
                 <span data-en="Day 4: Homeward Bound, Jewel Changi">Day 4：滿載而歸，星耀樟宜</span>
-                <span class="day-header-date">4/5 (日)</span>
+                <span class="day-header-date" data-en="4/5 (Sun)">4/5 (日)</span>
             </div>
             <div class="day-content" id="day4-content">
                 <div class="day-info">
@@ -2978,7 +2978,9 @@
                 const data = await res.json();
                 
                 let html = '';
-                const dateLabels = ['4/2 (四)', '4/3 (五)', '4/4 (六)', '4/5 (日)'];
+                const dateLabels = _currentLang === 'en'
+                    ? ['4/2 (Thu)', '4/3 (Fri)', '4/4 (Sat)', '4/5 (Sun)']
+                    : ['4/2 (四)', '4/3 (五)', '4/4 (六)', '4/5 (日)'];
                 
                 for(let i=0; i<4; i++) {
                     const code = data.daily.weather_code[i];
