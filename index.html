@@ -50,8 +50,6 @@
     <!-- Leaflet.js 互動地圖 -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer crossorigin=""></script>
-    <!-- QR Code 產生器 -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" defer></script>
     <style>
         
         :root {
@@ -1260,7 +1258,8 @@
         <div class="qr-box">
             <h3>📲 掃碼開啟計畫書</h3>
             <p>用手機掃描 QR Code 即可分享給家人</p>
-            <canvas id="qr-canvas"></canvas>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fcagoooo.github.io%2FSingapore%2F&size=220x220&color=1e1b4b&bgcolor=ffffff&margin=6"
+                 alt="QR Code" width="220" height="220" style="border-radius:10px; display:block; margin:0 auto;">
             <button class="qr-close" onclick="closeQR()">關閉</button>
         </div>
     </div>
@@ -3006,12 +3005,6 @@
         // ===== QR Code 分享 =====
         function openQR() {
             document.getElementById('qrOverlay').classList.add('open');
-            if (typeof QRCode !== 'undefined') {
-                QRCode.toCanvas(document.getElementById('qr-canvas'),
-                    'https://cagoooo.github.io/Singapore/',
-                    { width: 220, margin: 2, color: { dark: '#1e1b4b', light: '#ffffff' } }
-                );
-            }
         }
         function closeQR() {
             document.getElementById('qrOverlay').classList.remove('open');
