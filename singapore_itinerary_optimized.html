@@ -1248,6 +1248,16 @@
         .map-filter-btn.d3   { background: #dcfce7; color: #166534; border-color: #86efac; }
         .map-filter-btn.d4   { background: #fef9c3; color: #713f12; border-color: #fde68a; }
         .map-filter-btn.active, .map-filter-btn:hover { filter: brightness(0.92); transform: translateY(-1px); box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
+
+        /* ===== 雙語切換 lang-zh / lang-en ===== */
+        .lang-en { display: none !important; }
+        body.en-mode .lang-zh { display: none !important; }
+        body.en-mode .lang-en { display: block !important; }
+        body.en-mode span.lang-en,
+        body.en-mode a.lang-en,
+        body.en-mode td.lang-en,
+        body.en-mode th.lang-en { display: inline !important; }
+        body.en-mode li.lang-en { display: list-item !important; }
     </style>
 </head>
 <body>
@@ -1277,7 +1287,7 @@
 
     <!-- 搜尋框 -->
     <div class="search-box" id="searchBox">
-        <input type="text" class="search-input" id="searchInput" placeholder="搜尋內容..." oninput="searchContent()" onkeydown="handleSearchKey(event)">
+        <input type="text" class="search-input" id="searchInput" placeholder="搜尋內容… / Search…" oninput="searchContent()" onkeydown="handleSearchKey(event)">
         <button class="search-nav-btn" id="searchPrev" onclick="navigateMatch(-1)" title="上一個 (Shift+Enter)">&#8679;</button>
         <button class="search-nav-btn" id="searchNext" onclick="navigateMatch(1)" title="下一個 (Enter)">&#8681;</button>
         <span class="search-counter" id="searchCounter"></span>
@@ -1294,61 +1304,61 @@
     <!-- 書籤導航面板 -->
     <div class="toc-panel" id="tocPanel">
         <div class="toc-head">
-            <span>📑 快速跳轉</span>
+            <span><span class="lang-zh">📑 快速跳轉</span><span class="lang-en">📑 Quick Nav</span></span>
             <button class="toc-close" onclick="closeTOC()">✕</button>
         </div>
         <div class="toc-body">
             <div class="toc-grp">
-                <div class="toc-grp-lbl">重要提醒</div>
-                <a class="toc-a" href="#album-section" onclick="closeTOC()">📸 家族旅遊相簿</a>
-                <a class="toc-a" href="#today-update" onclick="closeTOC()">📅 3/31 今日更新</a>
-                <a class="toc-a" href="#ticket-prices" onclick="closeTOC()">📊 景點票價對照表</a>
-                <a class="toc-a" href="#attractions-map" onclick="closeTOC()">🗺️ 四天景點地圖</a>
-                <a class="toc-a" href="#pre-trip-notes" onclick="closeTOC()">⚠️ 出發前準備事項</a>
-                <a class="toc-a" href="#esim-guide" onclick="closeTOC()">📶 eSIM 使用指南</a>
+                <div class="toc-grp-lbl"><span class="lang-zh">重要提醒</span><span class="lang-en">Key Info</span></div>
+                <a class="toc-a" href="#album-section" onclick="closeTOC()"><span class="lang-zh">📸 家族旅遊相簿</span><span class="lang-en">📸 Family Album</span></a>
+                <a class="toc-a" href="#today-update" onclick="closeTOC()"><span class="lang-zh">📅 3/31 今日更新</span><span class="lang-en">📅 3/31 Update</span></a>
+                <a class="toc-a" href="#ticket-prices" onclick="closeTOC()"><span class="lang-zh">📊 景點票價對照表</span><span class="lang-en">📊 Ticket Price Guide</span></a>
+                <a class="toc-a" href="#attractions-map" onclick="closeTOC()"><span class="lang-zh">🗺️ 四天景點地圖</span><span class="lang-en">🗺️ Attractions Map</span></a>
+                <a class="toc-a" href="#pre-trip-notes" onclick="closeTOC()"><span class="lang-zh">⚠️ 出發前準備事項</span><span class="lang-en">⚠️ Pre-Trip Checklist</span></a>
+                <a class="toc-a" href="#esim-guide" onclick="closeTOC()"><span class="lang-zh">📶 eSIM 使用指南</span><span class="lang-en">📶 eSIM Guide</span></a>
             </div>
             <div class="toc-grp">
-                <div class="toc-grp-lbl">行程天數</div>
-                <a class="toc-a d1" href="#day1" onclick="closeTOC()">Day 1 — 抵達・濱海灣 4/2</a>
-                <a class="toc-a d2" href="#day2" onclick="closeTOC()">Day 2 — 自由活動 4/3</a>
-                <a class="toc-a d3" href="#day3" onclick="closeTOC()">Day 3 — 聖淘沙・夜間動物園 4/4</a>
-                <a class="toc-a d4" href="#day4" onclick="closeTOC()">Day 4 — 星耀樟宜・返程 4/5</a>
+                <div class="toc-grp-lbl"><span class="lang-zh">行程天數</span><span class="lang-en">Itinerary Days</span></div>
+                <a class="toc-a d1" href="#day1" onclick="closeTOC()"><span class="lang-zh">Day 1 — 抵達・濱海灣 4/2</span><span class="lang-en">Day 1 — Arrival · Marina Bay 4/2</span></a>
+                <a class="toc-a d2" href="#day2" onclick="closeTOC()"><span class="lang-zh">Day 2 — 自由活動 4/3</span><span class="lang-en">Day 2 — Free Activities 4/3</span></a>
+                <a class="toc-a d3" href="#day3" onclick="closeTOC()"><span class="lang-zh">Day 3 — 聖淘沙・夜間動物園 4/4</span><span class="lang-en">Day 3 — Sentosa · Night Safari 4/4</span></a>
+                <a class="toc-a d4" href="#day4" onclick="closeTOC()"><span class="lang-zh">Day 4 — 星耀樟宜・返程 4/5</span><span class="lang-en">Day 4 — Jewel Changi · Homebound 4/5</span></a>
             </div>
             <div class="toc-grp">
-                <div class="toc-grp-lbl">Day 1 景點</div>
-                <a class="toc-a d1 sub" href="#day1-airport" onclick="closeTOC()">✈️ 抵達樟宜機場</a>
-                <a class="toc-a d1 sub" href="#day1-checkin" onclick="closeTOC()">🏨 金沙酒店 Check-in</a>
-                <a class="toc-a d1 sub" href="#day1-merlion" onclick="closeTOC()">🦁 魚尾獅公園</a>
-                <a class="toc-a d1 sub" href="#day1-gardens" onclick="closeTOC()">🌳 濱海灣花園</a>
-                <a class="toc-a d1 sub" href="#day1-spectra" onclick="closeTOC()">🎆 SPECTRA 水舞秀</a>
+                <div class="toc-grp-lbl"><span class="lang-zh">Day 1 景點</span><span class="lang-en">Day 1 Highlights</span></div>
+                <a class="toc-a d1 sub" href="#day1-airport" onclick="closeTOC()"><span class="lang-zh">✈️ 抵達樟宜機場</span><span class="lang-en">✈️ Arrive Changi Airport</span></a>
+                <a class="toc-a d1 sub" href="#day1-checkin" onclick="closeTOC()"><span class="lang-zh">🏨 金沙酒店 Check-in</span><span class="lang-en">🏨 MBS Hotel Check-in</span></a>
+                <a class="toc-a d1 sub" href="#day1-merlion" onclick="closeTOC()"><span class="lang-zh">🦁 魚尾獅公園</span><span class="lang-en">🦁 Merlion Park</span></a>
+                <a class="toc-a d1 sub" href="#day1-gardens" onclick="closeTOC()"><span class="lang-zh">🌳 濱海灣花園</span><span class="lang-en">🌳 Gardens by the Bay</span></a>
+                <a class="toc-a d1 sub" href="#day1-spectra" onclick="closeTOC()"><span class="lang-zh">🎆 SPECTRA 水舞秀</span><span class="lang-en">🎆 SPECTRA Light Show</span></a>
             </div>
             <div class="toc-grp">
-                <div class="toc-grp-lbl">Day 2 路線</div>
-                <a class="toc-a d2 sub" href="#day2-assembly" onclick="closeTOC()">📍 自由出發</a>
-                <a class="toc-a d2 sub" href="#day2-transport" onclick="closeTOC()">🚇 交通方式指南</a>
-                <a class="toc-a d2 sub" href="#day2-route-a" onclick="closeTOC()">🎢 路線 A — 環球影城</a>
-                <a class="toc-a d2 sub" href="#day2-route-b" onclick="closeTOC()">🧱 路線 B — LEGOLAND</a>
-                <a class="toc-a d2 sub" href="#day2-route-c" onclick="closeTOC()">🕌 路線 C — 小印度</a>
-                <a class="toc-a d2 sub" href="#day2-dinner" onclick="closeTOC()">🦀 珍寶海鮮晚餐集合</a>
+                <div class="toc-grp-lbl"><span class="lang-zh">Day 2 路線</span><span class="lang-en">Day 2 Routes</span></div>
+                <a class="toc-a d2 sub" href="#day2-assembly" onclick="closeTOC()"><span class="lang-zh">📍 自由出發</span><span class="lang-en">📍 Free Departure</span></a>
+                <a class="toc-a d2 sub" href="#day2-transport" onclick="closeTOC()"><span class="lang-zh">🚇 交通方式指南</span><span class="lang-en">🚇 Transport Guide</span></a>
+                <a class="toc-a d2 sub" href="#day2-route-a" onclick="closeTOC()"><span class="lang-zh">🎢 路線 A — 環球影城</span><span class="lang-en">🎢 Route A — USS</span></a>
+                <a class="toc-a d2 sub" href="#day2-route-b" onclick="closeTOC()"><span class="lang-zh">🧱 路線 B — LEGOLAND</span><span class="lang-en">🧱 Route B — LEGOLAND</span></a>
+                <a class="toc-a d2 sub" href="#day2-route-c" onclick="closeTOC()"><span class="lang-zh">🕌 路線 C — 小印度</span><span class="lang-en">🕌 Route C — Little India</span></a>
+                <a class="toc-a d2 sub" href="#day2-dinner" onclick="closeTOC()"><span class="lang-zh">🦀 珍寶海鮮晚餐集合</span><span class="lang-en">🦀 Jumbo Seafood Dinner</span></a>
             </div>
             <div class="toc-grp">
-                <div class="toc-grp-lbl">Day 3 景點</div>
-                <a class="toc-a d3 sub" href="#day3-assembly" onclick="closeTOC()">📍 飯店集合出發</a>
-                <a class="toc-a d3 sub" href="#day3-sentosa" onclick="closeTOC()">🏝️ 前往聖淘沙</a>
-                <a class="toc-a d3 sub" href="#day3-morning" onclick="closeTOC()">🏎️ 上午活動（滑車／哈利波特）</a>
-                <a class="toc-a d3 sub" href="#putien" onclick="closeTOC()">🍽️ 莆田餐廳午餐</a>
-                <a class="toc-a d3 sub" href="#day3-afternoon" onclick="closeTOC()">🐠 下午活動（海洋館／環球影城）</a>
-                <a class="toc-a d3 sub" href="#day3-dinner" onclick="closeTOC()">🍜 夜間動物園自助餐</a>
-                <a class="toc-a d3 sub" href="#night-safari" onclick="closeTOC()">🦉 夜間動物園</a>
-                <a class="toc-a d3 sub" href="#day3-return" onclick="closeTOC()">🏨 返回金沙酒店</a>
+                <div class="toc-grp-lbl"><span class="lang-zh">Day 3 景點</span><span class="lang-en">Day 3 Highlights</span></div>
+                <a class="toc-a d3 sub" href="#day3-assembly" onclick="closeTOC()"><span class="lang-zh">📍 飯店集合出發</span><span class="lang-en">📍 Hotel Lobby Meetup</span></a>
+                <a class="toc-a d3 sub" href="#day3-sentosa" onclick="closeTOC()"><span class="lang-zh">🏝️ 前往聖淘沙</span><span class="lang-en">🏝️ Head to Sentosa</span></a>
+                <a class="toc-a d3 sub" href="#day3-morning" onclick="closeTOC()"><span class="lang-zh">🏎️ 上午活動（滑車／哈利波特）</span><span class="lang-en">🏎️ Morning (Luge / HP)</span></a>
+                <a class="toc-a d3 sub" href="#putien" onclick="closeTOC()"><span class="lang-zh">🍽️ 莆田餐廳午餐</span><span class="lang-en">🍽️ Putien Lunch</span></a>
+                <a class="toc-a d3 sub" href="#day3-afternoon" onclick="closeTOC()"><span class="lang-zh">🐠 下午活動（海洋館／環球影城）</span><span class="lang-en">🐠 Afternoon (Oceanarium / USS)</span></a>
+                <a class="toc-a d3 sub" href="#day3-dinner" onclick="closeTOC()"><span class="lang-zh">🍜 夜間動物園自助餐</span><span class="lang-en">🍜 Night Safari Buffet</span></a>
+                <a class="toc-a d3 sub" href="#night-safari" onclick="closeTOC()"><span class="lang-zh">🦉 夜間動物園</span><span class="lang-en">🦉 Night Safari</span></a>
+                <a class="toc-a d3 sub" href="#day3-return" onclick="closeTOC()"><span class="lang-zh">🏨 返回金沙酒店</span><span class="lang-en">🏨 Return to MBS</span></a>
             </div>
             <div class="toc-grp">
-                <div class="toc-grp-lbl">Day 4 景點</div>
-                <a class="toc-a d4 sub" href="#day4-assembly" onclick="closeTOC()">📍 飯店集合</a>
-                <a class="toc-a d4 sub" href="#day4-airport" onclick="closeTOC()">✈️ 前往樟宜機場</a>
-                <a class="toc-a d4 sub" href="#day4-checkin" onclick="closeTOC()">🎫 辦理登機手續</a>
-                <a class="toc-a d4 sub" href="#day4-jewel" onclick="closeTOC()">💎 星耀樟宜 Jewel</a>
-                <a class="toc-a d4 sub" href="#day4-rain" onclick="closeTOC()">🌊 雨漩渦燈光秀</a>
+                <div class="toc-grp-lbl"><span class="lang-zh">Day 4 景點</span><span class="lang-en">Day 4 Highlights</span></div>
+                <a class="toc-a d4 sub" href="#day4-assembly" onclick="closeTOC()"><span class="lang-zh">📍 飯店集合</span><span class="lang-en">📍 Hotel Meetup</span></a>
+                <a class="toc-a d4 sub" href="#day4-airport" onclick="closeTOC()"><span class="lang-zh">✈️ 前往樟宜機場</span><span class="lang-en">✈️ Transfer to Changi</span></a>
+                <a class="toc-a d4 sub" href="#day4-checkin" onclick="closeTOC()"><span class="lang-zh">🎫 辦理登機手續</span><span class="lang-en">🎫 Flight Check-in</span></a>
+                <a class="toc-a d4 sub" href="#day4-jewel" onclick="closeTOC()"><span class="lang-zh">💎 星耀樟宜 Jewel</span><span class="lang-en">💎 Jewel Changi</span></a>
+                <a class="toc-a d4 sub" href="#day4-rain" onclick="closeTOC()"><span class="lang-zh">🌊 雨漩渦燈光秀</span><span class="lang-en">🌊 Rain Vortex Show</span></a>
             </div>
         </div>
     </div>
@@ -1356,7 +1366,7 @@
     <main>
         <h1 data-en="🇸🇬 Singapore 4-Day 3-Night Family Trip Complete Guide">🇸🇬 新加坡四天三夜家族旅遊詳細計畫書</h1>
         <p class="subtitle" data-en="A joyful family adventure filled with wonderful memories">一場充滿歡樂與回憶的家族冒險</p>
-        <div class="en-tip-banner">💡 Structural headings are translated. For full paragraph translation, right-click the page → <strong>Translate to English</strong> in Chrome/Safari.</div>
+        <div class="en-tip-banner">🌐 <strong>Full English mode active.</strong> All itinerary content, notes, and guides are now displayed in English.</div>
 
         <!-- ===== 旅遊相簿（密碼保護）===== -->
         <div id="album-section" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4c1d95 100%); border-radius: 18px; padding: 32px 28px; margin-bottom: 28px; box-shadow: 0 8px 32px rgba(79,70,229,0.35); color: white; text-align: center;">
@@ -1431,18 +1441,18 @@
         <div class="dashboard-grid">
             <!-- 倒數計時器 -->
             <div class="countdown-card">
-                <div class="cd-title">⏳ 距離 4/2 新加坡旅行出發還有</div>
+                <div class="cd-title" data-en="⏳ Days Until Apr 2 Singapore Departure">⏳ 距離 4/2 新加坡旅行出發還有</div>
                 <div class="cd-timer" id="countdown-timer">
-                    <div class="cd-box"><div class="cd-num">-</div><div class="cd-lbl">天</div></div>
-                    <div class="cd-box"><div class="cd-num">-</div><div class="cd-lbl">時</div></div>
-                    <div class="cd-box"><div class="cd-num">-</div><div class="cd-lbl">分</div></div>
-                    <div class="cd-box"><div class="cd-num">-</div><div class="cd-lbl">秒</div></div>
+                    <div class="cd-box"><div class="cd-num">-</div><div class="cd-lbl" data-en="Day">天</div></div>
+                    <div class="cd-box"><div class="cd-num">-</div><div class="cd-lbl" data-en="Hr">時</div></div>
+                    <div class="cd-box"><div class="cd-num">-</div><div class="cd-lbl" data-en="Min">分</div></div>
+                    <div class="cd-box"><div class="cd-num">-</div><div class="cd-lbl" data-en="Sec">秒</div></div>
                 </div>
             </div>
 
             <!-- 天氣預報 -->
             <div class="weather-card">
-                <div class="weather-title">⛅ 新加坡天氣預報 (4/2 - 4/5)</div>
+                <div class="weather-title" data-en="⛅ Singapore Weather Forecast (Apr 2–5)">⛅ 新加坡天氣預報 (4/2 - 4/5)</div>
                 <div class="weather-forecast" id="weather-forecast">
                     <div style="text-align:center; flex:1; color:#9ca3af; font-size:0.9em; margin-top:20px;">
                         載入最新氣象資料中... 🛰️
@@ -1454,104 +1464,107 @@
         <!-- 快捷連結區塊 -->
         <div class="quick-links">
             <a href="https://eservices.ica.gov.sg/sgarrivalcard/" target="_blank" class="ql-btn">🛂 SG Arrival Card</a>
-            <a href="https://booking.evaair.com/flyeva/eva/b2c/manage-your-trip/online-checked-in-login.aspx?lang=zh-tw" target="_blank" class="ql-btn">✈️ 長榮預辦登機</a>
-            <a href="https://www.google.com/maps/d/edit?mid=19MNIhRfEu5DrsYhGoyzGZezXAP5u6fE&usp=sharing" target="_blank" class="ql-btn">📍 Google Maps 行程地圖</a>
-            <a href="https://www.klook.com/zh-TW/city/6-singapore-things-to-do/" target="_blank" class="ql-btn">🎫 Klook 快速訂票</a>
-            <a href="https://www.ezlink.com.sg/" target="_blank" class="ql-btn">💳 EZ-Link App 交通網</a>
+            <a href="https://booking.evaair.com/flyeva/eva/b2c/manage-your-trip/online-checked-in-login.aspx?lang=zh-tw" target="_blank" class="ql-btn" data-en="✈️ Eva Air Online Check-in">✈️ 長榮預辦登機</a>
+            <a href="https://www.google.com/maps/d/edit?mid=19MNIhRfEu5DrsYhGoyzGZezXAP5u6fE&usp=sharing" target="_blank" class="ql-btn" data-en="📍 Google Maps Trip Map">📍 Google Maps 行程地圖</a>
+            <a href="https://www.klook.com/zh-TW/city/6-singapore-things-to-do/" target="_blank" class="ql-btn" data-en="🎫 Klook Tickets">🎫 Klook 快速訂票</a>
+            <a href="https://www.ezlink.com.sg/" target="_blank" class="ql-btn" data-en="💳 EZ-Link Transit">💳 EZ-Link App 交通網</a>
         </div>
 
         <!-- 基本資訊 -->
         <div class="header-info">
             <div class="info-card">
-                <h3>📅 基本資訊</h3>
-                <p><strong>日期：</strong> 2026年4月2日 (四) - 4月5日 (日)</p>
-                <p><strong>人數：</strong> 共 25 人</p>
-                <p><strong>組成：</strong> 台灣出發 17 人，海外會合 8 人</p>
-                <p><strong>家庭成員：</strong> 含 1 嬰兒、6 小孩</p>
+                <h3 data-en="📅 Trip Overview">📅 基本資訊</h3>
+                <p><strong data-en="Date:">日期：</strong> <span data-en="Apr 2 (Thu) – Apr 5 (Sun), 2026">2026年4月2日 (四) - 4月5日 (日)</span></p>
+                <p><strong data-en="Group Size:">人數：</strong> <span data-en="25 people total">共 25 人</span></p>
+                <p><strong data-en="Composition:">組成：</strong> <span data-en="17 from Taiwan + 8 joining overseas">台灣出發 17 人，海外會合 8 人</span></p>
+                <p><strong data-en="Members:">家庭成員：</strong> <span data-en="Includes 1 infant, 6 children">含 1 嬰兒、6 小孩</span></p>
             </div>
             <div class="info-card">
-                <h3>🏨 住宿資訊</h3>
-                <p><strong>飯店：</strong> 濱海灣金沙酒店</p>
-                <p><strong>房型：</strong> 市景房</p>
-                <p><strong>早餐：</strong> 無免費早餐，請各自處理</p>
+                <h3 data-en="🏨 Accommodation">🏨 住宿資訊</h3>
+                <p><strong data-en="Hotel:">飯店：</strong> <span data-en="Marina Bay Sands">濱海灣金沙酒店</span></p>
+                <p><strong data-en="Room Type:">房型：</strong> <span data-en="City View Room">市景房</span></p>
+                <p><strong data-en="Breakfast:">早餐：</strong> <span data-en="Not included — arrange independently">無免費早餐，請各自處理</span></p>
             </div>
             <div class="info-card">
-                <h3>🚗 交通工具</h3>
-                <p><strong>主要交通：</strong> 45人座包車</p>
-                <p><strong>導遊：</strong> 1位專業導遊</p>
-                <p><strong>自由活動：</strong> 大眾運輸或計程車</p>
+                <h3 data-en="🚗 Transport">🚗 交通工具</h3>
+                <p><strong data-en="Main Transport:">主要交通：</strong> <span data-en="45-seat charter bus">45人座包車</span></p>
+                <p><strong data-en="Guide:">導遊：</strong> <span data-en="1 professional tour guide">1位專業導遊</span></p>
+                <p><strong data-en="Free Activities:">自由活動：</strong> <span data-en="Public transit or Grab taxi">大眾運輸或計程車</span></p>
             </div>
         </div>
 
         <!-- 景點票價快速對照表 -->
         <div id="ticket-prices" class="notes-section" style="margin-bottom: 40px;">
             <h2 style="color: var(--color-primary); border-bottom-color: var(--color-primary);" data-en="📊 Attraction Ticket Price Guide">📊 景點票價快速對照表</h2>
-            <div class="notes-intro" style="background: #e0f2fe; border-left-color: var(--color-primary); color: #0c4a6e;">
+            <div class="notes-intro lang-zh" style="background: #e0f2fe; border-left-color: var(--color-primary); color: #0c4a6e;">
                 <strong>💡 省錢小提示：</strong> 建議透過 Klook、Traveloka 或官網提前購票，通常比現場購票便宜 10-20%。熱門景點（環球影城、夜間動物園）旺季票可能售罄，請務必提早預訂！
+            </div>
+            <div class="notes-intro lang-en" style="background: #e0f2fe; border-left-color: var(--color-primary); color: #0c4a6e;">
+                <strong>💡 Money-Saving Tip:</strong> Book through Klook, Traveloka, or official websites in advance — usually 10–20% cheaper than at the gate. Popular spots (USS, Night Safari) sell out in peak season — book early!
             </div>
             <div style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse; font-size: 0.95em;">
                     <thead>
                         <tr style="background: var(--color-primary); color: white;">
-                            <th style="padding: 12px 15px; text-align: left; border: 1px solid #0369a1;">景點</th>
-                            <th style="padding: 12px 15px; text-align: center; border: 1px solid #0369a1;">成人票</th>
-                            <th style="padding: 12px 15px; text-align: center; border: 1px solid #0369a1;">兒童票</th>
-                            <th style="padding: 12px 15px; text-align: left; border: 1px solid #0369a1;">備註</th>
+                            <th style="padding: 12px 15px; text-align: left; border: 1px solid #0369a1;"><span class="lang-zh">景點</span><span class="lang-en">Attraction</span></th>
+                            <th style="padding: 12px 15px; text-align: center; border: 1px solid #0369a1;"><span class="lang-zh">成人票</span><span class="lang-en">Adult</span></th>
+                            <th style="padding: 12px 15px; text-align: center; border: 1px solid #0369a1;"><span class="lang-zh">兒童票</span><span class="lang-en">Child</span></th>
+                            <th style="padding: 12px 15px; text-align: left; border: 1px solid #0369a1;"><span class="lang-zh">備註</span><span class="lang-en">Notes</span></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr style="background: white;">
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">🌿 濱海灣花園 雲霧林＋花穹聯票</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;"><span class="lang-zh">🌿 濱海灣花園 雲霧林＋花穹聯票</span><span class="lang-en">🌿 Gardens by the Bay — Cloud Forest + Flower Dome</span></td>
                             <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 46</td>
                             <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 32</td>
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">天際樹燈光秀免費；建議線上預訂</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;"><span class="lang-zh">天際樹燈光秀免費；建議線上預訂</span><span class="lang-en">Supertree light show free; book online</span></td>
                         </tr>
                         <tr style="background: #f8fafc;">
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">🎢 新加坡環球影城</td>
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 83 起</td>
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 63 起</td>
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">Express Pass 另購；週末建議早到</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;"><span class="lang-zh">🎢 新加坡環球影城</span><span class="lang-en">🎢 Universal Studios Singapore</span></td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;"><span class="lang-zh">SGD 83 起</span><span class="lang-en">SGD 83+</span></td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;"><span class="lang-zh">SGD 63 起</span><span class="lang-en">SGD 63+</span></td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;"><span class="lang-zh">Express Pass 另購；週末建議早到</span><span class="lang-en">Express Pass sold separately; arrive early on weekends</span></td>
                         </tr>
                         <tr style="background: white;">
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">🐠 新加坡海洋館（原 S.E.A. Aquarium）</td>
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 42 起</td>
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 32 起</td>
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">2025/7 全新升級；22 個主題區域</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;"><span class="lang-zh">🐠 新加坡海洋館（原 S.E.A. Aquarium）</span><span class="lang-en">🐠 Singapore Oceanarium (former S.E.A. Aquarium)</span></td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;"><span class="lang-zh">SGD 42 起</span><span class="lang-en">SGD 42+</span></td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;"><span class="lang-zh">SGD 32 起</span><span class="lang-en">SGD 32+</span></td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;"><span class="lang-zh">2025/7 全新升級；22 個主題區域</span><span class="lang-en">Fully upgraded Jul 2025; 22 themed zones</span></td>
                         </tr>
                         <tr style="background: #f8fafc;">
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">🏎️ 天際斜坡滑車 Skyline Luge（3趟）</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;"><span class="lang-zh">🏎️ 天際斜坡滑車 Skyline Luge（3趟）</span><span class="lang-en">🏎️ Skyline Luge Sentosa (3 rides)</span></td>
                             <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">~SGD 28</td>
                             <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">~SGD 24</td>
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">需提前線上預訂；含空中吊椅</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;"><span class="lang-zh">需提前線上預訂；含空中吊椅</span><span class="lang-en">Pre-book online; includes Skyride chairlift</span></td>
                         </tr>
                         <tr style="background: white;">
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">🧙 哈利波特：魔法幻境</td>
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 45 起</td>
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 32 起</td>
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">全室內冷氣；10 個沉浸式場景</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;"><span class="lang-zh">🧙 哈利波特：魔法幻境</span><span class="lang-en">🧙 Harry Potter: Visions of Magic</span></td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;"><span class="lang-zh">SGD 45 起</span><span class="lang-en">SGD 45+</span></td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;"><span class="lang-zh">SGD 32 起</span><span class="lang-en">SGD 32+</span></td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;"><span class="lang-zh">全室內冷氣；10 個沉浸式場景</span><span class="lang-en">Fully air-conditioned; 10 immersive scenes</span></td>
                         </tr>
                         <tr style="background: #f8fafc;">
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">🦉 夜間動物園 Night Safari</td>
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 58 起</td>
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 38 起</td>
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">含精靈動物表演；自助餐另計</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;"><span class="lang-zh">🦉 夜間動物園 Night Safari</span><span class="lang-en">🦉 Night Safari</span></td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;"><span class="lang-zh">SGD 58 起</span><span class="lang-en">SGD 58+</span></td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;"><span class="lang-zh">SGD 38 起</span><span class="lang-en">SGD 38+</span></td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;"><span class="lang-zh">含精靈動物表演；自助餐另計</span><span class="lang-en">Includes Creatures of the Night show; buffet separate</span></td>
                         </tr>
                         <tr style="background: white;">
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">🏨 MBS SkyPark 觀景台（非住客）</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;"><span class="lang-zh">🏨 MBS SkyPark 觀景台（非住客）</span><span class="lang-en">🏨 MBS SkyPark Observation Deck (non-guests)</span></td>
                             <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 35-39</td>
                             <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 31-35</td>
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">住客免費；57樓泳池為住客專屬</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;"><span class="lang-zh">住客免費；57樓泳池為住客專屬</span><span class="lang-en">Free for hotel guests; 57F pool is guests-only</span></td>
                         </tr>
                         <tr style="background: #f8fafc;">
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">🌊 Jewel 星耀樟宜 星空花園</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;"><span class="lang-zh">🌊 Jewel 星耀樟宜 星空花園</span><span class="lang-en">🌊 Jewel Changi — Canopy Park</span></td>
                             <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 5-14</td>
                             <td style="padding: 10px 15px; border: 1px solid #e0e0e0; text-align: center; font-weight: 600;">SGD 5-14</td>
-                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;">雨漩渦免費；各設施單獨收費</td>
+                            <td style="padding: 10px 15px; border: 1px solid #e0e0e0;"><span class="lang-zh">雨漩渦免費；各設施單獨收費</span><span class="lang-en">Rain Vortex free; each attraction priced separately</span></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <p style="margin-top: 12px; font-size: 0.88em; color: #666; text-align: right;">※ 票價僅供參考，請以官網或購票平台實際標價為準。兒童票適用年齡與身高請依各景點規定。</p>
+            <p style="margin-top: 12px; font-size: 0.88em; color: #666; text-align: right;"><span class="lang-zh">※ 票價僅供參考，請以官網或購票平台實際標價為準。兒童票適用年齡與身高請依各景點規定。</span><span class="lang-en">※ Prices are for reference only. Always check official sites or booking platforms for current rates. Age/height requirements vary by attraction.</span></p>
         </div>
 
         <!-- 景點地圖一覽 -->
@@ -1566,17 +1579,20 @@
                 <button class="map-filter-btn d4" onclick="filterMap(4, this)" data-en="● Day 4 Jewel Changi">● Day 4 星耀樟宜</button>
             </div>
             <div id="sg-map" style="height:460px;border-radius:12px;border:1px solid #e5e7eb;overflow:hidden;" class="sg-map-container"></div>
-            <p style="font-size:0.78em;color:#9ca3af;margin-top:8px;text-align:right;">地圖資料 © OpenStreetMap contributors</p>
+            <p style="font-size:0.78em;color:#9ca3af;margin-top:8px;text-align:right;"><span class="lang-zh">地圖資料</span><span class="lang-en">Map data</span> © OpenStreetMap contributors</p>
         </div>
 
         <!-- 出發前準備 -->
         <div id="pre-trip-notes" class="notes-section">
             <h2 data-en="⚠️ Pre-Trip Preparation &amp; Notes">⚠️ 出發前準備與注意事項</h2>
-            <div class="notes-intro">
+            <div class="notes-intro lang-zh">
                 <strong>家族旅遊特別提醒：</strong> 本次行程包含嬰幼兒與長輩，新加坡氣候炎熱，請務必隨時補充水分。行程安排已盡量保持彈性，請依當天團員體力狀況適度調整。
             </div>
+            <div class="notes-intro lang-en" style="background: #fef9c3; border-left-color: #f59e0b; color: #78350f;">
+                <strong>Family Trip Reminder:</strong> This trip includes infants and elderly members. Singapore is hot and humid — stay hydrated at all times. The itinerary is flexible; please adjust based on the group's energy each day.
+            </div>
 
-            <div class="notes-grid">
+            <div class="notes-grid" id="notes-grid">
                 <!-- 行李準備清單 -->
                 <div class="checklist-container">
                     <div class="chk-header">
@@ -1807,7 +1823,7 @@
                 <span data-en="Day 1: Arrival &amp; Marina Bay Exploration">Day 1：抵達星國，探索濱海灣</span>
                 <span class="day-header-date">4/2 (四)</span>
             </div>
-            <div class="day-content">
+            <div class="day-content" id="day1-content">
                 <div class="day-info">
                     <strong>參與人數：</strong> 19人 | <strong>交通：</strong> 45人座車接機
                 </div>
@@ -1901,7 +1917,7 @@
                 <span data-en="Day 2: Theme Parks or City Exploration">Day 2：樂園狂歡或市區漫遊</span>
                 <span class="day-header-date">4/3 (五)</span>
             </div>
-            <div class="day-content">
+            <div class="day-content" id="day2-content">
                 <div class="day-info">
                     <strong>參與人數：</strong> 25人 | <strong>交通：</strong> 自由活動 (大眾運輸/計程車)
                 </div>
@@ -2327,7 +2343,7 @@
                 <span data-en="Day 3: Sentosa Adventure &amp; Night Safari">Day 3：聖淘沙探險與夜間生態之旅</span>
                 <span class="day-header-date">4/4 (六)</span>
             </div>
-            <div class="day-content">
+            <div class="day-content" id="day3-content">
                 <div class="day-info">
                     <strong>參與人數：</strong> 25人 | <strong>交通：</strong> 45人座車 + 導遊1人 | <strong>票券：</strong> 已含3個行程門票
                 </div>
@@ -2469,7 +2485,7 @@
                 <span data-en="Day 4: Homeward Bound, Jewel Changi">Day 4：滿載而歸，星耀樟宜</span>
                 <span class="day-header-date">4/5 (日)</span>
             </div>
-            <div class="day-content">
+            <div class="day-content" id="day4-content">
                 <div class="day-info">
                     <strong>參與人數：</strong> 15人 | <strong>交通：</strong> 45人座車接機
                 </div>
@@ -2556,9 +2572,9 @@
 
         <!-- 頁腳 -->
         <div class="footer">
-            <p>※ 本計畫書內容與時間安排可視當日實際交通狀況與團員體力進行彈性微調。 ※</p>
-            <p style="font-size: 1.05em; font-weight: 600; color: var(--text-main);">祝您與家人有一趟平安、愉快且充滿美好回憶的新加坡之旅！</p>
-            <p style="font-size: 0.8em; color: #aaa; margin-top: 16px;">v2.0.0 · 最後更新 2026-04-06</p>
+            <p><span class="lang-zh">※ 本計畫書內容與時間安排可視當日實際交通狀況與團員體力進行彈性微調。 ※</span><span class="lang-en">※ The itinerary and timing may be flexibly adjusted based on actual traffic conditions and group energy on the day. ※</span></p>
+            <p style="font-size: 1.05em; font-weight: 600; color: var(--text-main);"><span class="lang-zh">祝您與家人有一趟平安、愉快且充滿美好回憶的新加坡之旅！</span><span class="lang-en">Wishing you and your family a safe, joyful, and unforgettable trip to Singapore! 🇸🇬</span></p>
+            <p style="font-size: 0.8em; color: #aaa; margin-top: 16px;">v2.1.0 · <span class="lang-zh">最後更新</span><span class="lang-en">Last updated</span> 2026-04-06</p>
         </div>
     </main>
 
@@ -3162,6 +3178,21 @@
             document.getElementById('album-unlocked').style.display = 'flex';
         }
 
+        // ===== 語言切換 EN_BLOCKS：複雜區塊完整英文 HTML =====
+        const EN_BLOCKS = {
+          'today-update': `<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;"><span style="background:white;color:#dc2626;padding:4px 14px;border-radius:20px;font-size:0.85em;font-weight:700;white-space:nowrap;">📅 March 31 — Important Update</span><strong style="font-size:1.05em;">Final Pre-Departure Tasks — Please Confirm!</strong></div><div style="display:flex;flex-direction:column;gap:12px;"><div style="background:rgba(255,255,255,0.18);border-radius:10px;padding:14px 16px;"><strong style="font-size:0.98em;">🛂 SG Arrival Card — Fill It Out Starting Today!</strong><p style="margin:8px 0 0;font-size:0.91em;line-height:1.7;opacity:0.97;">The SGAC can be submitted up to 3 days before arrival. <strong>Arriving 4/2? You can fill it out on the official website for free starting today (3/31)</strong>. Customs will check it upon entry — without it, you cannot enter Singapore!</p></div><div style="background:rgba(255,255,255,0.18);border-radius:10px;padding:14px 16px;"><strong style="font-size:0.98em;">✈️ Eva Air 4/2 Flight — Online Check-in Opens Today!</strong><p style="margin:8px 0 0;font-size:0.91em;line-height:1.7;opacity:0.97;">For those on Eva Air 4/2, <strong>online check-in opens today (3/31)</strong>! Enter your passport info in advance to skip the long airport queue. You can also confirm or swap seats now.</p><div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><a href="https://booking.evaair.com/flyeva/eva/b2c/manage-your-trip/online-checked-in-login.aspx?lang=zh-tw" target="_blank" style="display:inline-block;background:white;color:#dc2626;padding:8px 18px;border-radius:20px;font-weight:700;font-size:0.88em;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.15);">✈️ Eva Air Online Check-in</a><span style="font-size:0.87em;opacity:0.9;">(Booking ref or passport required)</span></div></div><div style="background:rgba(255,255,255,0.12);border-radius:8px;padding:10px 14px;text-align:center;font-size:0.89em;opacity:0.95;">📌 If family members are together with passports handy, <strong>we recommend doing both tasks right now!</strong></div></div>`,
+
+          'day1-content': `<div class="day-info"><strong>Attendees:</strong> 19 pax | <strong>Transport:</strong> 45-seat charter bus</div><div id="day1-tpe" class="timeline-item"><div class="time">05:40</div><div class="activity"><h4>Gather at Taoyuan Airport (TPE)</h4><p>Head to <strong>Terminal 2, Eva Air check-in counter</strong>. Large group — please arrive early!</p><span class="location-tag">✈️ Taoyuan Int'l Airport T2</span></div></div><div id="day1-flight" class="timeline-item"><div class="time">07:40 ~ 12:00</div><div class="activity"><h4>Eva Air BR225 → Singapore</h4><p>Boeing 777-300ER / Economy class. ~4h 20min flight with in-flight meals (3 children's meals pre-ordered).</p><p>Pre-selected seats: Rows 54–55 (G/H/J/K side)</p><span class="location-tag">✈️ Eva Air Flight BR225</span></div></div><div id="day1-airport" class="timeline-item"><div class="time">12:00</div><div class="activity"><h4>Arrive at Changi Airport (SIN)</h4><p>Landing at Terminal 3 (T3). All 19 members will meet up, then board the 45-seat charter bus.</p><span class="location-tag">✈️ Singapore Changi Airport</span></div></div><div class="timeline-item"><div class="time">12:30 ~ 13:30</div><div class="activity"><h4>Clear Immigration &amp; Collect Luggage</h4><p>Allow approximately 1 hour to complete all procedures.</p></div></div><div class="timeline-item"><div class="time">13:30 ~ 14:00</div><div class="activity"><h4>Transfer to Marina Bay Sands</h4><p>~30 minute drive. Please keep an eye on your luggage.</p></div></div><div id="day1-checkin" class="timeline-item"><div class="time">14:00 ~ 15:00</div><div class="activity"><h4>Hotel Check-in</h4><p>Collect room keys and confirm room numbers &amp; facility locations.</p><span class="location-tag">🏨 Marina Bay Sands</span></div></div><div id="day1-merlion" class="timeline-item"><div class="time">15:00 ~</div><div class="activity"><h4>Free Time — Afternoon</h4><p>Recommended: Hotel facilities, Merlion Park, Gardens by the Bay, SPECTRA light show.</p><div class="options-box"><h5>📍 Afternoon Activities Guide</h5><ul><li><strong>MBS Hotel Facilities:</strong> 57F SkyPark Infinity Pool (<strong>Free for hotel guests with room key</strong> — best 5–7pm for golden-hour lighting); Non-guests: 56F Observation Deck SGD 35–39. Indoor Wonder Full sampan ride for kids at The Shoppes.</li><li><strong>Merlion Park:</strong> 5-min walk via Helix Bridge or short taxi. Best photos at 5–6:30pm with MBS as backdrop. <span class="location-tag">🦁 Merlion Park</span></li><li id="day1-gardens"><strong>Gardens by the Bay:</strong> <span class="location-tag">🌳 Gardens by the Bay</span><ul style="margin-top:8px;padding-left:16px;"><li>🌸 <strong>Flower Dome + Cloud Forest combo:</strong> Adult SGD 46 / Child SGD 32. Best: 9–11am (cooler &amp; less crowded). Cloud Forest now has Jurassic World Explore.</li><li>🌲 <strong>OCBC Skyway:</strong> SGD 14 — aerial walkway between Supertrees.</li><li>🔭 <strong>Supertree Observatory:</strong> SGD 14 — 360° panoramic views.</li><li>✨ <strong>Garden Rhapsody light show (FREE):</strong> Nightly at <strong>19:45 &amp; 20:45</strong>, Supertrees light up to music — sit on the lawn.</li></ul></li><li id="day1-spectra"><strong>SPECTRA Light &amp; Water Show:</strong> Nightly at <strong>19:30 &amp; 20:30</strong> at Float @ Marina Bay. Free, ~15 min. Arrive 15 min early for a good spot. <span class="location-tag">🎆 Float @ Marina Bay</span></li><li><strong>📅 Suggested Schedule:</strong> 15:00 Hotel → 16:00 Merlion Park → 17:30 Gardens by the Bay → 19:30 SPECTRA → 20:45 Garden Rhapsody → 21:00 Walk back to hotel</li></ul></div></div></div>`,
+
+          'day2-content': `<div class="day-info"><strong>Attendees:</strong> 25 pax | <strong>Transport:</strong> Free activities (MRT / Grab)</div><div id="day2-assembly" class="timeline-item"><div class="time">08:00 ~ 18:00</div><div class="activity"><h4>Daytime Free Activities (by group preference)</h4><div id="day2-transport" class="options-box" style="background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 100%);border-left-color:var(--color-primary);margin-bottom:20px;"><h5>🚇 Detailed Transport Guide for Each Route</h5><p style="font-size:0.9em;color:#555;margin-bottom:14px;">Full free day — follow steps below based on your chosen route. <strong>MRT: tap credit card or Apple Pay at the gate — no ticket needed!</strong></p><div id="day2-route-a" style="background:white;border-radius:10px;padding:14px 16px;margin:10px 0;border-left:4px solid #f97316;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><span style="background:#fff3e0;color:#c2410c;padding:4px 12px;border-radius:20px;font-weight:700;font-size:0.9em;">🎢 Route A</span><strong style="color:#c2410c;">Universal Studios Singapore (Sentosa)</strong></div><p style="font-weight:700;color:#333;margin:0 0 6px;font-size:0.93em;">🚕 Option 1: Grab (Recommended — easiest)</p><p style="font-size:0.92em;color:#444;margin:0 0 8px;">Order Grab at MBS hotel lobby or B1 drop-off. Destination: "<strong>Universal Studios Singapore</strong>" or "<strong>Resorts World Sentosa</strong>". ~SGD 12–18, 15 min. Pay in-app.</p><p style="font-size:0.85em;color:#666;margin:0 0 10px;padding:6px 10px;background:#fff7ed;border-radius:6px;">⏱️ ~15 min | 💰 SGD 12–18 | 💳 In-app payment</p><p style="font-weight:700;color:#333;margin:0 0 6px;font-size:0.93em;">🚇 Option 2: MRT + Sentosa Express (~35–40 min)</p><div style="display:flex;flex-direction:column;gap:4px;padding-left:4px;"><p style="margin:0;font-size:0.92em;color:#444;">1. Walk to <strong>Bayfront MRT</strong> via B1 hotel walkway (~3–5 min)</p><p style="margin:0;font-size:0.92em;color:#444;">2. <span style="background:#f97316;color:white;padding:1px 8px;border-radius:10px;font-size:0.82em;font-weight:700;">Orange Circle Line</span> 1 stop to <strong>Marina Bay (CE2)</strong></p><p style="margin:0;font-size:0.92em;color:#444;">3. <span style="background:#dc2626;color:white;padding:1px 8px;border-radius:10px;font-size:0.82em;font-weight:700;">Red NS Line</span> south toward Jurong East → <strong>HarbourFront (NS4/CC29)</strong></p><p style="margin:0;font-size:0.92em;color:#444;">4. Walk to <strong>VivoCity L3</strong> → <span style="background:#ef4444;color:white;padding:1px 8px;border-radius:10px;font-size:0.82em;font-weight:700;">Sentosa Express</span> to Waterfront (SGD 4, includes island transport)</p><p style="margin:0;font-size:0.92em;color:#444;">5. Walk ~5 min to USS entrance</p></div><p style="font-size:0.85em;color:#666;margin:8px 0 0;padding:6px 10px;background:#fff7ed;border-radius:6px;">⏱️ ~35–40 min | 💰 SGD 4–6 | 💳 Tap card</p></div><div id="day2-route-b" style="background:white;border-radius:10px;padding:14px 16px;margin:10px 0;border-left:4px solid #6366f1;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><span style="background:#ede9fe;color:#4338ca;padding:4px 12px;border-radius:20px;font-weight:700;font-size:0.9em;">🧱 Route B</span><strong style="color:#4338ca;">LEGOLAND Malaysia (Cross-border, passport required)</strong></div><p style="font-size:0.92em;color:#444;margin:0 0 8px;"><strong>Option 1 (Recommended): Private Charter Car</strong> from MBS to LEGOLAND with driver waiting. Best for families with infants/elderly. ~1–1.5h drive. Book via Klook or ask MBS Concierge. Round trip ~SGD 250–350 (7-seater).</p><p style="font-size:0.92em;color:#444;margin:0 0 8px;"><strong>Option 2: MRT + Grab:</strong> Bayfront → <span style="background:#dc2626;color:white;padding:1px 6px;border-radius:8px;font-size:0.82em;">Red NS Line</span> north to Woodlands → Grab across border to LEGOLAND.</p><p style="font-size:0.85em;color:#e05a00;margin:8px 0 0;font-weight:600;padding:6px 10px;background:#fff3e0;border-radius:6px;">⚠️ Border queues can take 30–60 min on weekends. Leave LEGOLAND by <strong>13:30 latest</strong> to reach Jumbo Seafood by 18:00!</p></div><div id="day2-route-c" style="background:white;border-radius:10px;padding:14px 16px;margin:10px 0;border-left:4px solid #10b981;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><span style="background:#d1fae5;color:#065f46;padding:4px 12px;border-radius:20px;font-weight:700;font-size:0.9em;">🌶️ Route C</span><strong style="color:#065f46;">Little India (Easy, 10 min from MBS)</strong></div><p style="font-weight:700;color:#333;margin:0 0 4px;font-size:0.93em;">🚇 Option 1: MRT (Highly recommended)</p><div style="display:flex;flex-direction:column;gap:4px;padding-left:4px;margin-bottom:10px;"><p style="margin:0;font-size:0.92em;color:#444;">1. Walk to <strong>Bayfront MRT</strong> via B1 hotel walkway (~3–5 min)</p><p style="margin:0;font-size:0.92em;color:#444;">2. <span style="background:#0284c7;color:white;padding:1px 8px;border-radius:10px;font-size:0.82em;font-weight:700;">Blue Downtown Line</span> toward Bukit Panjang, 4 stops to <strong>Little India (DT12)</strong> (~8–10 min)</p><p style="margin:0;font-size:0.92em;color:#444;">3. Exit <strong>Gate C</strong>, walk ~3–5 min to Tekka Centre</p></div><p style="font-size:0.85em;color:#666;margin:0 0 10px;padding:6px 10px;background:#f0fdf4;border-radius:6px;">⏱️ ~15–20 min | 💰 SGD 2–3 | 💳 Apple Pay / tap card</p><p style="font-weight:700;color:#333;margin:0 0 4px;font-size:0.93em;">🚕 Option 2: Grab (for families with infants/elderly)</p><p style="font-size:0.92em;color:#444;margin:0 0 10px;">Grab to "<strong>Tekka Centre</strong>" or "<strong>Little India MRT</strong>". ~SGD 10–15, ~10 min.</p><div style="background:#ecfdf5;border-radius:6px;padding:8px 12px;font-size:0.87em;color:#065f46;">🦀 <strong>To Jumbo Seafood:</strong> Leave Little India by <strong>17:30</strong>. Take <span style="background:#7c3aed;color:white;padding:1px 6px;border-radius:8px;font-size:0.85em;">Purple NE Line</span> from Little India (NE7) 2 stops south to Clarke Quay (NE5) → walk 5 min to Riverside Point. Or Grab (~SGD 8–12). <strong>Arrive by 18:00!</strong></div></div><div style="background:#fef9c3;border-radius:8px;padding:10px 14px;margin-top:10px;border-left:3px solid #fbbf24;"><strong style="color:#78350f;">📱 Before You Leave — Must Do</strong><ul style="margin:6px 0 0;padding-left:18px;font-size:0.88em;color:#555;line-height:1.8;"><li>Confirm <strong>Grab App</strong> is installed with credit card linked</li><li>Confirm credit card has <strong>overseas contactless payment</strong> enabled</li><li>Share your chosen route in the family LINE/WhatsApp group</li><li>Bring passport (required for Route B; recommended for A &amp; C as backup)</li><li>🦀 <strong>Head directly to Jumbo Seafood by 18:00</strong> — no need to return to hotel!</li></ul></div></div><div class="options-box"><h5>📍 Route Recommendations</h5><ul><li><strong>Route A: Universal Studios Singapore (Movie fans' top choice)</strong><br>Southeast Asia's only Universal Studios on Sentosa Island. Tickets from SGD 83. Arrive at 10:00 opening and rush to popular rides first. Express Pass strongly recommended on busy days. <span class="location-tag">🎢 Universal Studios Singapore</span><div style="margin-top:10px;padding:12px;background:#fff3e0;border-radius:6px;border-left:3px solid #f97316;"><strong style="color:#c2410c;">🆕 NEW: Minion Land (Opened Feb 14, 2025)</strong><ul style="margin:8px 0;padding-left:18px;"><li><strong>Despicable Me Minion Mayhem</strong> — 3D motion simulator</li><li><strong>Buggie Boogie</strong> — Minion carousel, all ages</li><li><strong>Silly Swirly</strong> — Exclusive spinning sky chairs</li></ul><strong style="color:#1e40af;">🎡 Classic Must-Rides:</strong><ul style="margin:8px 0;padding-left:18px;"><li><strong>Battlestar Galactica</strong> — World's tallest dueling coasters</li><li><strong>Transformers 3D</strong> — Ultra-realistic motion theater</li><li><strong>Revenge of the Mummy</strong> — Indoor dark coaster</li><li><strong>Jurassic Park Rapids</strong> — Water ride — prepare to get soaked!</li></ul><strong style="color:#166534;">💡 Tips:</strong> Rush to Battlestar or Transformers at opening; check wait times on USS App.</div></li><li><strong>Route B: LEGOLAND Malaysia (Kids' absolute favorite)</strong><br>Private charter or shuttle recommended (1.5–2h drive). Passport required for border crossing. <span class="location-tag">🧱 LEGOLAND Malaysia</span></li><li><strong>Route C: Little India Cultural Adventure ⭐ Recommended</strong><br>Explore Singapore's most exotic neighborhood — authentic Indian food, colorful architecture, Henna body art, Hindu temples. Suitable for all ages including elderly and young children.</li></ul></div></div></div><div id="day2-dinner" class="timeline-item"><div class="time">17:00 ~ 18:00</div><div class="activity"><h4>🦀 All Groups Head to Jumbo Seafood</h4><p style="font-weight:600;color:#c2410c;">No matter which route you took today, please arrive at <strong>Jumbo Seafood by 18:00!</strong> This is tonight's wedding celebration dinner for the whole family — don't keep the newlyweds waiting 🎊</p><a href="https://maps.app.goo.gl/fMbWQvKCk1gSbWJ26" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#4285f4;color:white;padding:8px 16px;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.9em;margin:10px 0 14px;box-shadow:0 2px 8px rgba(66,133,244,0.3);">📍 Jumbo Seafood on Google Maps</a><div style="background:#fff7ed;border-radius:10px;padding:14px 16px;border-left:4px solid #f97316;"><p style="font-weight:700;color:#c2410c;margin:0 0 10px;font-size:0.95em;">🚗 How to Get There from Each Route</p><div style="display:flex;flex-direction:column;gap:10px;"><div style="background:white;border-radius:8px;padding:10px 12px;border-left:3px solid #f97316;"><p style="margin:0 0 6px;font-weight:700;font-size:0.9em;color:#c2410c;">🎢 Route A (USS) ⏰ Leave by 16:30</p><p style="margin:0;font-size:0.88em;color:#444;line-height:1.7;"><strong>Grab (recommended):</strong> at RWS/USS entrance → "Jumbo Seafood Riverside Point", ~SGD 12–18, 20 min.<br><strong>MRT:</strong> Sentosa Express → VivoCity → HarbourFront → <span style="background:#7c3aed;color:white;padding:1px 6px;border-radius:8px;font-size:0.82em;">Purple NE</span> to Clarke Quay (NE5) → walk 5–8 min.</p></div><div style="background:white;border-radius:8px;padding:10px 12px;border-left:3px solid #6366f1;"><p style="margin:0 0 6px;font-weight:700;font-size:0.9em;color:#4338ca;">🧱 Route B (LEGOLAND) ⏰ Leave by 13:30!</p><p style="margin:0;font-size:0.88em;color:#444;line-height:1.7;"><strong>Charter car (easiest):</strong> Ask driver to go directly to Jumbo Seafood Riverside Point.<br><strong>Grab + MRT:</strong> After border → Woodlands → <span style="background:#dc2626;color:white;padding:1px 6px;border-radius:8px;font-size:0.82em;">Red NS</span> south to City Hall → <span style="background:#7c3aed;color:white;padding:1px 6px;border-radius:8px;font-size:0.82em;">Purple NE</span> to Clarke Quay.</p></div><div style="background:white;border-radius:8px;padding:10px 12px;border-left:3px solid #10b981;"><p style="margin:0 0 6px;font-weight:700;font-size:0.9em;color:#065f46;">🌶️ Route C (Little India) ⏰ Leave by 17:30</p><p style="margin:0;font-size:0.88em;color:#444;line-height:1.7;"><strong>MRT (fastest):</strong> Little India (NE7/DT12) → <span style="background:#7c3aed;color:white;padding:1px 6px;border-radius:8px;font-size:0.82em;">Purple NE</span> 2 stops to Clarke Quay (NE5) → walk 5–8 min (~15 min total).<br><strong>Grab:</strong> ~SGD 8–12, 10 min direct.</p></div><div style="background:white;border-radius:8px;padding:10px 12px;border-left:3px solid #0ea5e9;"><p style="margin:0 0 6px;font-weight:700;font-size:0.9em;color:#0369a1;">🏨 Stayed at MBS Hotel</p><p style="margin:0;font-size:0.88em;color:#444;line-height:1.7;"><strong>Walk:</strong> Along the river ~15–20 min to Riverside Point.<br><strong>Grab:</strong> "Jumbo Seafood Riverside Point", ~SGD 8–12, 8–10 min.</p></div></div></div></div></div><div class="timeline-item"><div class="time">18:00 ~ 20:00</div><div class="activity"><h4>Dinner: Jumbo Seafood (Wedding Celebration)</h4><p>Singapore's iconic seafood restaurant, Michelin-recommended main outlet with private dining room.</p><div class="options-box"><h5>🍽️ Set Menu</h5><ul><li>Crispy Baby Squid</li><li>Golden Salted Egg Seafood Crisp</li><li>Mango Duck Salad</li><li>Cordyceps Flower Crab Meat Seafood Broth</li><li>10-Head Abalone with Shiitake &amp; Fish Maw over Broccoli</li><li>Steamed Dragon Tiger Grouper</li><li>Mocha Spare Ribs</li><li>Jumbo Award-winning Chilli Crab with Mantou Buns</li><li>Satay Vermicelli Prawn Pot</li><li>Mango Sago Dessert</li></ul></div><a href="https://maps.app.goo.gl/fMbWQvKCk1gSbWJ26" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#4285f4;color:white;padding:8px 16px;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.9em;margin:10px 0;box-shadow:0 2px 8px rgba(66,133,244,0.3);">📍 Jumbo Seafood Google Maps</a><p><em>💡 Transport options from each route shown in the 17:00 block above. Guests from MBS hotel: recommend Grab (~SGD 8–12).</em></p><span class="location-tag">🦀 Jumbo Seafood Riverside Point</span></div></div><div class="timeline-item"><div class="time">20:00 ~</div><div class="activity"><h4>Clarke Quay Leisure / Return to Hotel</h4><span class="location-tag">🌃 Clarke Quay</span></div></div>`,
+
+          'day3-content': `<div class="day-info"><strong>Attendees:</strong> 25 pax | <strong>Transport:</strong> 45-seat charter bus + 1 guide | <strong>Tickets:</strong> 3 attraction tickets included</div><div id="day3-assembly" class="timeline-item"><div class="time">08:30</div><div class="activity"><h4>Gather at Hotel Lobby</h4><p>Please arrive 5 minutes early to ensure an on-time departure.</p></div></div><div id="day3-sentosa" class="timeline-item"><div class="time">08:40 ~ 09:40</div><div class="activity"><h4>Transfer to Sentosa Island</h4><span class="location-tag">🏝️ Sentosa Island</span></div></div><div id="day3-morning" class="timeline-item"><div class="time">09:40 ~ 12:00</div><div class="activity"><h4>Morning Group Activities</h4><div class="options-box"><ul><li><strong>Group A (13 pax): Skyline Luge Sentosa</strong><br>Ride the Skyride chairlift up, then drive a gravity-powered cart down through tropical forest and ocean-view tracks. <span class="location-tag">🏎️ Skyline Luge</span><ul style="margin:8px 0;padding-left:18px;"><li><strong>Height requirements:</strong> 110cm+ to ride solo; 85–110cm with adult in double cart; under 85cm cannot ride</li><li><strong>Ticket tip:</strong> Choose the <strong>3-ride package</strong> (~SGD 28) for first-timers; add-on available on-site</li><li><strong>Night Luge:</strong> Opens after 6pm with illuminated tracks — a completely different experience!</li><li><strong>Tip:</strong> Book online via Klook — on-site queues can be 30–60 min; wear closed-toe shoes</li></ul></li><li><strong>Group B (12 pax): Harry Potter: Visions of Magic</strong><br>Fully immersive interactive art exhibition, entirely indoors with air-conditioning — great for the morning heat. Located at Resorts World Sentosa B1.<ul style="margin:8px 0;padding-left:18px;"><li><strong>10 immersive scenes:</strong> Ministry of Magic, Hogwarts Houses, Magical Creatures, Forbidden Forest + Singapore-exclusive scenes</li><li><strong>Hours:</strong> 11:00–22:00 (last entry 20:00)</li><li><strong>Tickets:</strong> SGD 45+ (adult) / SGD 32+ (child); book timed-entry online</li></ul></li></ul></div></div></div><div id="putien" class="timeline-item"><div class="time">12:00 ~ 13:30</div><div class="activity"><h4>Lunch: Putien Restaurant (All Groups)</h4><p>Michelin 1-star specializing in Hokkien cuisine. Light, fresh flavors — ideal for elderly and children. Recommended: Yellow Croaker Fish, Hing Hua Fried Rice Noodles, Crispy Taro.</p></div></div><div id="day3-afternoon" class="timeline-item"><div class="time">13:30 ~ 17:30</div><div class="activity"><h4>Afternoon Activities (Choose One)</h4><div class="options-box"><ul><li><strong>Singapore Oceanarium:</strong> Fully air-conditioned, wide corridors, stroller-friendly — the perfect afternoon escape from the heat. <span class="location-tag">🐠 Singapore Oceanarium</span><div style="margin-top:8px;padding:10px;background:#e0f2fe;border-radius:6px;border-left:3px solid #0ea5e9;"><strong style="color:#0369a1;">🆕 Fully upgraded &amp; renamed "Singapore Oceanarium" on 2025/7/24</strong> (formerly S.E.A. Aquarium) — 22 brand-new themed zones!<ul style="margin:8px 0;padding-left:18px;"><li>🌊 <strong>Open Ocean</strong> — 36m ultra-wide panoramic window: manta rays, zebra sharks, schools of fish</li><li>🦈 <strong>Shark Seas</strong> — Walk through a shark tunnel with AR experiences</li><li>🪼 <strong>Ocean Wonders</strong> — Glowing jellyfish tanks, dreamy and photogenic</li><li>🦕 <strong>Ancient Waters</strong> — Prehistoric sea creature fossils and animations</li></ul><strong>Tip:</strong> Afternoons get busy; allow 2–3 hours. Tickets ~SGD 42 (adult) / SGD 32 (child).</div></li><li><strong>Universal Studios Singapore:</strong> If not visited on Day 2, use this slot (see Day 2 Route A for details). <span class="location-tag">🎢 Universal Studios Singapore</span></li></ul></div></div></div><div id="day3-dinner" class="timeline-item"><div class="time">17:30 ~ 19:00</div><div class="activity"><h4>Dinner: Night Safari Buffet</h4><p>🆕 <strong>Latest update (from 2025):</strong> The buffet has moved from Ulu Ulu Safari Restaurant to <strong>Mandai Wildlife East — The Courtyard</strong>, offering Asian cuisine and Singapore local favorites (Hainanese chicken rice, laksa, chilli crab, etc.) in a more spacious setting.</p><p>Ulu Ulu Safari Restaurant still offers à la carte — choose based on your preference.</p><p><em>💡 Dining tip: Buffet queues move faster; aim to be seated by 17:45 to beat the 18:00 rush.</em></p></div></div><div id="night-safari" class="timeline-item"><div class="time">19:00 ~ 22:00</div><div class="activity"><h4>Night Safari Tour</h4><span class="location-tag">🦉 Night Safari</span><div class="options-box" style="margin-top:12px;"><h5>🌙 Night Safari Complete Guide</h5><p><strong>Creatures of the Night Show:</strong></p><ul><li>Show times: <strong>19:30 / 20:30 / 21:30</strong> (~20 min each)</li><li>Strongly recommend the <strong>19:30 show</strong> — head to the theater immediately upon entry, arrive 10 min early</li><li>Features: Owls, porcupines, otters and other nocturnal animals in close-up interactive performances</li></ul><p><strong>Tram Ride (~40 min):</strong></p><ul><li>🦘 <strong>Tasmanian Devil Trail</strong> — Australia's endangered species</li><li>🦔 <strong>Pangolin Trail</strong> — Southeast Asia's native nocturnal animal</li><li>🐆 <strong>Leopard Trail</strong> — Africa's big cats</li><li>Walking trails let you observe nocturnal animals up close — recommended: "East Lodge Trail"</li></ul><p><strong>⚠️ Important Reminders:</strong></p><ul><li>🦟 Tropical rainforest location — <strong>apply insect repellent BEFORE you leave</strong>, wear thin long pants (mosquitoes are everywhere!)</li><li>📸 <strong>Absolutely NO flash photography</strong> — damages animals' night vision; use camera night mode</li><li>👟 Wear comfortable sneakers — paths are uneven, some areas dimly lit</li><li>🌡️ Still hot and humid at night — stay hydrated</li></ul></div></div></div><div id="day3-return" class="timeline-item"><div class="time">22:00 ~</div><div class="activity"><h4>Return to Marina Bay Sands</h4><p>Estimated hotel arrival ~23:00. Rest up for the last day!</p></div></div>`,
+
+          'day4-content': `<div class="day-info"><strong>Attendees:</strong> 15 pax | <strong>Transport:</strong> 45-seat charter bus</div><div id="day4-assembly" class="timeline-item"><div class="time">11:30</div><div class="activity"><h4>Gather at Hotel Lobby (15 pax)</h4><p>45-seat charter bus pickup. Please have luggage packed and ready.</p></div></div><div id="day4-airport" class="timeline-item"><div class="time">11:30 ~ 12:00</div><div class="activity"><h4>Transfer to Changi Airport</h4><p>~30 minute drive.</p></div></div><div id="day4-checkin" class="timeline-item"><div class="time">12:00 ~ 12:30</div><div class="activity"><h4>Check-in &amp; Baggage Drop</h4><p>Please keep your boarding pass and passport handy at all times.</p></div></div><div id="day4-jewel" class="timeline-item"><div class="time">12:30 ~</div><div class="activity"><h4>Free Time at Airport / Board Plane</h4><div id="day4-rain" class="options-box"><h5>📍 Jewel Changi Complete Guide</h5><p><strong>🌊 Rain Vortex (FREE):</strong></p><ul><li>World's tallest indoor waterfall at <strong>40 meters</strong>, cascading from a glass dome — absolutely breathtaking</li><li>Natural lighting is beautiful by day; dramatic after dusk</li><li>Best viewing spots: B2 level directly below (look up), or L2–L4 for an overhead view</li></ul><p><strong>🎵 HSBC Rain Vortex Light &amp; Sound Show (FREE):</strong></p><ul><li>Mon–Thu: <strong>20:00 &amp; 21:00</strong></li><li>Fri–Sun &amp; public holidays: <strong>20:00, 21:00 &amp; 22:00</strong></li><li>(4/5 is Sunday — you can catch the 20:00 show before boarding!)</li></ul><p><strong>🌿 Canopy Park (paid):</strong></p><ul><li>Hedge Maze &amp; Mirror Maze — SGD 5/person</li><li>Walking Net — SGD 12/person (suspended walkway, thrillingly high)</li><li>Bouncing Net — SGD 14/person (kids absolutely love it)</li><li>If time is limited, just explore the free garden areas</li></ul><p><strong>🛍️ Last-Minute Shopping:</strong></p><ul><li>🎂 <strong>Bengawan Solo</strong> (B2) — Pandan cake, coconut sugar layer cake — Singapore's most iconic souvenir</li><li>☕ <strong>Bacha Coffee / TWG Tea</strong> (L1) — Beautiful gift tins, perfect for gifting</li><li>🥔 <strong>IRVINS Salted Egg Chips</strong> (B2) — Airport-exclusive flavors — buy multiple bags!</li><li>🍔 <strong>Shake Shack</strong> (L1) — Changi Airport exclusive burger, great last meal before boarding</li><li>💊 <strong>Watson's / Guardian</strong> — Last chance for health &amp; beauty items</li></ul><p><em>💡 Note: Singapore airport uses departure-gate security. Allow at least 1 hour before departure to clear security. Weekends are busy — don't cut it close!</em></p></div><span class="location-tag">✈️ Singapore Changi Airport</span></div></div><div id="day4-flight" class="timeline-item"><div class="time">15:10 ~ 19:50</div><div class="activity"><h4>Eva Air BR216 → Taiwan</h4><p>Departs from Terminal 3 (T3). Boeing 777-300ER / Economy class. ~4h 40min flight with in-flight meals.</p><p>Pre-selected seats: Rows 54–55 (A/B/C/D side)</p><span class="location-tag">✈️ Arriving at Taoyuan Airport T2</span></div></div>`,
+
+          'notes-grid': `<div class="checklist-container"><div class="chk-header"><span>🧳 Packing Checklist (Auto-saved)</span><button class="chk-reset" onclick="resetChecklist()">Reset All</button></div><div class="chk-grid"><div><div class="chk-group-title">Documents &amp; Cards</div><label class="chk-label"><input type="checkbox" class="chk-input" data-chk="passport"><div class="chk-custom"></div><span class="chk-text">Passport (6+ months validity)</span></label><label class="chk-label"><input type="checkbox" class="chk-input" data-chk="sgarrival"><div class="chk-custom"></div><span class="chk-text">SG Arrival Card (screenshot or print)</span></label><label class="chk-label"><input type="checkbox" class="chk-input" data-chk="credit_card"><div class="chk-custom"></div><span class="chk-text">Overseas credit card (Apple Pay ready)</span></label><label class="chk-label"><input type="checkbox" class="chk-input" data-chk="cash"><div class="chk-custom"></div><span class="chk-text">SGD cash (100–200)</span></label></div><div><div class="chk-group-title">Electronics &amp; Connectivity</div><label class="chk-label"><input type="checkbox" class="chk-input" data-chk="sim"><div class="chk-custom"></div><span class="chk-text">SIM card / eSIM (activated)</span></label><label class="chk-label"><input type="checkbox" class="chk-input" data-chk="power_bank"><div class="chk-custom"></div><span class="chk-text">Power bank &amp; charging cables</span></label><label class="chk-label"><input type="checkbox" class="chk-input" data-chk="adapter"><div class="chk-custom"></div><span class="chk-text">UK-style 3-pin plug adapter (Type G)</span></label><label class="chk-label"><input type="checkbox" class="chk-input" data-chk="grab"><div class="chk-custom"></div><span class="chk-text">Grab App installed &amp; registered</span></label></div><div><div class="chk-group-title">Personal &amp; Sun Protection</div><label class="chk-label"><input type="checkbox" class="chk-input" data-chk="sunscreen"><div class="chk-custom"></div><span class="chk-text">Sunscreen / sunglasses / hat</span></label><label class="chk-label"><input type="checkbox" class="chk-input" data-chk="umbrella"><div class="chk-custom"></div><span class="chk-text">Umbrella (for afternoon downpours)</span></label><label class="chk-label"><input type="checkbox" class="chk-input" data-chk="shoes"><div class="chk-custom"></div><span class="chk-text">Comfortable walking shoes / sandals</span></label><label class="chk-label"><input type="checkbox" class="chk-input" data-chk="jacket"><div class="chk-custom"></div><span class="chk-text">Light jacket (for strong indoor AC)</span></label></div><div><div class="chk-group-title">Medical &amp; Extras</div><label class="chk-label"><input type="checkbox" class="chk-input" data-chk="meds"><div class="chk-custom"></div><span class="chk-text">Personal prescription medications</span></label><label class="chk-label"><input type="checkbox" class="chk-input" data-chk="gastro"><div class="chk-custom"></div><span class="chk-text">Antacid / motion sickness meds</span></label><label class="chk-label"><input type="checkbox" class="chk-input" data-chk="mosquito"><div class="chk-custom"></div><span class="chk-text">Insect repellent (essential for Night Safari)</span></label><label class="chk-label"><input type="checkbox" class="chk-input" data-chk="stroller"><div class="chk-custom"></div><span class="chk-text">Lightweight baby stroller</span></label></div></div></div><div class="note-card" style="border-left-color:#ef4444;background:#fff5f5;"><h4>✈️ Flight &amp; Ticket Rules</h4><p><strong>No-Show Warning:</strong> If you cannot make it to the airport, <strong>call Eva Air directly to cancel/change</strong> — otherwise your ticket will be voided. Taipei: (02)2501-1999 / Singapore: +65-6226-1533.</p><p><strong>Change &amp; Refund Policy:</strong> This ticket is non-refundable. Date/flight changes cost TWD 7,000+ per person plus handling fees.</p><p><strong>Name &amp; Document Check:</strong> Ensure your passport spelling, validity, and airline name match exactly.</p></div><div class="note-card"><h4>📄 Required Documents &amp; Entry</h4><p><strong>Passport Validity:</strong> Must be valid for 6+ months beyond your return date.</p><p><strong>SG Arrival Card (SGAC):</strong> Fill in within <strong>3 days before arrival</strong> — free and mandatory. Without it you cannot enter Singapore.<br>🔗 <strong>Official site:</strong> <a href="https://www.ica.gov.sg/" target="_blank" rel="noopener" style="color:#1d4ed8;font-weight:600;">https://www.ica.gov.sg/</a><br>✉️ <strong>After submitting</strong> you will receive a confirmation email that your application has been processed.</p><div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px 16px;margin-top:8px;"><p style="margin:0 0 8px;font-weight:700;color:#1e40af;">🛂 Singapore Automated Gate Entry Process</p><ol style="margin:0;padding-left:20px;color:#1e3a8a;line-height:2;"><li>Scan your passport</li><li>Enter gate and press fingerprints</li><li>Look at the camera (facial recognition)</li><li>Entry complete ✅</li></ol></div><p><strong>Cross-border visa:</strong> If visiting LEGOLAND Malaysia, you also need to fill in Malaysia's MDAC digital arrival card.</p></div><div id="esim-guide" class="note-card" style="border-left-color:#6366f1;background:linear-gradient(135deg,#eef2ff 0%,#f8f9ff 100%);grid-column:1 / -1;"><h4>📶 Mobile Data — eSIM Guide (iPhone)</h4><p style="font-size:0.92em;color:#555;margin:0 0 12px;">An eSIM is a virtual SIM card built into your phone — <strong>no physical card swap needed</strong>. Just scan a QR code to activate. Keep your home SIM for calls; the eSIM handles Singapore data.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;"><div style="background:white;border-radius:8px;padding:12px 14px;border-left:3px solid #6366f1;"><p style="font-weight:700;color:#4338ca;margin:0 0 6px;">✅ Supported iPhone Models</p><p style="font-size:0.88em;color:#555;margin:0;line-height:1.8;">iPhone XS / XR or newer<br>iPhone SE (2nd gen) or newer<br>⚠️ <strong>Phone must be unlocked</strong></p></div><div style="background:white;border-radius:8px;padding:12px 14px;border-left:3px solid #10b981;"><p style="font-weight:700;color:#065f46;margin:0 0 6px;">💡 Where to Buy</p><p style="font-size:0.88em;color:#555;margin:0;line-height:1.8;">🛒 <a href="https://www.klook.com/zh-TW/blog/klook-esim/" target="_blank" rel="noopener" style="color:#1d4ed8;font-weight:600;">Klook eSIM</a> (choose days / data)<br>📦 QR code delivered instantly<br>💰 3–5× cheaper than airport SIM</p></div></div><div style="background:#eef2ff;border:1px solid #c7d2fe;border-radius:8px;padding:14px 16px;"><p style="font-weight:700;color:#3730a3;margin:0 0 10px;">📱 iPhone eSIM Activation Steps (Before Departure)</p><ol style="margin:0;padding-left:20px;color:#312e81;line-height:2.1;font-size:0.92em;"><li>After purchase, get your <strong>QR Code</strong> (email or app)</li><li>Open iPhone <strong>Settings → Cellular → Add Cellular Plan</strong></li><li>Select "<strong>Use QR Code</strong>" and scan your QR code</li><li>Follow prompts to finish setup; name the eSIM (e.g., "Singapore")</li><li>Set eSIM as your "<strong>Cellular Data</strong>" plan</li><li>Upon arrival in Singapore, eSIM auto-connects ✅</li></ol><div style="background:#fef3c7;border-radius:6px;padding:8px 12px;margin-top:10px;font-size:0.87em;color:#78350f;">⚠️ <strong>Note:</strong> Some eSIMs only start counting days from activation date — check your purchase terms. Recommended: <strong>scan and install the day before departure</strong> for automatic connection upon landing.</div></div><div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;"><span style="background:#e0e7ff;color:#3730a3;padding:4px 12px;border-radius:20px;font-size:0.83em;font-weight:600;">📶 Recommended: 4–5 day unlimited data</span><span style="background:#dcfce7;color:#166534;padding:4px 12px;border-radius:20px;font-size:0.83em;font-weight:600;">✂️ No physical SIM swap needed</span><span style="background:#fce7f3;color:#9d174d;padding:4px 12px;border-radius:20px;font-size:0.83em;font-weight:600;">🔄 Home number still receives calls &amp; SMS</span></div></div><div class="note-card" style="border-left-color:#f59e0b;background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 40%,#ffffff 100%);"><h4>🌟 Travel Tips &amp; Reminders</h4><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;"><p style="margin:4px 0;">🔌 <strong>230V, UK 3-pin plug</strong> — bring a Type G adapter</p><p style="margin:4px 0;">🧴 <strong>Sunscreen + insect repellent</strong> (essential for Night Safari)</p><p style="margin:4px 0;">🕶️ <strong>Sunglasses + hat</strong> (chin-strap hat recommended — it gets windy)</p><p style="margin:4px 0;">🌧️ <strong>Rain poncho or foldable umbrella</strong> (afternoon thundershowers are common)</p><p style="margin:4px 0;">👟 <strong>Sandals + non-slip walking shoes</strong> (you'll walk a LOT)</p><p style="margin:4px 0;">📶 <strong>SIM card or eSIM</strong> (buy before departure for instant connectivity)</p><p style="margin:4px 0;">🌬️ <strong>Hand fan or mini fan</strong> (strongly recommended if you run hot)</p><p style="margin:4px 0;">🩱 <strong>Swimsuit + swim cap</strong> (required for 57F infinity pool; also for Sentosa water activities)</p><p style="margin:4px 0;">🧻 <strong>Wet wipes + handkerchief</strong> (some restaurants charge for tissues)</p><p style="margin:4px 0;">💵 <strong>Housekeeping tip:</strong> Leave SGD 1–2/day for housekeeping (optional)</p><p style="margin:4px 0;">🔋 <strong>Charging cables + power bank + tablet/phone</strong></p><p style="margin:4px 0;">💧 <strong>Reusable water bottle</strong> (Singapore tap water is safe to drink)</p><p style="margin:4px 0;">😷 <strong>Face mask</strong> (strong indoor AC; or if feeling unwell)</p><p style="margin:4px 0;">🧼 <strong>Hand sanitizer</strong> (carry at all times when out)</p><p style="margin:4px 0;">💊 <strong>Antacid + cold medicine</strong>; sleeping pills require a prescription</p><p style="margin:4px 0;">💱 <strong>Singapore Dollar</strong> — exchange at banks before departure or at Changi Airport ATMs</p></div></div><div class="note-card"><h4>☀️ Climate &amp; Dress Code</h4><p><strong>Weather:</strong> April temperatures ~26°C–32°C, hot and humid.</p><p><strong>Clothing:</strong> Light, breathable cotton clothing; comfortable walking shoes.</p><p><strong>Sun &amp; Rain Protection:</strong> Sunscreen, sunglasses, hat, foldable umbrella.</p><p><strong>Indoor Temperature:</strong> Air-conditioning is extremely cold indoors — always bring a light jacket.</p></div><div class="note-card"><h4>🚫 Local Laws &amp; Customs</h4><p><strong>No Chewing Gum:</strong> Strictly prohibited to bring in or chew — heavy fines apply.</p><p><strong>No Eating on Transit:</strong> Absolutely no food or drinks on the MRT or buses.</p><p><strong>Smoking Rules:</strong> Only permitted in designated yellow-bordered smoking zones.</p></div><div class="note-card" style="border-left-color:#10b981;background:linear-gradient(135deg,#f0fdf4 0%,#f7fffe 100%);grid-column:1 / -1;"><h4>💳 Singapore Digital Payment Guide</h4><p style="font-size:0.92em;color:#555;margin:0 0 12px 0;">Singapore is one of the world's most advanced cashless societies — credit cards, Apple Pay, and Google Pay work almost everywhere. Carry only a small amount of cash for backup.</p><div style="background:white;border-radius:8px;padding:12px 14px;margin:8px 0;border-left:3px solid #10b981;"><strong style="color:#166534;">✅ Fully Cashless (Credit Card / Apple Pay / Google Pay)</strong><div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;"><span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">🏨 Marina Bay Sands</span><span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">🎢 All Major Attractions</span><span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">🦀 Jumbo Seafood</span><span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">🍽️ Putien Restaurant</span><span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">🛕 Muthu's Curry</span><span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">🏪 7-Eleven / Cold Storage</span><span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">🚕 Grab (in-app payment)</span><span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">🚇 MRT gate tap-in</span><span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">🛍️ All Major Malls</span><span style="background:#dcfce7;color:#166534;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">☕ TWG / Bacha Coffee</span></div><p style="font-size:0.87em;color:#555;margin:8px 0 0;padding:6px 10px;background:#f0fdf4;border-radius:6px;">💡 <strong>Singapore MRT needs no EZ-Link card!</strong> Just tap your Visa/Mastercard or Apple Pay directly at the gate — system auto-charges the correct fare.</p></div><div style="background:white;border-radius:8px;padding:12px 14px;margin:8px 0;border-left:3px solid #f59e0b;"><strong style="color:#92400e;">⚡ Mixed — Keep Some Cash (Hawker stalls)</strong><div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;"><span style="background:#fef9c3;color:#713f12;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">🍜 Tekka Centre hawker stalls (some have QR)</span><span style="background:#fef9c3;color:#713f12;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">🌿 Night Safari buffet (card accepted)</span><span style="background:#fef9c3;color:#713f12;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">🛒 Mustafa Centre (mainly cash)</span></div><p style="font-size:0.87em;color:#666;margin:8px 0 0;">Most large hawker stalls support PayNow QR, but some traditional stalls are cash-only. SGD 20–30 is enough.</p></div><div style="background:white;border-radius:8px;padding:12px 14px;margin:8px 0;border-left:3px solid #ef4444;"><strong style="color:#991b1b;">💵 Cash Recommended (Street Vendors)</strong><div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;"><span style="background:#fee2e2;color:#991b1b;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">🌺 Indian flower garland stalls (SGD 3–5)</span><span style="background:#fee2e2;color:#991b1b;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">🎨 Henna body art (SGD 10–15)</span><span style="background:#fee2e2;color:#991b1b;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">🛕 Temple offerings</span><span style="background:#fee2e2;color:#991b1b;padding:3px 10px;border-radius:20px;font-size:0.82em;font-weight:600;">🍢 Street food &amp; drinks</span></div></div><div style="background:#f0f9ff;border-radius:8px;padding:10px 14px;margin-top:10px;border-left:3px solid #0ea5e9;display:flex;align-items:flex-start;gap:8px;"><span style="font-size:1.2em;">💡</span><div><strong style="color:#0369a1;">Recommended Cash: SGD 100–200</strong><p style="font-size:0.87em;color:#555;margin:4px 0 0;">ATMs at the airport, 7-Eleven, and all major malls. Visa/Mastercard can withdraw SGD; ~SGD 5 fee. After getting cash, use card payment everywhere else!</p><p style="font-size:0.87em;color:#555;margin:4px 0 0;">🔌 <strong>Power:</strong> 230V, UK Type G socket — bring an adapter. 📶 <strong>Network:</strong> Buy SIM at Changi Airport or activate eSIM before departure.</p></div></div></div><div class="note-card" style="border-left-color:#0ea5e9;"><h4>🚇 MRT &amp; Grab Transport Guide</h4><p><strong>MRT Subway (Fastest &amp; Cheapest):</strong> Tap Visa/Mastercard or Apple Pay directly at the gate — no ticket needed! Alternatively use EZ-Link card (available at Changi Recommends or convenience stores; SGD 10, includes SGD 5 value).</p><p><strong>Grab (Uber equivalent):</strong> Download Grab App before departure and link a credit card. Strongly recommended for elderly members or when you have a baby stroller — comfortable, door-to-door. Choose GrabCar or GrabFamily (with child seat).</p><p><strong>Fare Reference:</strong></p><p>Airport → Marina Bay Sands: ~SGD 20–30 (~30 min)</p><p>MBS → Jumbo Seafood (Riverside Point): ~SGD 8–12 (~10 min)</p><p>MBS → Little India: ~SGD 10–15 (~10–12 min)</p><p>MBS → Sentosa: ~SGD 12–18 (~15 min)</p></div><div class="note-card"><h4>🎁 Complete Souvenir Shopping Guide</h4><p><strong>Snacks:</strong> IRVINS Salted Egg Chips (airport-exclusive flavors), OLD CHANG KEE Curry Puffs.</p><p><strong>Pastries &amp; Sweets:</strong> Bengawan Solo Pandan Cake (refrigerated), Sheraton Hotel Thousand-Layer Cake.</p><p><strong>Tea &amp; Coffee:</strong> TWG Tea (gold tin), Bacha Coffee (a must-visit!).</p><p><strong>Health &amp; Beauty:</strong> Eu Yan Sang bird's nest, Tiger Balm, Medimix Indian herbal soap (cheapest in Little India).</p><p><strong>Where to Buy:</strong> Airport duty-free (last chance), Jewel Changi, Little India's Mustafa Centre (open 24h, best health/beauty prices).</p></div><div class="note-card" style="grid-column:1 / -1;border-left-color:#d97706;background:linear-gradient(135deg,#fff7ed 0%,#fef3c7 50%,#fffbeb 100%);border-left-width:5px;"><h4>🏊 Special Reminder: 57F SkyPark Infinity Pool — Don't Miss It!</h4><div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;"><div style="flex:1;min-width:220px;"><p style="margin:0 0 8px;">The MBS <strong>57F SkyPark Infinity Pool</strong> is Singapore's most iconic landmark, connecting all three towers at the top with a breathtaking view of Marina Bay.</p><p style="margin:0 0 6px;">🏨 <strong>Free for hotel guests</strong> — just show your room key, unlimited visits</p><p style="margin:0 0 6px;">🌅 <strong>Best time:</strong> 17:00–19:00 — golden sunset + city lights beginning to glow, perfect for photos</p><p style="margin:0 0 6px;">🩱 <strong>Bring swimsuit &amp; swim cap</strong> — swim cap is mandatory (available at hotel if needed)</p></div><div style="background:white;border-radius:10px;padding:12px 16px;min-width:200px;border:1px solid #fde68a;"><p style="margin:0 0 6px;font-weight:700;color:#92400e;">👥 Non-Guests Can Also Visit</p><p style="margin:0 0 4px;font-size:0.9em;">56F SkyPark Observation Deck</p><p style="margin:0 0 4px;font-size:0.9em;">Adult SGD 35–39 / Child SGD 31–35</p><p style="margin:0;font-size:0.85em;color:#666;">(Hotel guests with room key: Free)</p></div></div></div>`
+        };
+
         // ===== 語言切換 (中文 / English) =====
         let _currentLang = 'zh';
 
@@ -3234,9 +3265,28 @@
             const btn = document.getElementById('langToggleBtn');
             if (btn) btn.textContent = isEn ? '🌐 中文' : '🌐 EN';
 
+            applyEnBlocks(isEn);
             document.body.classList.toggle('en-mode', isEn);
             document.documentElement.lang = isEn ? 'en' : 'zh-TW';
             localStorage.setItem('sg_lang', lang);
+        }
+
+        function applyEnBlocks(isEn) {
+            Object.entries(EN_BLOCKS).forEach(([id, enHtml]) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                if (isEn) {
+                    if (!el.dataset.zhHtml) el.dataset.zhHtml = el.innerHTML;
+                    el.innerHTML = enHtml;
+                    if (id === 'notes-grid') initChecklist();
+                } else {
+                    if (el.dataset.zhHtml) {
+                        el.innerHTML = el.dataset.zhHtml;
+                        delete el.dataset.zhHtml;
+                        if (id === 'notes-grid') initChecklist();
+                    }
+                }
+            });
         }
 
         function initLang() {
