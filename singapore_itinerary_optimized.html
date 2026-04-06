@@ -2931,7 +2931,7 @@
                 if (distance < 0) {
                     elements.forEach(el => el.textContent = "0");
                     const titleEl = document.querySelector('.cd-title');
-                    if (titleEl) titleEl.textContent = "🎉 出發啦！新加坡之旅開始！";
+                    if (titleEl) titleEl.textContent = _currentLang === 'en' ? "🎉 Singapore Trip Has Begun!" : "🎉 出發啦！新加坡之旅開始！";
                     return;
                 }
                 
