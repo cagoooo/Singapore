@@ -1196,6 +1196,15 @@
             .toc-btn { right: 10px; }
         }
 
+        /* 語言切換 */
+        #langToggleBtn { font-weight: 700; letter-spacing: 0.03em; }
+        .en-tip-banner {
+            display: none;
+            background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px;
+            padding: 10px 16px; font-size: 0.85em; color: #1e40af; margin-bottom: 16px;
+        }
+        body.en-mode .en-tip-banner { display: block; }
+
         /* QR Code Modal */
         .qr-overlay {
             display: none; position: fixed; inset: 0;
@@ -1245,22 +1254,24 @@
 
     <!-- 導航欄 -->
     <nav class="nav-top">
-        <div class="nav-title">🇸🇬 新加坡家族旅遊計畫</div>
+        <div class="nav-title" data-en="🇸🇬 Singapore Family Trip">🇸🇬 新加坡家族旅遊計畫</div>
         <div class="nav-buttons">
-            <button class="nav-btn" onclick="toggleSearch()">🔍 搜尋</button>
-            <button class="nav-btn" onclick="openQR()">📲 分享</button>
-            <button class="nav-btn" onclick="window.print()">列印</button>
+            <button class="nav-btn" onclick="toggleSearch()" data-en="🔍 Search">🔍 搜尋</button>
+            <button class="nav-btn" onclick="openQR()" data-en="📲 Share">📲 分享</button>
+            <button class="nav-btn" onclick="window.print()" data-en="Print">列印</button>
+            <button class="nav-btn" id="langToggleBtn" onclick="setLang(_currentLang==='zh'?'en':'zh')">🌐 EN</button>
         </div>
     </nav>
 
     <!-- QR Code Modal -->
     <div class="qr-overlay" id="qrOverlay" onclick="if(event.target===this)closeQR()">
         <div class="qr-box">
-            <h3>📲 掃碼開啟計畫書</h3>
-            <p>用手機掃描 QR Code 即可分享給家人</p>
+            <h3 data-en="📲 Scan to Open Trip Guide">📲 掃碼開啟計畫書</h3>
+            <p data-en="Scan with your phone to share with family">用手機掃描 QR Code 即可分享給家人</p>
             <img src="https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fcagoooo.github.io%2FSingapore%2F&size=220x220&color=1e1b4b&bgcolor=ffffff&margin=6"
-                 alt="QR Code" width="220" height="220" style="border-radius:10px; display:block; margin:0 auto;">
-            <button class="qr-close" onclick="closeQR()">關閉</button>
+                 alt="QR Code" width="220" height="220" style="border-radius:10px; display:block; margin:0 auto;"
+                 onerror="this.outerHTML='<p style=&quot;color:#64748b;font-size:0.88em;margin:16px 0&quot;>⚠️ QR Code 需要網路連線才能顯示</p>'">
+            <button class="qr-close" onclick="closeQR()" data-en="Close">關閉</button>
         </div>
     </div>
 
@@ -1343,25 +1354,26 @@
     </div>
 
     <main>
-        <h1>🇸🇬 新加坡四天三夜家族旅遊詳細計畫書</h1>
-        <p class="subtitle">一場充滿歡樂與回憶的家族冒險</p>
+        <h1 data-en="🇸🇬 Singapore 4-Day 3-Night Family Trip Complete Guide">🇸🇬 新加坡四天三夜家族旅遊詳細計畫書</h1>
+        <p class="subtitle" data-en="A joyful family adventure filled with wonderful memories">一場充滿歡樂與回憶的家族冒險</p>
+        <div class="en-tip-banner">💡 Structural headings are translated. For full paragraph translation, right-click the page → <strong>Translate to English</strong> in Chrome/Safari.</div>
 
         <!-- ===== 旅遊相簿（密碼保護）===== -->
         <div id="album-section" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4c1d95 100%); border-radius: 18px; padding: 32px 28px; margin-bottom: 28px; box-shadow: 0 8px 32px rgba(79,70,229,0.35); color: white; text-align: center;">
             <div style="font-size: 2.2em; margin-bottom: 8px;">📸</div>
-            <h2 style="margin: 0 0 6px; font-size: 1.5em; font-weight: 800; letter-spacing: 0.02em;">家族旅遊相簿 2026</h2>
-            <p style="margin: 0 0 22px; opacity: 0.8; font-size: 0.95em;">新加坡四天三夜 · 25人大家族 · 珍貴回憶永久珍藏</p>
+            <h2 style="margin: 0 0 6px; font-size: 1.5em; font-weight: 800; letter-spacing: 0.02em;" data-en="📸 Family Photo Album 2026">家族旅遊相簿 2026</h2>
+            <p style="margin: 0 0 22px; opacity: 0.8; font-size: 0.95em;" data-en="Singapore 4-Day Trip · 25-Person Family · Precious Memories">新加坡四天三夜 · 25人大家族 · 珍貴回憶永久珍藏</p>
 
             <!-- 鎖定狀態 -->
             <div id="album-locked" style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
                 <div style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 20px 24px; width: 100%; max-width: 320px; box-sizing: border-box;">
-                    <p style="margin: 0 0 12px; font-size: 0.92em; opacity: 0.9;">🔒 請輸入家族密碼以查看相簿</p>
+                    <p style="margin: 0 0 12px; font-size: 0.92em; opacity: 0.9;" data-en="🔒 Enter family password to view album">🔒 請輸入家族密碼以查看相簿</p>
                     <div style="display: flex; gap: 8px;">
                         <input type="password" id="albumPwInput" placeholder="輸入密碼…"
                             style="flex: 1; padding: 10px 14px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.12); color: white; font-size: 1em; outline: none; min-width: 0;"
                             onkeydown="if(event.key==='Enter') unlockAlbum()"
                             oninput="document.getElementById('albumErr').style.display='none'">
-                        <button onclick="unlockAlbum()" style="padding: 10px 18px; border-radius: 8px; border: none; background: linear-gradient(135deg, #818cf8, #6366f1); color: white; font-weight: 700; font-size: 0.95em; cursor: pointer; white-space: nowrap;">解鎖</button>
+                        <button onclick="unlockAlbum()" style="padding: 10px 18px; border-radius: 8px; border: none; background: linear-gradient(135deg, #818cf8, #6366f1); color: white; font-weight: 700; font-size: 0.95em; cursor: pointer; white-space: nowrap;" data-en="Unlock">解鎖</button>
                     </div>
                     <p id="albumErr" style="display: none; margin: 8px 0 0; color: #fca5a5; font-size: 0.87em;">❌ 密碼錯誤，請再試一次</p>
                 </div>
@@ -1370,15 +1382,16 @@
             <!-- 解鎖後狀態 -->
             <div id="album-unlocked" style="display: none; flex-direction: column; align-items: center; gap: 16px;">
                 <div style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); border-radius: 14px; padding: 22px 28px; width: 100%; max-width: 400px; box-sizing: border-box;">
-                    <p style="margin: 0 0 4px; font-size: 0.88em; opacity: 0.75;">✅ 已解鎖 — 點擊下方按鈕開啟相簿</p>
-                    <p style="margin: 0 0 18px; font-size: 0.82em; opacity: 0.6;">（Google Drive · 僅限家族成員）</p>
+                    <p style="margin: 0 0 4px; font-size: 0.88em; opacity: 0.75;" data-en="✅ Unlocked — Click below to open album">✅ 已解鎖 — 點擊下方按鈕開啟相簿</p>
+                    <p style="margin: 0 0 18px; font-size: 0.82em; opacity: 0.6;" data-en="(Google Drive · Family Members Only)">（Google Drive · 僅限家族成員）</p>
                     <a href="https://drive.google.com/drive/folders/16LvJMdzXeMeHUY06i1rnlXBfnl6h_xOg" target="_blank" rel="noopener"
                         style="display: inline-flex; align-items: center; gap: 10px; background: white; color: #4338ca; padding: 14px 28px; border-radius: 50px; font-weight: 800; font-size: 1.05em; text-decoration: none; box-shadow: 0 4px 16px rgba(0,0,0,0.2); transition: transform 0.15s;"
-                        onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+                        onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''"
+                        data-en="📂 Open Family Album">
                         <span style="font-size: 1.2em;">📂</span> 開啟家族相簿
                     </a>
                 </div>
-                <button onclick="lockAlbum()" style="background: transparent; border: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.6); padding: 6px 16px; border-radius: 20px; font-size: 0.8em; cursor: pointer;">🔒 重新鎖定</button>
+                <button onclick="lockAlbum()" style="background: transparent; border: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.6); padding: 6px 16px; border-radius: 20px; font-size: 0.8em; cursor: pointer;" data-en="🔒 Lock Again">🔒 重新鎖定</button>
             </div>
         </div>
 
@@ -1472,7 +1485,7 @@
 
         <!-- 景點票價快速對照表 -->
         <div id="ticket-prices" class="notes-section" style="margin-bottom: 40px;">
-            <h2 style="color: var(--color-primary); border-bottom-color: var(--color-primary);">📊 景點票價快速對照表</h2>
+            <h2 style="color: var(--color-primary); border-bottom-color: var(--color-primary);" data-en="📊 Attraction Ticket Price Guide">📊 景點票價快速對照表</h2>
             <div class="notes-intro" style="background: #e0f2fe; border-left-color: var(--color-primary); color: #0c4a6e;">
                 <strong>💡 省錢小提示：</strong> 建議透過 Klook、Traveloka 或官網提前購票，通常比現場購票便宜 10-20%。熱門景點（環球影城、夜間動物園）旺季票可能售罄，請務必提早預訂！
             </div>
@@ -1543,14 +1556,14 @@
 
         <!-- 景點地圖一覽 -->
         <div id="attractions-map" class="notes-section">
-            <h2>🗺️ 四天景點地圖一覽</h2>
-            <p style="color:#555;font-size:0.9em;margin-bottom:12px;">點擊地圖標記可查看景點名稱與所屬天次。</p>
+            <h2 data-en="🗺️ 4-Day Attractions Map">🗺️ 四天景點地圖一覽</h2>
+            <p style="color:#555;font-size:0.9em;margin-bottom:12px;" data-en="Click markers to view attraction name and day.">點擊地圖標記可查看景點名稱與所屬天次。</p>
             <div class="map-filter-bar">
-                <button class="map-filter-btn all active" onclick="filterMap(0, this)">🗺️ 全部</button>
-                <button class="map-filter-btn d1" onclick="filterMap(1, this)">● Day 1 抵達濱海灣</button>
-                <button class="map-filter-btn d2" onclick="filterMap(2, this)">● Day 2 樂園／市區</button>
-                <button class="map-filter-btn d3" onclick="filterMap(3, this)">● Day 3 聖淘沙夜生態</button>
-                <button class="map-filter-btn d4" onclick="filterMap(4, this)">● Day 4 星耀樟宜</button>
+                <button class="map-filter-btn all active" onclick="filterMap(0, this)" data-en="🗺️ All">🗺️ 全部</button>
+                <button class="map-filter-btn d1" onclick="filterMap(1, this)" data-en="● Day 1 Marina Bay">● Day 1 抵達濱海灣</button>
+                <button class="map-filter-btn d2" onclick="filterMap(2, this)" data-en="● Day 2 Theme Parks / City">● Day 2 樂園／市區</button>
+                <button class="map-filter-btn d3" onclick="filterMap(3, this)" data-en="● Day 3 Sentosa &amp; Night Safari">● Day 3 聖淘沙夜生態</button>
+                <button class="map-filter-btn d4" onclick="filterMap(4, this)" data-en="● Day 4 Jewel Changi">● Day 4 星耀樟宜</button>
             </div>
             <div id="sg-map" style="height:460px;border-radius:12px;border:1px solid #e5e7eb;overflow:hidden;" class="sg-map-container"></div>
             <p style="font-size:0.78em;color:#9ca3af;margin-top:8px;text-align:right;">地圖資料 © OpenStreetMap contributors</p>
@@ -1558,7 +1571,7 @@
 
         <!-- 出發前準備 -->
         <div id="pre-trip-notes" class="notes-section">
-            <h2>⚠️ 出發前準備與注意事項</h2>
+            <h2 data-en="⚠️ Pre-Trip Preparation &amp; Notes">⚠️ 出發前準備與注意事項</h2>
             <div class="notes-intro">
                 <strong>家族旅遊特別提醒：</strong> 本次行程包含嬰幼兒與長輩，新加坡氣候炎熱，請務必隨時補充水分。行程安排已盡量保持彈性，請依當天團員體力狀況適度調整。
             </div>
@@ -1791,7 +1804,7 @@
         <!-- Day 1 -->
         <div id="day1" class="day-card day1">
             <div class="day-header">
-                <span>Day 1：抵達星國，探索濱海灣</span>
+                <span data-en="Day 1: Arrival &amp; Marina Bay Exploration">Day 1：抵達星國，探索濱海灣</span>
                 <span class="day-header-date">4/2 (四)</span>
             </div>
             <div class="day-content">
@@ -1885,7 +1898,7 @@
         <!-- Day 2 -->
         <div id="day2" class="day-card day2">
             <div class="day-header">
-                <span>Day 2：樂園狂歡或市區漫遊</span>
+                <span data-en="Day 2: Theme Parks or City Exploration">Day 2：樂園狂歡或市區漫遊</span>
                 <span class="day-header-date">4/3 (五)</span>
             </div>
             <div class="day-content">
@@ -2311,7 +2324,7 @@
         <!-- Day 3 -->
         <div id="day3" class="day-card day3">
             <div class="day-header">
-                <span>Day 3：聖淘沙探險與夜間生態之旅</span>
+                <span data-en="Day 3: Sentosa Adventure &amp; Night Safari">Day 3：聖淘沙探險與夜間生態之旅</span>
                 <span class="day-header-date">4/4 (六)</span>
             </div>
             <div class="day-content">
@@ -2453,7 +2466,7 @@
         <!-- Day 4 -->
         <div id="day4" class="day-card day4">
             <div class="day-header">
-                <span>Day 4：滿載而歸，星耀樟宜</span>
+                <span data-en="Day 4: Homeward Bound, Jewel Changi">Day 4：滿載而歸，星耀樟宜</span>
                 <span class="day-header-date">4/5 (日)</span>
             </div>
             <div class="day-content">
@@ -2545,7 +2558,7 @@
         <div class="footer">
             <p>※ 本計畫書內容與時間安排可視當日實際交通狀況與團員體力進行彈性微調。 ※</p>
             <p style="font-size: 1.05em; font-weight: 600; color: var(--text-main);">祝您與家人有一趟平安、愉快且充滿美好回憶的新加坡之旅！</p>
-            <p style="font-size: 0.8em; color: #aaa; margin-top: 16px;">v1.9.7 · 最後更新 2026-04-06</p>
+            <p style="font-size: 0.8em; color: #aaa; margin-top: 16px;">v2.0.0 · 最後更新 2026-04-06</p>
         </div>
     </main>
 
@@ -2574,8 +2587,40 @@
         let _matches = [];
         let _matchIdx = -1;
 
+        // ===== C4 搜尋別名字典 =====
+        const searchAliases = {
+            'aquarium':'海洋館','oceanarium':'海洋館','sea aquarium':'海洋館',
+            'uss':'環球影城','universal':'環球影城','universal studios':'環球影城',
+            'luge':'滑坡車','skyline luge':'滑坡車',
+            'safari':'動物園','night safari':'夜間動物園',
+            'mbs':'金沙','marina bay sands':'金沙',
+            'gardens by the bay':'濱海灣花園','supertree':'濱海灣花園',
+            'merlion':'魚尾獅',
+            'sentosa':'聖淘沙',
+            'harry potter':'哈利波特',
+            'legoland':'樂高樂園','lego':'樂高',
+            'jewel':'星耀樟宜','jewel changi':'星耀樟宜',
+            'changi':'樟宜','airport':'機場',
+            'spectra':'SPECTRA',
+            'infinity pool':'無邊際泳池','rooftop pool':'無邊際泳池',
+            'hotel':'酒店','check in':'入住','check-in':'入住',
+            'passport':'護照','visa':'簽證',
+            'ticket':'門票','price':'票價',
+            'restaurant':'餐廳','dinner':'晚餐','lunch':'午餐','food':'餐廳',
+            'shopping':'購物','souvenir':'伴手禮','gift':'伴手禮',
+            'mrt':'MRT','subway':'MRT','metro':'MRT','train':'MRT',
+            'grab':'Grab','taxi':'Grab',
+            'esim':'eSIM','sim card':'SIM',
+            'sgac':'SGAC','arrival card':'SGAC','immigration':'入境',
+            'little india':'小印度','mustafa':'慕斯塔法',
+            'clarke quay':'克拉碼頭','clark quay':'克拉碼頭',
+            'chilli crab':'辣椒螃蟹','crab':'螃蟹','jumbo':'珍寶',
+            'putien':'莆田','night zoo':'夜間動物園',
+        };
+
         function searchContent() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            const raw = document.getElementById('searchInput').value.toLowerCase().trim();
+            const searchTerm = searchAliases[raw] || raw;
             const dayCards = document.querySelectorAll('.day-card');
 
             // 清除舊 highlight（還原 DOM text nodes）
@@ -3075,6 +3120,18 @@
                     weight: 2, opacity: 1, fillOpacity: 0.9
                 }).addTo(_mapLayers[d]).bindPopup(`<strong style="font-size:0.95em">Day ${d}</strong><br>${n}`);
             });
+
+            // ===== B4 路線連線 =====
+            const routes = {
+                1: [[1.3592,103.9894],[1.2834,103.8607],[1.2868,103.8545],[1.2816,103.8636],[1.2840,103.8590]],
+                2: [[1.3067,103.8517],[1.3074,103.8560],[1.3065,103.8510],[1.2898,103.8494],[1.2904,103.8465]],
+                3: [[1.2494,103.8303],[1.2487,103.8282],[1.2543,103.8235],[1.2534,103.8188],[1.2644,103.8221],[1.4043,103.7930]],
+            };
+            Object.entries(routes).forEach(([d, coords]) => {
+                L.polyline(coords, {
+                    color: colors[Number(d)], weight: 2.5, opacity: 0.6, dashArray: '7, 7'
+                }).addTo(_mapLayers[Number(d)]);
+            });
         }
 
         // ===== 相簿密碼保護 =====
@@ -3105,6 +3162,87 @@
             document.getElementById('album-unlocked').style.display = 'flex';
         }
 
+        // ===== 語言切換 (中文 / English) =====
+        let _currentLang = 'zh';
+
+        const i18nH4 = {
+            // Day 1
+            '桃園國際機場集合 (TPE)':'Gather at Taoyuan Airport (TPE)',
+            '搭乘長榮航空 BR225 前往新加坡':'Eva Air BR225 → Singapore',
+            '抵達樟宜機場 (SIN)':'Arrive at Changi Airport (SIN)',
+            '辦理出關手續、領取行李':'Clear Immigration & Collect Luggage',
+            '搭車前往金沙酒店':'Transfer to Marina Bay Sands',
+            '辦理入住手續 (Check-in)':'Hotel Check-in',
+            '下午自由活動':'Free Time — Afternoon',
+            '魚尾獅公園 & 濱海灣':'Merlion Park & Marina Bay',
+            'SPECTRA 光影水舞秀':'SPECTRA Light & Water Show',
+            // Day 2
+            '白天自由活動 (依家庭喜好分組)':'Daytime Free Activities (by group preference)',
+            '全員出發！各自前往珍寶海鮮集合':'All groups head to Jumbo Seafood',
+            '晚餐：珍寶海鮮 (祝賀新婚宴)':'Dinner: Jumbo Seafood (Wedding Celebration)',
+            '克拉碼頭周邊自由活動 / 返回飯店休息':'Clarke Quay Leisure / Return to Hotel',
+            // Day 3
+            '飯店大廳集合':'Gather at Hotel Lobby',
+            '搭車前往聖淘沙':'Transfer to Sentosa Island',
+            '上午分組活動':'Morning Group Activities',
+            '午餐：莆田餐廳 (Putien) - 全員會合':'Lunch: Putien Restaurant (All Groups)',
+            '下午活動 (二選一)':'Afternoon Activities (Choose One)',
+            '晚餐：夜間動物園自助餐':'Dinner: Night Safari Buffet',
+            '夜間動物園 (Night Safari) 導覽':'Night Safari Tour',
+            '搭車返回金沙酒店':'Return to Marina Bay Sands',
+            // Day 4
+            '飯店大廳集合 (15人)':'Gather at Hotel Lobby (15 pax)',
+            '前往樟宜機場':'Transfer to Changi Airport',
+            '辦理登機手續、托運行李':'Check-in & Baggage Drop',
+            '機場自由活動 / 準備登機':'Free Time at Airport / Board Plane',
+            '搭乘長榮航空 BR216 返回台灣':'Eva Air BR216 → Taiwan',
+            // Note card headings
+            '📄 必備文件與入境':'📄 Required Documents & Entry',
+            '🌟 溫馨提示 — 行前小叮嚀':'🌟 Travel Tips & Reminders',
+            '📶 出國網路 — eSIM 使用指南（iPhone）':'📶 Mobile Data — eSIM Guide (iPhone)',
+            '💳 新加坡數位支付完整指南':'💳 Singapore Digital Payment Guide',
+            '🚇 大眾交通工具 & Grab 完整攻略':'🚇 MRT & Grab Transport Guide',
+            '🎁 伴手禮完整採購指南':'🎁 Complete Souvenir Shopping Guide',
+            '🧳 出發前行李清單':'🧳 Pre-Departure Packing List',
+            '🛂 抵達新加坡入境流程（免人工審查）':'🛂 Singapore Entry Process (Automated Gates)',
+            '📱 iPhone eSIM 開通步驟（出發前完成）':'📱 iPhone eSIM Activation Steps (Before Departure)',
+        };
+
+        function setLang(lang) {
+            _currentLang = lang;
+            const isEn = lang === 'en';
+
+            // 翻譯 [data-en] 元素
+            document.querySelectorAll('[data-en]').forEach(el => {
+                if (isEn) {
+                    if (!el.getAttribute('data-zh')) el.setAttribute('data-zh', el.innerHTML);
+                    el.innerHTML = el.getAttribute('data-en');
+                } else {
+                    const zh = el.getAttribute('data-zh');
+                    if (zh) el.innerHTML = zh;
+                }
+            });
+
+            // 翻譯 timeline h4 + note-card h4
+            document.querySelectorAll('.timeline-item h4, .note-card h4').forEach(h4 => {
+                const zhKey = h4.getAttribute('data-zh') || h4.textContent.trim();
+                if (!h4.getAttribute('data-zh')) h4.setAttribute('data-zh', zhKey);
+                h4.textContent = isEn ? (i18nH4[zhKey] || zhKey) : (h4.getAttribute('data-zh') || zhKey);
+            });
+
+            // 語言按鈕文字
+            const btn = document.getElementById('langToggleBtn');
+            if (btn) btn.textContent = isEn ? '🌐 中文' : '🌐 EN';
+
+            document.body.classList.toggle('en-mode', isEn);
+            document.documentElement.lang = isEn ? 'en' : 'zh-TW';
+            localStorage.setItem('sg_lang', lang);
+        }
+
+        function initLang() {
+            if (localStorage.getItem('sg_lang') === 'en') setLang('en');
+        }
+
         // 頁面加載完成後的初始化
         document.addEventListener('DOMContentLoaded', () => {
             // 相簿：若已解鎖過直接顯示
@@ -3124,6 +3262,7 @@
             initChecklist();
             initTimelineStatus();
             initMap();
+            initLang();
         });
     </script>
 
