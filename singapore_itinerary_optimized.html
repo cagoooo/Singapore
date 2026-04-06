@@ -2603,7 +2603,7 @@
         let _matches = [];
         let _matchIdx = -1;
 
-        // ===== C4 搜尋別名字典 =====
+        // ===== C4 搜尋別名字典（中文模式） =====
         const searchAliases = {
             'aquarium':'海洋館','oceanarium':'海洋館','sea aquarium':'海洋館',
             'uss':'環球影城','universal':'環球影城','universal studios':'環球影城',
@@ -2634,9 +2634,31 @@
             'putien':'莆田','night zoo':'夜間動物園',
         };
 
+        // ===== 搜尋別名字典（英文模式） =====
+        const searchAliasesEN = {
+            'uss':'universal studios','universal':'universal studios',
+            'mbs':'marina bay sands',
+            'gbtb':'gardens by the bay',
+            'ns':'night safari','zoo':'night safari',
+            'hp':'harry potter',
+            'luge':'skyline luge',
+            '海洋館':'oceanarium','環球影城':'universal studios',
+            '夜間動物園':'night safari','金沙':'marina bay sands',
+            '濱海灣':'marina bay','魚尾獅':'merlion',
+            '聖淘沙':'sentosa','哈利波特':'harry potter',
+            '樂高':'legoland','星耀樟宜':'jewel changi',
+            '樟宜':'changi','機場':'airport',
+            '無邊際泳池':'infinity pool','酒店':'hotel',
+            '護照':'passport','門票':'ticket','票價':'price',
+            '餐廳':'restaurant','晚餐':'dinner','午餐':'lunch',
+            '伴手禮':'souvenir','交通':'transport','入境':'immigration',
+            '小印度':'little india','辣椒螃蟹':'chilli crab','螃蟹':'crab',
+        };
+
         function searchContent() {
             const raw = document.getElementById('searchInput').value.toLowerCase().trim();
-            const searchTerm = searchAliases[raw] || raw;
+            const aliases = _currentLang === 'en' ? searchAliasesEN : searchAliases;
+            const searchTerm = aliases[raw] || raw;
             const dayCards = document.querySelectorAll('.day-card');
 
             // 清除舊 highlight（還原 DOM text nodes）
@@ -2660,7 +2682,7 @@
 
             if (searchTerm === '') return;
 
-            // 在 text nodes 中標記所有命中
+            // 在 text nodes 中標記所有命中（跳過當前語言隱藏的元素）
             function highlightInNode(node) {
                 if (node.nodeType === 3) {
                     const text = node.textContent;
@@ -2683,6 +2705,10 @@
                     if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
                     node.parentNode.replaceChild(frag, node);
                 } else if (node.nodeType === 1 && !['SCRIPT','STYLE','INPUT','TEXTAREA'].includes(node.tagName)) {
+                    // 跳過被語言切換隱藏的元素
+                    const cl = node.classList;
+                    if (_currentLang === 'en' && cl.contains('lang-zh')) return;
+                    if (_currentLang === 'zh' && cl.contains('lang-en')) return;
                     Array.from(node.childNodes).forEach(highlightInNode);
                 }
             }
