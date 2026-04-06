@@ -1233,6 +1233,7 @@
         <div class="toc-body">
             <div class="toc-grp">
                 <div class="toc-grp-lbl">重要提醒</div>
+                <a class="toc-a" href="#album-section" onclick="closeTOC()">📸 家族旅遊相簿</a>
                 <a class="toc-a" href="#today-update" onclick="closeTOC()">📅 3/31 今日更新</a>
                 <a class="toc-a" href="#ticket-prices" onclick="closeTOC()">📊 景點票價對照表</a>
                 <a class="toc-a" href="#attractions-map" onclick="closeTOC()">🗺️ 四天景點地圖</a>
@@ -1288,6 +1289,42 @@
     <main>
         <h1>🇸🇬 新加坡四天三夜家族旅遊詳細計畫書</h1>
         <p class="subtitle">一場充滿歡樂與回憶的家族冒險</p>
+
+        <!-- ===== 旅遊相簿（密碼保護）===== -->
+        <div id="album-section" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4c1d95 100%); border-radius: 18px; padding: 32px 28px; margin-bottom: 28px; box-shadow: 0 8px 32px rgba(79,70,229,0.35); color: white; text-align: center;">
+            <div style="font-size: 2.2em; margin-bottom: 8px;">📸</div>
+            <h2 style="margin: 0 0 6px; font-size: 1.5em; font-weight: 800; letter-spacing: 0.02em;">家族旅遊相簿 2026</h2>
+            <p style="margin: 0 0 22px; opacity: 0.8; font-size: 0.95em;">新加坡四天三夜 · 25人大家族 · 珍貴回憶永久珍藏</p>
+
+            <!-- 鎖定狀態 -->
+            <div id="album-locked" style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
+                <div style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 20px 24px; width: 100%; max-width: 320px; box-sizing: border-box;">
+                    <p style="margin: 0 0 12px; font-size: 0.92em; opacity: 0.9;">🔒 請輸入家族密碼以查看相簿</p>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="password" id="albumPwInput" placeholder="輸入密碼…"
+                            style="flex: 1; padding: 10px 14px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.12); color: white; font-size: 1em; outline: none; min-width: 0;"
+                            onkeydown="if(event.key==='Enter') unlockAlbum()"
+                            oninput="document.getElementById('albumErr').style.display='none'">
+                        <button onclick="unlockAlbum()" style="padding: 10px 18px; border-radius: 8px; border: none; background: linear-gradient(135deg, #818cf8, #6366f1); color: white; font-weight: 700; font-size: 0.95em; cursor: pointer; white-space: nowrap;">解鎖</button>
+                    </div>
+                    <p id="albumErr" style="display: none; margin: 8px 0 0; color: #fca5a5; font-size: 0.87em;">❌ 密碼錯誤，請再試一次</p>
+                </div>
+            </div>
+
+            <!-- 解鎖後狀態 -->
+            <div id="album-unlocked" style="display: none; flex-direction: column; align-items: center; gap: 16px;">
+                <div style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); border-radius: 14px; padding: 22px 28px; width: 100%; max-width: 400px; box-sizing: border-box;">
+                    <p style="margin: 0 0 4px; font-size: 0.88em; opacity: 0.75;">✅ 已解鎖 — 點擊下方按鈕開啟相簿</p>
+                    <p style="margin: 0 0 18px; font-size: 0.82em; opacity: 0.6;">（Google Drive · 僅限家族成員）</p>
+                    <a href="https://drive.google.com/drive/folders/16LvJMdzXeMeHUY06i1rnlXBfnl6h_xOg" target="_blank" rel="noopener"
+                        style="display: inline-flex; align-items: center; gap: 10px; background: white; color: #4338ca; padding: 14px 28px; border-radius: 50px; font-weight: 800; font-size: 1.05em; text-decoration: none; box-shadow: 0 4px 16px rgba(0,0,0,0.2); transition: transform 0.15s;"
+                        onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+                        <span style="font-size: 1.2em;">📂</span> 開啟家族相簿
+                    </a>
+                </div>
+                <button onclick="lockAlbum()" style="background: transparent; border: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.6); padding: 6px 16px; border-radius: 20px; font-size: 0.8em; cursor: pointer;">🔒 重新鎖定</button>
+            </div>
+        </div>
 
         <!-- ===== 3/31 今日更新提醒 ===== -->
         <div id="today-update" style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white; padding: 22px 26px; border-radius: 14px; margin-bottom: 28px; box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35);">
@@ -2451,7 +2488,7 @@
         <div class="footer">
             <p>※ 本計畫書內容與時間安排可視當日實際交通狀況與團員體力進行彈性微調。 ※</p>
             <p style="font-size: 1.05em; font-weight: 600; color: var(--text-main);">祝您與家人有一趟平安、愉快且充滿美好回憶的新加坡之旅！</p>
-            <p style="font-size: 0.8em; color: #aaa; margin-top: 16px;">v1.9.5 · 最後更新 2026-04-06</p>
+            <p style="font-size: 0.8em; color: #aaa; margin-top: 16px;">v1.9.6 · 最後更新 2026-04-06</p>
         </div>
     </main>
 
@@ -2954,8 +2991,38 @@
             });
         }
 
+        // ===== 相簿密碼保護 =====
+        const ALBUM_PW = 'sing2026';
+        const ALBUM_KEY = 'sg_album_unlocked';
+
+        function unlockAlbum() {
+            const val = document.getElementById('albumPwInput').value;
+            if (val === ALBUM_PW) {
+                localStorage.setItem(ALBUM_KEY, '1');
+                showAlbumUnlocked();
+            } else {
+                document.getElementById('albumErr').style.display = 'block';
+                document.getElementById('albumPwInput').value = '';
+                document.getElementById('albumPwInput').focus();
+            }
+        }
+
+        function lockAlbum() {
+            localStorage.removeItem(ALBUM_KEY);
+            document.getElementById('album-unlocked').style.display = 'none';
+            document.getElementById('album-locked').style.display = 'flex';
+            document.getElementById('albumPwInput').value = '';
+        }
+
+        function showAlbumUnlocked() {
+            document.getElementById('album-locked').style.display = 'none';
+            document.getElementById('album-unlocked').style.display = 'flex';
+        }
+
         // 頁面加載完成後的初始化
         document.addEventListener('DOMContentLoaded', () => {
+            // 相簿：若已解鎖過直接顯示
+            if (localStorage.getItem(ALBUM_KEY) === '1') showAlbumUnlocked();
             // 添加動畫延遲
             const dayCards = document.querySelectorAll('.day-card');
             dayCards.forEach((card, index) => {
