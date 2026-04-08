@@ -2,39 +2,57 @@
 
 > 2026年4月2日－5日 · 25人大家族 · 濱海灣金沙酒店
 
-互動式旅遊行程計畫網站，涵蓋完整行程、景點票價、交通指南、行李清單與實用工具。
+互動式旅遊行程計畫網站，涵蓋完整行程、景點票價、交通指南、行李清單與實用工具。支援中英雙語切換、PWA 離線瀏覽。
 
 ## 🌐 線上瀏覽
 
-**[https://cagoooo.github.io/Singapore/singapore_itinerary_optimized.html](https://cagoooo.github.io/Singapore/singapore_itinerary_optimized.html)**
+**[https://cagoooo.github.io/Singapore/](https://cagoooo.github.io/Singapore/)**
 
 ## ✨ 功能特色
 
 - **📅 四天完整行程** — Day 1 濱海灣、Day 2 環球影城/小印度、Day 3 聖淘沙夜生態、Day 4 星耀樟宜
+- **🌐 中英雙語切換** — 全站一鍵切換中文／English，行程、備忘錄、搜尋全部支援
+- **🔍 雙語全文搜尋** — 中英模式各自搜尋可見內容，別名字典支援縮寫（USS、MBS…）
+- **🗺️ 景點互動地圖** — Leaflet 地圖標記 17 個景點，可按天次篩選，捲入畫面才載入
 - **🧳 互動式行李清單** — 勾選自動儲存（localStorage），支援清除重置
-- **🔍 全文搜尋** — 即時標記命中文字，Enter / ↡↟ 按鈕逐一跳轉，顯示「N / 總數」計數
 - **⏱️ 出發倒數計時** — 自動計算距離出發的天時分秒
-- **🌤️ 天氣預報卡** — 顯示旅遊期間新加坡天氣概況
-- **📑 快速書籤導覽** — 浮動面板一鍵跳轉各日程段落
+- **🌤️ 即時天氣預報** — Open-Meteo API，顯示旅遊四天天氣與溫度
+- **📑 快速書籤導覽** — 浮動 TOC 面板一鍵跳轉各日程段落
 - **📊 景點票價對照表** — 主要景點成人/兒童票價一覽
 - **💳 數位支付攻略** — 哪裡可刷卡、哪裡需備現金
+- **📱 eSIM 使用指南** — iPhone 出國上網設定步驟
 - **📄 SGAC 入境卡** — 官方連結 + 中文填寫教學
-- **📱 PWA 離線支援** — 可加入手機主畫面，離線瀏覽
+- **📸 密碼保護家族相簿** — 解鎖後連結 Google Photos，照片影片瀏覽體驗佳
+- **📲 QR Code 分享** — 掃碼即可分享給家族成員
 - **🖨️ 列印友善** — 一鍵列印完整行程
+- **📱 PWA 離線支援** — Service Worker 快取，可加入手機主畫面離線瀏覽
 
 ## 📁 主要檔案
 
 | 檔案 | 說明 |
 |------|------|
 | `singapore_itinerary_optimized.html` | 主網站（單一 HTML，所有 CSS/JS 內嵌） |
+| `index.html` | GitHub Pages 入口（與主網站同步） |
+| `sw.js` | Service Worker，管理 PWA 離線快取 |
+| `manifest.json` | PWA Manifest |
+| `favicon.svg` | 網站圖示 |
 | `og-preview.png` | 社群分享預覽圖 |
-| `daily_itinerary.md` | 行程草稿參考 |
-| `設計系統：新加坡家族旅遊計畫網站.md` | UI 設計規範 |
 
 ## 🗂️ 版本紀錄
 
 | 版本 | 更新內容 |
 |------|---------|
+| v2.3.0 | 相簿改連 Google Photos；效能優化（字體/Leaflet CSS 非阻塞載入、QR lazy、地圖 IntersectionObserver 延遲初始化）；搜尋支援英文模式（EN 別名字典 + 跳過隱藏語言區塊） |
+| v2.2.0 | 搜尋雙語化：EN 模式別名字典、`highlightInNode` 跳過 `lang-zh` 隱藏元素 |
+| v2.1.3 | 修復倒數計時結束訊息未切換英文 |
+| v2.1.2 | 修復 EN 模式殘留中文：行程卡片星期標籤（四五六日→Thu/Fri/Sat/Sun）、天氣日期英化；SW 快取升版 v3 |
+| v2.1.1 | 補齊家族提醒、地圖說明翻譯；啟用 `applyEnBlocks()` 整塊 HTML 替換 |
+| v2.1.0 | 全站英文切換：`data-en` 屬性、`lang-zh/lang-en` CSS 雙語對、`EN_BLOCKS` JS 字典（6 個複雜區塊） |
+| v2.0.0 | 英文切換按鈕、地圖路線連線、搜尋別名字典、QR Code 離線備援 |
+| v1.9.7 | QR Code 分享按鈕、地圖天次篩選功能 |
+| v1.9.6 | 密碼保護家族相簿（localStorage 記憶解鎖狀態） |
+| v1.9.0 | Leaflet 互動地圖（17 景點標記、天次篩選、路線連線） |
+| v1.8.0 | PWA Service Worker、可加入手機主畫面 |
 | v1.7.0 | 溫馨提示清單、SGAC 連結、57F 泳池提醒、搜尋跳轉導覽功能 |
 | v1.6.0 | 互動式行李清單、PWA 離線支援 |
 | v1.5.0 | 實用工具區：倒數計時、天氣預報、快捷連結、當日行程高亮 |
